@@ -10,7 +10,7 @@ Pikachu delivers Past Year Questions (PYQs) and Model Question Papers (MQPs) dir
 
  * **Lightning Fast:** Get any paper in seconds using simple inline commands.
  * **Comprehensive:** Access a growing library of **600+ organized files**.
- * **Seamless Integration:** No need to switch apps—use Pikachu inside any Telegram group or private chat.
+ * **Seamless Integration:** No need to switch apps, use Pikachu inside any Telegram group or private chat.
  * **Always Current:** Covers the latest CMA Syllabus 2022 requirements.
 
 # How to Use Pikachu
