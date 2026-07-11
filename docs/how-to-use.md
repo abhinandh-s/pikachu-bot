@@ -47,8 +47,8 @@ MQP: `p[PaperNumber]-[Term]-mqp-[Set]`
 Example
   : `p5-26j-mqp-s1` - set 1 
   : `p5-26j-mqp-s1a` - set 1 answer
-  : `p5-26j-mqp-s2` - set 2
-  : `p5-26j-mqp-s2a` - set 2 answer
+  : `p5-26j-mqp-s2` - set 2 (if any)
+  : `p5-26j-mqp-s2a` - set 2 answer (if any)
 
 ##### Practice Test Papers
 
