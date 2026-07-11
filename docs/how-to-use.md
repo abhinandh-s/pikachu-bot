@@ -4,7 +4,7 @@
 
 Simply start a chat with [Pikachu - @cma_buddy_bot](https://t.me/cma_buddy_bot) and request the paper you need.
 
-## 2. Inline Query (The Best Way!)
+## 2. Inline Query
 
 Users can interact with the Pikachu bot via inline queries straight from the message field in any chat. All they need to do is start a message with the bot's username [@cma_buddy_bot](https://t.me/cma_buddy_bot) and enter a keyword.
 
