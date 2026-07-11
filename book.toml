@@ -7,3 +7,4 @@ src = "docs"
 [output.html]
 admonitions = true # > [!NOTE]
 site-url = "/pikachu-bot/"
+additional-css = ["docs/theme/custom.css"]
