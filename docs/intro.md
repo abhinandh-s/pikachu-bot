@@ -1,3 +1,18 @@
+# Pikachu: Your CMA Study Companion
+
+**Instant access to CMA Syllabus 2022 PYQs and MQPs right in your Telegram.**
+
+Pikachu delivers Past Year Questions (PYQs) and Model Question Papers (MQPs) directly to your chats.
+
+[Launch Pikachu on Telegram](https://t.me/cma_buddy_bot)
+
+## Why Use Pikachu?
+
+ * **Lightning Fast:** Get any paper in seconds using simple inline commands.
+ * **Comprehensive:** Access a growing library of **600+ organized files**.
+ * **Seamless Integration:** No need to switch apps—use Pikachu inside any Telegram group or private chat.
+ * **Always Current:** Covers the latest CMA Syllabus 2022 requirements.
+
 # How to Use Pikachu
 
 ## ​1. Direct Messaging
