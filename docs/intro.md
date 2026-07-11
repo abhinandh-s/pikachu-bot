@@ -4,9 +4,12 @@
 
 Pikachu delivers Past Year Questions (PYQs) and Model Question Papers (MQPs) directly to your chats.
 
-<div style="text-align: center;" markdown="1">
-[Launch Pikachu on Telegram](https://t.me/cma_buddy_bot)
+<div style="text-align: center;">
+    <a href="https://t.me/cma_buddy_bot" target="_blank" rel="noopener noreferrer">
+        Launch Pikachu on Telegram
+    </a>
 </div>
+
 
 
 
