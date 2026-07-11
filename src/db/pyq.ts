@@ -16,8 +16,8 @@ export const PYQ_TERM_23D: Record<string, string> = {
   'p19-23d-pyq': 'BQACAgUAAxkBAAIFcGpEvDTlPGbRxDl7QbxtZRvpGHoxAAJnHAAC_YwpVgTNzCxGVsKVPAQ',
   'p20A-23d-pyq': 'BQACAgUAAxkBAAIFcWpEvDTbxUmMa6LFA8lhupFj7Bs2AAJoHAAC_YwpVuIWNr0Jiz8jPAQ',
   'p20B-23d-pyq': 'BQACAgUAAxkBAAIFcmpEvDSkG_bqw0R4zLFXzpPnZgo6AAJpHAAC_YwpVqbwTL5h_HrwPAQ',
-  'p20C-23d-pyq': 'BQACAgUAAxkBAAIFc2pEvDSN7l9Hn8DL6PzbO5BoeVivAAJqHAAC_YwpViUnaj7MkTGjPAQ',
-}
+  'p20C-23d-pyq': 'BQACAgUAAxkBAAIFc2pEvDSN7l9Hn8DL6PzbO5BoeVivAAJqHAAC_YwpViUnaj7MkTGjPAQ'
+};
 
 export const PYQ_TERM_24J: Record<string, string> = {
   'p5-24j-pyq': 'BQACAgUAAxkBAANOakDdwU3Stu1aImChmqlZEdwtcycAAtggAAKMjQABVg_THtgAATw3kzwE',
@@ -37,8 +37,8 @@ export const PYQ_TERM_24J: Record<string, string> = {
   'p19-24j-pyq': 'BQACAgUAAxkBAAIFfmpEvDSgP4umgt9Zy1I2XO6lHRbNAAJ7HAAC_YwpVoeyaGdgeJ7qPAQ',
   'p20A-24j-pyq': 'BQACAgUAAxkBAAIFf2pEvDRqB48ky_Dx_P72HoLjnO36AAJ8HAAC_YwpVoy3c6K0YjzOPAQ',
   'p20B-24j-pyq': 'BQACAgUAAxkBAAIFgGpEvDSV89SfBiVFpe9zGfyhj_mvAAJ9HAAC_YwpVplS_D1eiycUPAQ',
-  'p20C-24j-pyq': 'BQACAgUAAxkBAAIFgWpEvDR1pTj11yE3GVvB01_HeURZAAJ-HAAC_YwpVk6-JveF20DMPAQ',
-}
+  'p20C-24j-pyq': 'BQACAgUAAxkBAAIFgWpEvDR1pTj11yE3GVvB01_HeURZAAJ-HAAC_YwpVk6-JveF20DMPAQ'
+};
 
 export const PYQ_TERM_24D: Record<string, string> = {
   'p5-24d-pyq': 'BQACAgUAAxkBAANJakDdYAeHUlwuBH3__3z6PjNvN4gAAtQgAAKMjQABVhQstBUkeR3FPAQ',
@@ -58,8 +58,8 @@ export const PYQ_TERM_24D: Record<string, string> = {
   'p19-24d-pyq': 'BQACAgUAAxkBAAIFjGpEvDTuBZTAcuvDe3HMzyaB7Th7AAKOHAAC_YwpViOecwR3cJy0PAQ',
   'p20A-24d-pyq': 'BQACAgUAAxkBAAIFjWpEvDRs2f2WgcSvmkDYc_xCimyqAAKPHAAC_YwpVpevohvgUXbPPAQ',
   'p20B-24d-pyq': 'BQACAgUAAxkBAAIFjmpEvDT1e53ze9zgQECfIpP3q8xjAAKQHAAC_YwpVspDTm54QkdYPAQ',
-  'p20C-24d-pyq': 'BQACAgUAAxkBAAIFj2pEvDRpU7es07grPrPsP_Ui65emAAKRHAAC_YwpVnPYTQ5bosv6PAQ',
-}
+  'p20C-24d-pyq': 'BQACAgUAAxkBAAIFj2pEvDRpU7es07grPrPsP_Ui65emAAKRHAAC_YwpVnPYTQ5bosv6PAQ'
+};
 
 export const PYQ_TERM_25J: Record<string, string> = {
   'p5-25j-pyq': 'BQACAgUAAxkBAANIakDdYApFfWzOpPmfVfT-Ko5jqUEAAtMgAAKMjQABVlGZyv-dM3cbPAQ',
@@ -79,8 +79,8 @@ export const PYQ_TERM_25J: Record<string, string> = {
   'p19-25j-pyq': 'BQACAgUAAxkBAAIFmmpEvDTsZRvCtp7sjUcOtD1Dug1LAAKdHAAC_YwpViF8t_gKpRSNPAQ',
   'p20A-25j-pyq': 'BQACAgUAAxkBAAIFm2pEvDTlgRkTPw1klXvW_jY0gkIoAAKeHAAC_YwpVqfso-b_SR5FPAQ',
   'p20B-25j-pyq': 'BQACAgUAAxkBAAIFnGpEvDQQLiYQmgHSnva4cNkZelRHAAKfHAAC_YwpVnv1_txuKa0kPAQ',
-  'p20C-25j-pyq': 'BQACAgUAAxkBAAIFnWpEvDS6KWZuKrSyIekQsRdo0yIKAAKgHAAC_YwpVv74Nx3L_noEPAQ',
-}
+  'p20C-25j-pyq': 'BQACAgUAAxkBAAIFnWpEvDS6KWZuKrSyIekQsRdo0yIKAAKgHAAC_YwpVv74Nx3L_noEPAQ'
+};
 
 export const PYQ_TERM_25D: Record<string, string> = {
   'p5-25d-pyq': 'BQACAgUAAxkBAAMbakDJOYsw3KFPhgQXVAABuDQDw5AQAAKYIAACjI0AAVZVophejbDLyzwE',
@@ -100,8 +100,8 @@ export const PYQ_TERM_25D: Record<string, string> = {
   'p19-25d-pyq': 'BQACAgUAAxkBAAIFqGpEvDT6CWBnsus7dOuT_Z1TYmO_AAKtHAAC_YwpVk9lQEDxYZbCPAQ',
   'p20A-25d-pyq': 'BQACAgUAAxkBAAIFqWpEvDQoTC1Rq6FS6uGE2Ljm5rUoAAKuHAAC_YwpVrYAAfPRh5m8yDwE',
   'p20B-25d-pyq': 'BQACAgUAAxkBAAIFqmpEvDR8QF4uGga8IK6pT10lJhMYAAKvHAAC_YwpVnkWNBlprVqkPAQ',
-  'p20C-25d-pyq': 'BQACAgUAAxkBAAIFq2pEvDRFtcWSV1F3lyYvIbiU2X1MAAKwHAAC_YwpVjZE6noCpJbkPAQ',
-}
+  'p20C-25d-pyq': 'BQACAgUAAxkBAAIFq2pEvDRFtcWSV1F3lyYvIbiU2X1MAAKwHAAC_YwpVjZE6noCpJbkPAQ'
+};
 
 export const PYQ_TERM_26J: Record<string, string> = {
   'p1-26j-pyq': 'BQACAgUAAxkBAAILFGpPWWZ8lgEdvcTTG_eTVcYjvskvAALzHwAC0vJ4VrH07jMaKaYDPAQ',
@@ -125,6 +125,5 @@ export const PYQ_TERM_26J: Record<string, string> = {
   'p19-26j-pyq': 'BQACAgUAAxkBAAIFtGpEvDRNEZ9pCd_0MVwxK1exGvBHAAK5HAAC_YwpVj2HJk4rVyfsPAQ',
   'p20A-26j-pyq': 'BQACAgUAAxkBAAILDWpPWWZEksnOxSE3CAzH4rjX81v8AALsHwAC0vJ4VoaOtUFl9NK4PAQ',
   'p20B-26j-pyq': 'BQACAgUAAxkBAAILDmpPWWYIIFfnNiwxPOPeVisgD08JAALtHwAC0vJ4VgkkMNWEeDh2PAQ',
-  'p20C-26j-pyq': 'BQACAgUAAxkBAAILD2pPWWaU3sbojzlF1YDKYhqM9GDkAALuHwAC0vJ4VuC8E6oLLtN3PAQ',
-}
-
+  'p20C-26j-pyq': 'BQACAgUAAxkBAAILD2pPWWaU3sbojzlF1YDKYhqM9GDkAALuHwAC0vJ4VuC8E6oLLtN3PAQ'
+};

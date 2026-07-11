@@ -1,12 +1,5 @@
-import { TERM_26J_PTPS } from './ptp.ts'
-import {
-  PYQ_TERM_23D,
-  PYQ_TERM_24D,
-  PYQ_TERM_24J,
-  PYQ_TERM_25D,
-  PYQ_TERM_25J,
-  PYQ_TERM_26J,
-} from './pyq.ts'
+import { TERM_26J_PTPS } from './ptp.ts';
+import { PYQ_TERM_23D, PYQ_TERM_24D, PYQ_TERM_24J, PYQ_TERM_25D, PYQ_TERM_25J, PYQ_TERM_26J } from './pyq.ts';
 
 export const PYQ_FILE_IDS: Record<string, string> = {
   ...PYQ_TERM_23D,
@@ -14,29 +7,28 @@ export const PYQ_FILE_IDS: Record<string, string> = {
   ...PYQ_TERM_24J,
   ...PYQ_TERM_25D,
   ...PYQ_TERM_25J,
-  ...PYQ_TERM_26J,
-}
+  ...PYQ_TERM_26J
+};
 
 export const PTP_FILE_IDS: Record<string, FileRecord> = {
-  ...TERM_26J_PTPS,
-}
+  ...TERM_26J_PTPS
+};
 
 import {
-  TERM_L1,
   TERM_23D,
-  TERM_24D,
-  TERM_24J,
-  TERM_25D,
-  TERM_25J,
-  TERM_26J,
   TERM_23D_L3_MQPS,
+  TERM_24D,
   TERM_24D_L3_MQPS,
+  TERM_24J,
   TERM_24J_L3_MQPS,
+  TERM_25D,
   TERM_25D_L3_MQPS,
+  TERM_25J,
   TERM_25J_L3_MQPS,
+  TERM_26J,
   TERM_26J_L3_MQPS,
-} from './mqp.ts'
-
+  TERM_L1
+} from './mqp.ts';
 
 export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...TERM_L1,
@@ -51,13 +43,13 @@ export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...TERM_25J_L3_MQPS,
   ...TERM_24D_L3_MQPS,
   ...TERM_24J_L3_MQPS,
-  ...TERM_23D_L3_MQPS,
-}
+  ...TERM_23D_L3_MQPS
+};
 
-export type Level = 'foundation' | 'intermediate' | 'final'
-export type DocType = 'pyq' | 'mqp' | 'ptp'
+export type Level = 'foundation' | 'intermediate' | 'final';
+export type DocType = 'pyq' | 'mqp' | 'ptp';
 
-export type FileRecord = { name: string; id: string }[]
+export type FileRecord = { name: string; id: string }[];
 
 // Structured Academic Data - The Single Source of Truth
 export const ACADEMIC_DATA: Record<
@@ -68,11 +60,11 @@ export const ACADEMIC_DATA: Record<
     {
       id: 'p1',
       code: 'BLBS',
-      name: 'Business Laws and Business Communication',
+      name: 'Business Laws and Business Communication'
     },
     { id: 'p2', code: 'FCA', name: 'Financial and Cost Accounting' },
     { id: 'p3', code: 'BMS', name: 'Business Mathematics and Statistics' },
-    { id: 'p4', code: 'BEM', name: 'Business Economics and Management' },
+    { id: 'p4', code: 'BEM', name: 'Business Economics and Management' }
   ],
   intermediate: [
     { id: 'p5', code: 'BLE', name: 'Business Laws and Ethics' },
@@ -82,15 +74,15 @@ export const ACADEMIC_DATA: Record<
     {
       id: 'p9',
       code: 'OMSM',
-      name: 'Operations Management and Strategic Management',
+      name: 'Operations Management and Strategic Management'
     },
     { id: 'p10', code: 'CAA', name: 'Corporate Accounting and Auditing' },
     {
       id: 'p11',
       code: 'FM',
-      name: 'Financial Management and Business Data Analytics',
+      name: 'Financial Management and Business Data Analytics'
     },
-    { id: 'p12', code: 'MA', name: 'Management Accounting' },
+    { id: 'p12', code: 'MA', name: 'Management Accounting' }
   ],
   final: [
     { id: 'p13', code: 'CEL', name: 'Corporate and Economic Laws' },
@@ -98,7 +90,7 @@ export const ACADEMIC_DATA: Record<
     {
       id: 'p15',
       code: 'TAX',
-      name: 'Direct Tax Laws and International Taxation',
+      name: 'Direct Tax Laws and International Taxation'
     },
     { id: 'p16', code: 'SCM', name: 'Strategic Cost Management' },
     { id: 'p17', code: 'CMAD', name: 'Cost and Management Audit' },
@@ -107,47 +99,47 @@ export const ACADEMIC_DATA: Record<
     {
       id: 'p20A',
       code: 'SPMA',
-      name: 'Strategic Performance Management and Business Valuation',
+      name: 'Strategic Performance Management and Business Valuation'
     },
     {
       id: 'p20B',
       code: 'RMBI',
-      name: 'Risk Management in Banking and Insurance',
+      name: 'Risk Management in Banking and Insurance'
     },
     {
       id: 'p20C',
       code: 'ES',
-      name: 'Entrepreneurship and Startup',
-    },
-  ],
-}
+      name: 'Entrepreneurship and Startup'
+    }
+  ]
+};
 
 // Returns a single string for PYQ, or an array of objects for MQP
 export function getFiles(doc: DocType, key: string) {
   if (doc === 'pyq') {
-    return PYQ_FILE_IDS[key] // returns string | undefined
+    return PYQ_FILE_IDS[key]; // returns string | undefined
   } else if (doc === 'ptp') {
-    return PTP_FILE_IDS[key] // returns {name: string, id: string}[] | undefined
+    return PTP_FILE_IDS[key]; // returns {name: string, id: string}[] | undefined
   } else {
-    return MQP_FILE_IDS[key] // returns {name: string, id: string}[] | undefined
+    return MQP_FILE_IDS[key]; // returns {name: string, id: string}[] | undefined
   }
 }
 
 export function getAllFiles(doc: DocType, paperId: string) {
-  let source
+  let source;
   if (doc === 'pyq') {
-    source = PYQ_FILE_IDS
+    source = PYQ_FILE_IDS;
   } else if (doc === 'ptp') {
-    source = PTP_FILE_IDS
+    source = PTP_FILE_IDS;
   } else {
-    source = MQP_FILE_IDS
+    source = MQP_FILE_IDS;
   }
-  const results = []
+  const results = [];
 
   for (const [key, value] of Object.entries(source)) {
     if (key.startsWith(`${paperId}-`)) {
-      results.push({ key, value })
+      results.push({ key, value });
     }
   }
-  return results
-      }
+  return results;
+}

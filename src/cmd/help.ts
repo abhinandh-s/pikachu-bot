@@ -1,33 +1,32 @@
-import { Composer } from 'grammy'
+import { Composer } from 'grammy';
 
 export const helpCmd = new Composer();
 
 helpCmd.command('admin', async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
-    return
+    return;
   }
 
   await ctx.reply(
     'You are an admin!',
     {
-      parse_mode: 'HTML',
-    },
-  )
-})
+      parse_mode: 'HTML'
+    }
+  );
+});
 
 helpCmd.command('start', async (ctx) => {
   await ctx.reply(
     'Available Commands:\n\n/pyq - access Previous Year Questions\n/mqp - access Model Question Papers\n/ptp - access Practice Test Papers',
     {
-      parse_mode: 'HTML',
-    },
-  )
-})
-
+      parse_mode: 'HTML'
+    }
+  );
+});
 
 // Register handler
-helpCmd.command("help", async (ctx) => {
-    const richPayload: InputRichMessage = {
+helpCmd.command('help', async (ctx) => {
+  const richPayload: InputRichMessage = {
     markdown: `# Syllabus 2022
 
 ## Foundation
@@ -75,10 +74,10 @@ helpCmd.command("help", async (ctx) => {
 \`[x]\` - Published and available
 
 ---
-   `,
-  }
+   `
+  };
 
-  await ctx.replyWithRichMessage(richPayload)
+  await ctx.replyWithRichMessage(richPayload);
 });
 
 helpCmd.command('status', async (ctx) => {
@@ -130,20 +129,20 @@ helpCmd.command('status', async (ctx) => {
 \`[x]\` - Published and available
 
 ---
-   `,
-  }
+   `
+  };
 
-  await ctx.replyWithRichMessage(richPayload)
-})
+  await ctx.replyWithRichMessage(richPayload);
+});
 
 helpCmd.command('privacy', async (ctx) => {
   await ctx.reply(
     '<b>Privacy policy</b>\n\nI gain absolutely <b>zero</b> monetary benefit from this. This is a passion project and I <b>do not</b> collect any user data.',
     {
-      parse_mode: 'HTML',
-    },
-  )
-})
+      parse_mode: 'HTML'
+    }
+  );
+});
 /*
 bot.command('privacy', async (ctx) => {
   const richPayload: InputRichMessage = {
