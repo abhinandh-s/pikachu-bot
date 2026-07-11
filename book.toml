@@ -8,3 +8,8 @@ src = "docs"
 admonitions = true # > [!NOTE]
 site-url = "/pikachu-bot/"
 additional-css = ["docs/theme/custom.css"]
+
+[output.html.print]
+enable = true    # include support for printable output
+page-break = false # insert page-break after each chapter
+
