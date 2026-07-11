@@ -2,7 +2,7 @@
 
 ### 1. Direct Messaging
 
-<div style="text-align: center;">
+<div class="no-print" style="text-align: center;">
     <video width="100%" controls>
         <source src="assets/chat_demo.mp4" type="video/mp4">
         Your browser does not support the video tag.
@@ -20,7 +20,7 @@ Available commands
 
 ### 2. Inline Query
 
-<div style="text-align: center;">
+<div class="no-print" style="text-align: center;">
     <video width="100%" controls>
         <source src="assets/inline_demo.mp4" type="video/mp4">
         Your browser does not support the video tag.
