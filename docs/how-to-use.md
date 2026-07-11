@@ -6,7 +6,7 @@ Simply start a chat with [Pikachu - @cma_buddy_bot](https://t.me/cma_buddy_bot) 
 
 ## 2. Inline Query
 
-Users can interact with the Pikachu bot via inline queries straight from the message field in any chat. All they need to do is start a message with the bot's username [@cma_buddy_bot](https://t.me/cma_buddy_bot) and enter a keyword.
+Users can interact with the Pikachu bot via inline queries straight from the message field in any chat. All we need to do is start a message with the bot's username [@cma_buddy_bot](https://t.me/cma_buddy_bot) and enter a keyword.
 
 Having received the query, bot will return search results. As soon as the user selects one, it is sent to the relevant chat. This way, people can request and send content from the bot in any of their chats, groups or channels.
 
