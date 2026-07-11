@@ -20,5 +20,5 @@
 
 ---
 
-> [!NOTE]
+> [!IMPORTANT]
 > *Pikachu is an independent study tool and is not officially affiliated with the Institute of Cost Accountants of India (ICMAI).*
