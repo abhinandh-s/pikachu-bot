@@ -17,7 +17,7 @@ inlineQueryHandler.on('inline_query', async (ctx) => {
   // Example Search Logic: If a user types "p5", fetch all P5 related PYQs and MQPs
   // You can adjust this matching logic to be as broad or specific as you need.
 
-  // 2. Process MQPs (Mock Question Papers)
+  // Process PTPs (Mock Question Papers)
   const ptpMatches = Object.entries(PTP_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
 
   ptpMatches.forEach(([key, files]) => {
@@ -33,7 +33,7 @@ inlineQueryHandler.on('inline_query', async (ctx) => {
     });
   });
 
-  // 1. Process PYQs (Previous Year Questions)
+  // Process PYQs (Previous Year Questions)
   const pyqMatches = Object.entries(PYQ_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
 
   pyqMatches.forEach(([key, fileId]) => {
@@ -46,7 +46,7 @@ inlineQueryHandler.on('inline_query', async (ctx) => {
     });
   });
 
-  // 2. Process MQPs (Mock Question Papers)
+  // Process MQPs (Mock Question Papers)
   const mqpMatches = Object.entries(MQP_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
 
   mqpMatches.forEach(([key, files]) => {
