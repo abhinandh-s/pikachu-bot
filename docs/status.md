@@ -36,12 +36,12 @@
 |  25D  |    [x]    |    [x]    |
 |  26J  |    [x]    |    [x]    |
 
----
 
-\`[ ]\` - Not published by the Institute
+**where**:
 
-\`[~]\` - Not fully published/In progress
+`[ ]` - Not published by the Institute
 
-\`[x]\` - Published and available
+`[~]` - Not fully published/In progress
 
----
+`[x]` - Published and available
+
