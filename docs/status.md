@@ -45,3 +45,7 @@
 
 `[x]` - Published and available
 
+
+# Need Help or Have Files to Contribute?
+
+Pikachu is a community-driven project. If you have access to the missing papers or encounter any issues, please reach out to us within the bot interface or at <abhinandhsuby@proton.me>. Your contributions help fellow students succeed.
