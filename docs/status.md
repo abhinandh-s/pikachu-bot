@@ -1,6 +1,6 @@
-# Syllabus 2022
+## Syllabus 2022
 
-## Foundation
+### Foundation
 
 
 |       |  **PYQ**  |  **MQP**  |
@@ -12,7 +12,7 @@
 |  25D  |    [ ]    |    [x]    |
 |  26J  |    [x]    |    [x]    |
 
-## Intermediate
+### Intermediate
 
 
 |       |  **PYQ**  |  **MQP**  |
@@ -24,7 +24,7 @@
 |  25D  |    [x]    |    [x]    |
 |  26J  |    [x]    |    [x]    |
  
-## Final
+### Final
 
 
 |       |  **PYQ**  |  **MQP**  |
@@ -46,6 +46,6 @@
 `[x]` - Published and available
 
 
-# Need Help or Have Files to Contribute?
+## Need Help or Have Files to Contribute?
 
 Pikachu is a community-driven project. If you have access to the missing papers or encounter any issues, please reach out to us within the bot interface or at <abhinandhsuby@proton.me>. Your contributions help fellow students succeed.
