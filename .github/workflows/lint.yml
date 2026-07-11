@@ -1,0 +1,47 @@
+name: Lint & Fmt
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Build
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write # Needed for auth with Deno Deploy
+      contents: write # Needed to clone the repository
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Install Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Lint code
+        run: deno lint
+
+      - name: Format code
+        run: deno fmt # . --line-width 120 --no-semicolons --single-quote --ignore=level_01.ts,build/,db/
+
+      - name: Commit and push changes
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Stage ONLY the TypeScript files
+          git add *.ts  
+          
+          # Check if there are any STAGED changes ready to be committed
+          if ! git diff --cached --quiet; then
+            echo "Changes detected in .ts files. Committing and pushing..."
+            git commit -m "chore: auto-format code"
+            git push
+          else
+            echo "No .ts formatting changes detected. Skipping commit."
+          fi
