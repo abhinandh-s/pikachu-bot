@@ -46,6 +46,3 @@ Example
 
 > [!NOTE]
 > This syntax is a must for inline query. otherwise it won't work.
-
-> [!TIP]
-> when you type `p5` tel
