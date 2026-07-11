@@ -2,7 +2,14 @@
 
 ### 1. Direct Messaging
 
-Simply start a chat with [Pikachu - @cma_buddy_bot](https://t.me/cma_buddy_bot) and request the paper you need.
+Simply start a chat with [Pikachu - @cma_buddy_bot](https://t.me/cma_buddy_bot) and request the paper you need via commands.
+
+Available commands
+  : /pyq - access Previous Year Questions
+  : /mqp - access Model Question Papers
+  : /ptp - access Practice Test Papers
+
+
 
 ### 2. Inline Query
 
