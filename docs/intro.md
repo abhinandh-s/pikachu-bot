@@ -13,13 +13,15 @@ Pikachu delivers Past Year Questions (PYQs) and Model Question Papers (MQPs) dir
  * **Seamless Integration:** No need to switch apps, [use Pikachu](how-to-use.md) inside any Telegram group or private chat.
  * **Always Current:** Covers the [latest Question papers](status.md) of CMA Syllabus 2022.
 
-# How to Use Pikachu
+## How to Use Pikachu
 
-## ​1. Direct Messaging
+For detailed guide see this [page](how-to-use.md).
+
+### ​1. Direct Messaging
 
 ​Simply start a chat with @cma_buddy_bot and request the paper you need.
 
-## ​2. Inline Query (The Best Way!)
+### ​2. Inline Query
 
 ​You can trigger Pikachu from any chat or group on Telegram. Just type your query starting with the bot's username: `@cma_buddy_bot <query>`
 
