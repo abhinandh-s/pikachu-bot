@@ -2,11 +2,13 @@
 
 ## 1. Direct Messaging
 
-Simply start a chat with @cma_buddy_bot and request the paper you need.
+Simply start a chat with [Pikachu - @cma_buddy_bot](https://t.me/cma_buddy_bot) and request the paper you need.
 
 ## 2. Inline Query (The Best Way!)
 
-You can trigger Pikachu from any chat or group on Telegram. Just type your query starting with the bot's username: `@cma_buddy_bot <query>`
+Users can interact with the Pikachu bot via inline queries straight from the message field in any chat. All they need to do is start a message with the bot's username [@cma_buddy_bot](https://t.me/cma_buddy_bot) and enter a keyword.
+
+Having received the query, bot will return search results. As soon as the user selects one, it is sent to the relevant chat. This way, people can request and send content from the bot in any of their chats, groups or channels.
 
 ### Query Formats:
 
