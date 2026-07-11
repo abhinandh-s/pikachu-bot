@@ -1,7 +1,6 @@
 [book]
 authors = ["Abhinandh S"]
 language = "en"
-multilingual = false
 src = "docs"
 # title = "Pikachu Bot"
 
