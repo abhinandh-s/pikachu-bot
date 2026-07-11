@@ -2,6 +2,13 @@
 
 ### 1. Direct Messaging
 
+<div style="text-align: center;">
+    <video width="100%" controls>
+        <source src="assets/chat_demo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
 Simply start a chat with [Pikachu - @cma_buddy_bot](https://t.me/cma_buddy_bot) and request the paper you need via commands.
 
 Available commands
@@ -12,6 +19,13 @@ Available commands
 
 
 ### 2. Inline Query
+
+<div style="text-align: center;">
+    <video width="100%" controls>
+        <source src="assets/inline_demo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
 
 Users can interact with the Pikachu bot via inline queries straight from the message field in any chat. All we need to do is start a message with the bot's username [@cma_buddy_bot](https://t.me/cma_buddy_bot) and enter a keyword.
 
