@@ -6,4 +6,5 @@ src = "docs"
 # title = "Pikachu Bot"
 
 [output.html]
+admonitions = true # > [!NOTE]
 site-url = "/pikachu-bot/"
