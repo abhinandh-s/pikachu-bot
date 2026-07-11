@@ -87,7 +87,7 @@ batchCmd.command('batch', async (ctx) => {
     // --- GENERATE TYPESCRIPT CODE ---
     let fileContent = '';
 
-    // 1. Generate PTP code
+    // Generate PTP code
     for (const [term, records] of Object.entries(ptpData)) {
       fileContent += `export const TERM_${term}_PTPS: Record<string, FileRecord> = {\n`;
       for (const [key, files] of Object.entries(records)) {
@@ -104,7 +104,7 @@ batchCmd.command('batch', async (ctx) => {
       fileContent += `}\n\n`;
     }
 
-    // 1. Generate MQP code
+    // Generate MQP code
     for (const [term, records] of Object.entries(mqpData)) {
       fileContent += `export const TERM_${term}: Record<string, FileRecord> = {\n`;
       for (const [key, files] of Object.entries(records)) {
@@ -121,7 +121,7 @@ batchCmd.command('batch', async (ctx) => {
       fileContent += `}\n\n`;
     }
 
-    // 2. Generate PYQ code
+    // Generate PYQ code
     for (const [term, records] of Object.entries(pyqData)) {
       fileContent += `export const PYQ_TERM_${term}: Record<string, string> = {\n`;
       for (const [key, id] of Object.entries(records)) {
@@ -130,7 +130,7 @@ batchCmd.command('batch', async (ctx) => {
       fileContent += `}\n\n`;
     }
 
-    // 3. Append unrecognized files at the bottom as comments (if any)
+    // Append unrecognized files at the bottom as comments (if any)
     if (unrecognizedFiles) {
       fileContent += `\n/* --- UNRECOGNIZED FILES ---\n${unrecognizedFiles}*/\n`;
     }
@@ -148,7 +148,6 @@ batchCmd.command('batch', async (ctx) => {
   }
 });
 
-// ---------- FILE ID GRABBER ----------
 batchCmd.chatType('private').on('message:document', async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
     await ctx.reply('File uploads are restricted to admins only.');
