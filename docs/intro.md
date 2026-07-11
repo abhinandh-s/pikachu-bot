@@ -22,7 +22,7 @@ Pikachu delivers Past Year Questions (PYQs) and Model Question Papers (MQPs) dir
 
 ## How to Use Pikachu
 
-For detailed guide see this [page](how-to-use.md).
+For detailed guide and demo see this [page](how-to-use.md).
 
 ### ​1. Direct Messaging
 
