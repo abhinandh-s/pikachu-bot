@@ -5,7 +5,7 @@ export const inlineQueryHandler = new Composer();
 
 // Listen for any inline query.
 inlineQueryHandler.on('inline_query', async (ctx) => {
-  const query = ctx.inlineQuery.query.trim().toLowerCase();
+  const query = ctx.inlineQuery.query.trim().toLowerCase().replace(/\s+/g, '-');
 
   // If the query is empty, you can return a prompt or an empty array
   if (!query) {
