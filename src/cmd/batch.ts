@@ -1,4 +1,5 @@
 import { Composer, InputFile } from 'grammy';
+import { resolve } from '@std/path';
 
 export const batchCmd = new Composer();
 
