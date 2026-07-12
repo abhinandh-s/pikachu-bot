@@ -1,5 +1,5 @@
 import { Composer, InputFile } from 'grammy';
-import { resolve } from '@std/path';
+// import { resolve } from '@std/path';
 
 export const batchCmd = new Composer();
 
@@ -150,9 +150,7 @@ batchCmd.command('batch', async (ctx) => {
 });
 
 
-import { InputFile } from "grammy";
-// If you are on an older Node version (<18), you'll need to import fetch:
-// import fetch from "node-fetch"; 
+
 
 batchCmd.chatType('private').on('message:document', async (ctx) => {
     // Extract document details from the incoming message
