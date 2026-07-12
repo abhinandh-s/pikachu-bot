@@ -149,6 +149,57 @@ batchCmd.command('batch', async (ctx) => {
   }
 });
 
+
+import { InputFile } from "grammy";
+// If you are on an older Node version (<18), you'll need to import fetch:
+// import fetch from "node-fetch"; 
+
+batchCmd.chatType('private').on('message:document', async (ctx) => {
+    // Extract document details from the incoming message
+    const document = ctx.message.document;
+    const fileId = document.file_id;
+    
+    // Fallback to a default name if original file_name is missing
+    const fileName = document.file_name || 'downloaded_document.ext'; 
+
+    try {
+        // 1. Inform the user the process has started (optional but good for UX)
+        const statusMsg = await ctx.reply("Downloading and processing your file...");
+
+        // 2. Get the file path using the getFile API
+        const fileInfo = await ctx.api.getFile(fileId);
+        
+        // 3. Construct the download URL using your bot token
+        // In grammY, ctx.api.token securely holds your bot token
+        const fileUrl = `https://api.telegram.org/file/bot${ctx.api.token}/${fileInfo.file_path}`;
+
+        // 4. Download the actual file into a memory buffer
+        const response = await fetch(fileUrl);
+        if (!response.ok) throw new Error(`Failed to fetch file: ${response.statusText}`);
+        
+        const arrayBuffer = await response.arrayBuffer();
+        const fileBuffer = Buffer.from(arrayBuffer);
+
+        // 5. Prepare the downloaded file and local thumbnail as InputFiles
+        const documentToUpload = new InputFile(fileBuffer, fileName);
+        const thumbnailToUpload = new InputFile('./assets/thumbnail_190x190.jpeg');
+
+        // 6. Re-upload the document with the thumbnail
+        await ctx.replyWithDocument(documentToUpload, {
+            thumbnail: thumbnailToUpload,
+            caption: "Here is your re-uploaded document with the new thumbnail!"
+        });
+
+        // Clean up the status message
+        await ctx.api.deleteMessage(ctx.chat.id, statusMsg.message_id);
+
+    } catch (error) {
+        console.error("Error processing document:", error);
+        await ctx.reply("Sorry, an error occurred while trying to process the file.");
+    }
+});
+
+/*
 batchCmd.chatType('private').on('message:document', async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
     await ctx.reply('File uploads are restricted to admins only.');
@@ -176,3 +227,5 @@ batchCmd.chatType('private').on('message:document', async (ctx) => {
     { parse_mode: 'HTML' }
   );
 });
+
+*/
