@@ -1,5 +1,5 @@
 import { Composer, InputFile } from 'grammy';
-// import { resolve } from '@std/path';
+import { resolve } from '@std/path';
 
 export const batchCmd = new Composer();
 
@@ -149,6 +149,12 @@ batchCmd.command('batch', async (ctx) => {
   }
 });
 
+
+const thumbnailPath = resolve(
+  new URL('../assets/thumbnail_190x190.jpeg', import.meta.url).pathname
+);
+
+
 batchCmd.chatType('private').on('message:document', async (ctx) => {
   // Extract document details from the incoming message
   const document = ctx.message.document;
@@ -177,7 +183,7 @@ batchCmd.chatType('private').on('message:document', async (ctx) => {
 
     // 5. Prepare the downloaded file and local thumbnail as InputFiles
     const documentToUpload = new InputFile(fileBuffer, fileName);
-    const thumbnailToUpload = new InputFile('../assets/thumbnail_190x190.jpeg');
+    const thumbnailToUpload = new InputFile(thumbnailPath);
 
     // 6. Re-upload the document with the thumbnail
     await ctx.replyWithDocument(documentToUpload, {
