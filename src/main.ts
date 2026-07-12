@@ -4,7 +4,7 @@ import { helpCmd } from './cmd/help.ts';
 import { batchCmd } from './cmd/batch.ts';
 import { inlineQueryHandler } from './inline.ts';
 import { formatTerm } from './utils.ts';
-import { resolve } from "https://deno.land/std/path/mod.ts";
+import { resolve } from "@std/path";
 
 
 const bot = new Bot(Deno.env.get('TELEGRAM_TOKEN') || '');
