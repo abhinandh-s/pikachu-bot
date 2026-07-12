@@ -177,7 +177,7 @@ batchCmd.chatType('private').on('message:document', async (ctx) => {
 
     // 5. Prepare the downloaded file and local thumbnail as InputFiles
     const documentToUpload = new InputFile(fileBuffer, fileName);
-    const thumbnailToUpload = new InputFile('./assets/thumbnail_190x190.jpeg');
+    const thumbnailToUpload = new InputFile('../assets/thumbnail_190x190.jpeg');
 
     // 6. Re-upload the document with the thumbnail
     await ctx.replyWithDocument(documentToUpload, {
