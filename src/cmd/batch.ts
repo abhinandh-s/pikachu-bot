@@ -149,11 +149,9 @@ batchCmd.command('batch', async (ctx) => {
   }
 });
 
-
 const thumbnailPath = resolve(
   new URL('../assets/thumbnail_190x190.jpeg', import.meta.url).pathname
 );
-
 
 batchCmd.chatType('private').on('message:document', async (ctx) => {
   // Extract document details from the incoming message
