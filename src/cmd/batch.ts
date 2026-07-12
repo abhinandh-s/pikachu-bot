@@ -149,56 +149,6 @@ batchCmd.command('batch', async (ctx) => {
   }
 });
 
-const thumbnailPath = resolve(
-  new URL('../assets/thumbnail_190x190.jpeg', import.meta.url).pathname
-);
-
-batchCmd.chatType('private').on('message:document', async (ctx) => {
-  if (ctx.from?.id !== ADMIN_ID) {
-    await ctx.reply('File uploads are restricted to admins only.');
-    return;
-  }
-
-  const doc = ctx.message.document;
-  const fileName = doc.file_name || 'unknown_file';
-
-  // 1. Check if batch mode is active (assuming this is how you trigger batch processing)
-  const batchMode = await kv.get(['batch_mode', ADMIN_ID]);
-
-  if (batchMode.value) {
-    // AUTOMATIC PROCESSING: Re-upload with thumbnail to get a "permanent" file_id
-    const statusMsg = await ctx.reply('Processing and registering thumbnail...');
-
-    try {
-      const file = await ctx.getFile(doc.file_id); 
-
-      // Send the file back to the chat with your custom thumbnail
-      const sentMsg = await ctx.replyWithDocument(new InputFile(path), {
-        caption: `Registered: ${fileName}`,
-        thumbnail: new InputFile(thumbnailPath) // Ensure this path is correct
-      });
-
-      // Save this NEW fileId (the one with the thumbnail) to KV
-      const newFileId = sentMsg.document.file_id;
-      await kv.set(['batch_files', ADMIN_ID, newFileId], fileName);
-
-      await ctx.api.editMessageText(ctx.chat.id, statusMsg.message_id, `Registered: <code>${newFileId}</code>`, { parse_mode: 'HTML' });
-      await ctx.react('✅');
-    } catch (err) {
-      console.error(err);
-      await ctx.reply('Error: Thumbnail must be a JPEG < 200kB.');
-    }
-    return;
-  }
-
-  // Normal behavior (if batch mode is OFF)
-  await ctx.reply(
-    `<b>File Name</b>: ${fileName}\n<b>File ID</b>: <code>${doc.file_id}</code>`,
-    { parse_mode: 'HTML' }
-  );
-});
-
-/*
 batchCmd.chatType('private').on('message:document', async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
     await ctx.reply('File uploads are restricted to admins only.');
@@ -226,4 +176,3 @@ batchCmd.chatType('private').on('message:document', async (ctx) => {
     { parse_mode: 'HTML' }
   );
 });
-*/
