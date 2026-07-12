@@ -157,7 +157,12 @@ bot.callbackQuery(
       }
     }
 
+    try {
     await ctx.deleteMessage(); // delete "Select term:" msg
+  } catch (e) {
+    console.error("Could not delete message:", e);
+  }
+    
   }
 );
 
