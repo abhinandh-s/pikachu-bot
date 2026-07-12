@@ -113,7 +113,7 @@ bot.callbackQuery(
 );
 
 const thumbnailPath = resolve(
-  new URL('./assets/thumbnail_300x300.jpg', import.meta.url).pathname
+  new URL('./assets/thumbnail_190x190.jpg', import.meta.url).pathname
 );
 
 bot.callbackQuery(
