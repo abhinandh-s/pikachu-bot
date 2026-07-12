@@ -162,8 +162,8 @@ batchCmd.chatType('private').on('message:document', async (ctx) => {
 
   if (batchMode.value) {
     // AUTOMATIC PROCESSING: Re-upload with thumbnail to get a "permanent" file_id
-    const statusMsg = await ctx.reply("Processing and registering thumbnail...");
-    
+    const statusMsg = await ctx.reply('Processing and registering thumbnail...');
+
     try {
       const file = await ctx.getFile(doc.file_id);
       const path = await file.download();
@@ -171,7 +171,7 @@ batchCmd.chatType('private').on('message:document', async (ctx) => {
       // Send the file back to the chat with your custom thumbnail
       const sentMsg = await ctx.replyWithDocument(new InputFile(path), {
         caption: `Registered: ${fileName}`,
-        thumbnail: new InputFile(thumbnailPath), // Ensure this path is correct
+        thumbnail: new InputFile(thumbnailPath) // Ensure this path is correct
       });
 
       // Save this NEW fileId (the one with the thumbnail) to KV
@@ -180,10 +180,9 @@ batchCmd.chatType('private').on('message:document', async (ctx) => {
 
       await ctx.api.editMessageText(ctx.chat.id, statusMsg.message_id, `Registered: <code>${newFileId}</code>`, { parse_mode: 'HTML' });
       await ctx.react('✅');
-
     } catch (err) {
       console.error(err);
-      await ctx.reply("Error: Thumbnail must be a JPEG < 200kB.");
+      await ctx.reply('Error: Thumbnail must be a JPEG < 200kB.');
     }
     return;
   }
