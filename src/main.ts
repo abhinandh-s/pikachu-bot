@@ -4,6 +4,8 @@ import { helpCmd } from './cmd/help.ts';
 import { batchCmd } from './cmd/batch.ts';
 import { inlineQueryHandler } from './inline.ts';
 import { formatTerm } from './utils.ts';
+import { resolve } from "https://deno.land/std/path/mod.ts";
+
 
 const bot = new Bot(Deno.env.get('TELEGRAM_TOKEN') || '');
 
@@ -111,6 +113,10 @@ bot.callbackQuery(
   }
 );
 
+const thumbnailPath = resolve(
+  new URL("./assets/thumbnail_300x300.jpg", import.meta.url).pathname
+);
+
 bot.callbackQuery(
   /^file:/,
   async (ctx) => {
@@ -141,13 +147,13 @@ bot.callbackQuery(
     if (docType === 'pyq') {
       await ctx.replyWithDocument(files as string, {
         caption: commonCaption,
-        thumbnail: new InputFile('./assets/thumbnail_300x300.jpg')
+        thumbnail: new InputFile(thumbnailPath)
       });
     } else {
       for (const file of files as FileRecord) {
         await ctx.replyWithDocument(file.id, {
           caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`,
-          thumbnail: new InputFile('./assets/thumbnail_300x300.jpg')
+          thumbnail: new InputFile(thumbnailPath)
         });
       }
     }
