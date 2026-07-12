@@ -170,8 +170,7 @@ batchCmd.chatType('private').on('message:document', async (ctx) => {
     const statusMsg = await ctx.reply('Processing and registering thumbnail...');
 
     try {
-      const file = await ctx.getFile(doc.file_id);
-      const path = await file.download();
+      const file = await ctx.getFile(doc.file_id); 
 
       // Send the file back to the chat with your custom thumbnail
       const sentMsg = await ctx.replyWithDocument(new InputFile(path), {
