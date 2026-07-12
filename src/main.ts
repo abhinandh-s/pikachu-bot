@@ -4,8 +4,7 @@ import { helpCmd } from './cmd/help.ts';
 import { batchCmd } from './cmd/batch.ts';
 import { inlineQueryHandler } from './inline.ts';
 import { formatTerm } from './utils.ts';
-import { resolve } from "@std/path";
-
+import { resolve } from '@std/path';
 
 const bot = new Bot(Deno.env.get('TELEGRAM_TOKEN') || '');
 
@@ -114,7 +113,7 @@ bot.callbackQuery(
 );
 
 const thumbnailPath = resolve(
-  new URL("./assets/thumbnail_300x300.jpg", import.meta.url).pathname
+  new URL('./assets/thumbnail_300x300.jpg', import.meta.url).pathname
 );
 
 bot.callbackQuery(
