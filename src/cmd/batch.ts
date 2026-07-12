@@ -186,7 +186,8 @@ batchCmd.chatType('private').on('message:document', async (ctx) => {
     // 6. Re-upload the document with the thumbnail
     await ctx.replyWithDocument(documentToUpload, {
       thumbnail: thumbnailToUpload,
-      caption: 'Here is your re-uploaded document with the new thumbnail!'
+      caption: '<blockquote>CMA INTERMEDIATE</blockquote>\nHere is your re-uploaded document with the new thumbnail!',
+      parse_mode: "HTML"
     });
 
     // Clean up the status message
