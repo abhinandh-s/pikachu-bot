@@ -139,7 +139,7 @@ bot.callbackQuery(
     const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace('p', '')}\n📆 term: ${formatTerm(term)}`;
 
     if (docType === 'pyq') {
-      await ctx.replyWithDocument(files as string, { caption: commonCaption, thumbnail: new InputFile("./assets/thumbnail_300x300.jpg") }, });
+      await ctx.replyWithDocument(files as string, { caption: commonCaption, thumbnail: new InputFile("./assets/thumbnail_300x300.jpg")  });
     } else {
       for (const file of files as FileRecord) {
         await ctx.replyWithDocument(file.id, {
