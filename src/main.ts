@@ -27,7 +27,7 @@ bot.command('register', async (ctx) => {
   // Re-upload with your custom thumbnail
   const msg = await ctx.replyWithDocument(new InputFile(downloadedFile), {
     caption: 'New File Registered',
-    thumbnail: new InputFile(thumbnailPath) // Your JPEG
+    thumbnail: new InputFile(thumbnailPath)
   });
 
   // Extract the new file_id
