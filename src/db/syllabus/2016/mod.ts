@@ -9,7 +9,7 @@ export const _MQPS: Record<string, FileRecord> = {
     {
       name: 's1',
       id: ''
-    },
+    }
   ]
 };
 
@@ -18,6 +18,6 @@ export const _PTPS: Record<string, FileRecord> = {
     {
       name: 'q',
       id: ''
-    },
+    }
   ]
 };
