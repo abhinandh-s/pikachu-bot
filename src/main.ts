@@ -16,18 +16,18 @@ bot.command('register', async (ctx) => {
   // Get the file from the message (assuming you replied to a file)
   const file = ctx.message?.reply_to_message?.document;
   if (!file) {
-    await ctx.reply("Please reply to a document to register it.");
+    await ctx.reply('Please reply to a document to register it.');
     return;
   }
 
   // Download the file
   const fileInfo = await ctx.getFile(file.file_id);
-  const downloadedFile = await fileInfo.download(); 
+  const downloadedFile = await fileInfo.download();
 
   // Re-upload with your custom thumbnail
   const msg = await ctx.replyWithDocument(new InputFile(downloadedFile), {
-    caption: "New File Registered",
-    thumbnail: new InputFile(thumbnailPath), // Your JPEG
+    caption: 'New File Registered',
+    thumbnail: new InputFile(thumbnailPath) // Your JPEG
   });
 
   // Extract the new file_id
