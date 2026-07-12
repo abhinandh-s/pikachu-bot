@@ -144,7 +144,7 @@ bot.callbackQuery(
       for (const file of files as FileRecord) {
         await ctx.replyWithDocument(file.id, {
           caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`,
- thumbnail: { source: './assets/thumbnail_300x300.jpg'
+ thumbnail: { source: './assets/thumbnail_300x300.jpg' }
         });
       }
     }
