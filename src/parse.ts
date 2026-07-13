@@ -19,7 +19,7 @@ export function getFileId(data: FileData, key: string): string | undefined {
 }
 
 const jsonPath = resolve(
-  new URL("./syllabus/2016/23d.json", import.meta.url).pathname
+  new URL("./db/syllabus/2016/23d.json", import.meta.url).pathname
 );
 
 const rawData = readFileSync(jsonPath, "utf-8");
