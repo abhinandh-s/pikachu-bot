@@ -204,7 +204,7 @@ function standardizeFileName(originalName: string): string {
   const qaMatch = baseName.match(/\b([qa])\b/i); // q or a
 
   // 5. Extract or Infer Document Type
-  const typeMatch = baseName.match(/\b(pyq|mqp|ptp)\b/i);
+  const typeMatch = BaseName.match(/p(0?[1-9]|1[0-9]|20[a-c]?)\b/i);
   let docType = "pyq"; // Default fallback
 
   if (typeMatch) {
