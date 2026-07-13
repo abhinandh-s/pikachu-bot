@@ -27,18 +27,31 @@ export function renderSyllabus(ctx: string): string {
 }
 
 export function renderCaption(
-  _name: string,
+  name: string,
   id: string,
   docType: DocType
+  kind: string
 ): string {
   let caption = "";
   caption += `${renderLevel(id)}\n`;
   caption += `#${docType.toUpperCase()}\n`;
-  // const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${id.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
-
-  // if (docType === "pyq") {
-
-  //  caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`,
+  caption += `📄 paper: ${name}\n`;
+  caption += `🗂️ paper no: ${id.replace("p", "")}\n`;
+  caption += `📆 term: ${renderTerm(term)}`;
+  caption += `🗄️ ${renderSet(kind)}`;
 
   return caption;
+}
+
+// 26j => 2025 June
+export function renderTerm(code: string): string {
+  if (!code || code.length < 3) return code;
+
+  const yy = code.slice(0, 2);
+  const m = code.slice(2).toLowerCase();
+
+  const year = `20${yy}`;
+  const month = m === "d" ? "Dec" : m === "j" ? "June" : m;
+
+  return `${year} ${month}`;
 }
