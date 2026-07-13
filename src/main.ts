@@ -233,7 +233,7 @@ bot.callbackQuery(
     await ctx.answerCallbackQuery();
     const quote = `<blockquote>CMA ${paperIdToLevel(paperId)}</blockquote>`;
 
-    const header = `#${docType.toUpperCase()}\n\n${quote}`;
+    const header = `#${docType.toUpperCase()}\n${quote}\n`;
     const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
     if (docType === "pyq") {
