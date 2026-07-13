@@ -7,63 +7,99 @@ import { formatTerm } from "./utils.ts";
 
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
+// (Make sure ADMIN_ID is defined in your file)
 bot.command("migrate", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
     return;
   }
-      const all = getAllFiles(
-      docType as DocType,
-      paperId
-    );
 
-    if (all.length === 0) {
-      await ctx.answerCallbackQuery({
-        text: "No files available",
-        show_alert: true
-      });
-      return;
+  // Gather all papers from foundation, intermediate, and final
+  const allPapers = [
+    ...ACADEMIC_DATA.foundation,
+    ...ACADEMIC_DATA.intermediate,
+    ...ACADEMIC_DATA.final
+  ];
+
+  const keyboard = new InlineKeyboard();
+  let count = 0;
+
+  // Build a keyboard with all Paper IDs
+  for (const paper of allPapers) {
+    keyboard.text(paper.id.toUpperCase(), `migrate:${paper.id}`);
+    count++;
+    
+    // Break into rows of 3 for a cleaner UI
+    if (count % 3 === 0) {
+      keyboard.row();
     }
+  }
 
-    const keyboard = new InlineKeyboard();
+  await ctx.reply("Select a Paper ID to send all available files (PTP, MQP, PYQ):", {
+    reply_markup: keyboard
+  });
+});
 
-    for (const item of all) {
-      const term = item.key.split("-")[1];
+bot.callbackQuery(
+  /^migrate:/,
+  async (ctx) => {
+    const [, paperId] = ctx.callbackQuery.data.split(":");
 
-      const key = `${paperId}-${term}-${docType}`;
-    const files = getFiles(
-      docType as DocType,
-      key
-    );
+    // Acknowledge the button press so the loading spinner stops
+    await ctx.answerCallbackQuery({ text: `Starting migration for ${paperId.toUpperCase()}...` });
+    
+    // Remove the keyboard so it isn't clicked twice
+    await ctx.editMessageReplyMarkup(); 
+
     const paper = getPaperDetails(paperId);
-
-    if (!files) {
-      await ctx.answerCallbackQuery({
-        text: "File not available",
-        show_alert: true
-      });
+    if (!paper) {
+      await ctx.reply(`Could not find details for paper: ${paperId}`);
       return;
     }
 
-    await ctx.answerCallbackQuery();
+    const docTypes: DocType[] = ["pyq", "mqp", "ptp"];
+    let sentCount = 0;
 
-    const header = `#${docType.toUpperCase()}`;
-    const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
+    await ctx.reply(`Starting mass send for **${paperId.toUpperCase()}**...`, { parse_mode: "Markdown" });
 
-    if (docType === "pyq") {
-      await ctx.replyWithDocument(files as string, { caption: commonCaption });
-    } else {
-      for (const file of files as FileRecord) {
-        await ctx.replyWithDocument(file.id, {
-          caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`
-        });
+    // Loop through PYQ, MQP, PTP
+    for (const docType of docTypes) {
+      const allTerms = getAllFiles(docType, paperId);
+
+      // Loop through every available term for this docType
+      for (const item of allTerms) {
+        const term = item.key.split("-")[1];
+        const key = `${paperId}-${term}-${docType}`;
+        const files = getFiles(docType, key);
+
+        if (!files) continue;
+
+        const header = `#${docType.toUpperCase()}`;
+        const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
+
+        try {
+          if (docType === "pyq") {
+            await ctx.replyWithDocument(files as string, { caption: commonCaption });
+            sentCount++;
+          } else {
+            // PTP and MQP have multiple sets/solutions
+            for (const file of files as FileRecord[]) {
+              await ctx.replyWithDocument(file.id, {
+                caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`
+              });
+              sentCount++;
+            }
+          }
+        } catch (error) {
+          console.error(`Failed to send ${key}:`, error);
+          await ctx.reply(`❌ Error sending ${key}. See logs.`);
+        }
       }
     }
 
-    await ctx.deleteMessage(); // delete "Select term:" msg
-    }
+    await ctx.reply(`✅ Migration complete for **${paperId.toUpperCase()}**. Total files sent: ${sentCount}`, { parse_mode: "Markdown" });
+  }
+);
 
-  
-});
 
 bot.use(helpCmd);
 bot.use(batchCmd);
