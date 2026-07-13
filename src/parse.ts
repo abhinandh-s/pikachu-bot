@@ -20,7 +20,9 @@ export function getFileId(data: FileData, key: string): string | undefined {
 
 const jsonFiles = [
   "./db/syllabus/2016/23d.json",
-  "./db/syllabus/2022/26j.json"
+  "./db/syllabus/2022/26j.json",
+   "./db/syllabus/2022/1.json",
+   "./db/syllabus/2022/2.json",
 ];
 
 // Initialize an empty master object
