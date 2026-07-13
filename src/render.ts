@@ -29,7 +29,7 @@ export function renderSyllabus(ctx: string): string {
 export function renderCaption(
   name: string,
   id: string,
-  docType: DocType
+  docType: DocType,
   kind: string
 ): string {
   let caption = "";
