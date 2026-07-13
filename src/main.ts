@@ -4,7 +4,7 @@ import { helpCmd } from "./cmd/help.ts";
 import { batchCmd } from "./cmd/batch.ts";
 import { inlineQueryHandler } from "./inline.ts";
 import { formatTerm } from "./utils.ts";
-import { getFileId, JSON_DATA } from "./parse.ts"; 
+import { getFileId, JSON_DATA } from "./parse.ts";
 
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
@@ -119,11 +119,11 @@ bot.callbackQuery(
 
     await ctx.editMessageReplyMarkup(); // closes the keyboard
 
-    // Construct the new key format. 
+    // Construct the new key format.
     // Based on your test "p15-23d-pyq-syl16", you need to append the syllabus identifier.
     const syllabus = "syl16"; // Determine this dynamically if needed
-    const key = `${paperId}-${term}-${docType}-${syllabus}`; 
-    
+    const key = `${paperId}-${term}-${docType}-${syllabus}`;
+
     // Fetch the file ID using your new function
     const fileId = getFileId(JSON_DATA, key);
     const paper = getPaperDetails(paperId);
@@ -143,8 +143,8 @@ bot.callbackQuery(
     const commonCaption = `${header}\n📄 paper: ${paper?.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
     // Send the document
-    // Since getFileId now returns a single string regardless of docType, 
-    // you no longer need the `for...of` loop for mqp/ptp unless the JSON 
+    // Since getFileId now returns a single string regardless of docType,
+    // you no longer need the `for...of` loop for mqp/ptp unless the JSON
     // logic is meant to handle sets differently.
     await ctx.replyWithDocument(fileId, {
       caption: commonCaption,
