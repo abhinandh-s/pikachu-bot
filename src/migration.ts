@@ -3,6 +3,7 @@ import { Composer, InputFile } from "grammy";
 import oldData from "./db/old_pyqs.json" with { type: "json" };
 
 export const migrationCmd = new Composer();
+const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
 migrationCmd.command("migrate", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
@@ -26,6 +27,8 @@ migrationCmd.command("migrate", async (ctx) => {
   for (const [key, oldFileId] of pyqEntries) {
     try {
       count++;
+
+      console.log(key);
 
       // A. Get the file path from Telegram
       const fileInfo = await ctx.api.getFile(oldFileId);
