@@ -27,7 +27,7 @@ bot.command("migrate", async (ctx) => {
   for (const paper of allPapers) {
     keyboard.text(paper.id.toUpperCase(), `migrate:${paper.id}`);
     count++;
-    
+
     // Break into rows of 3 for a cleaner UI
     if (count % 3 === 0) {
       keyboard.row();
@@ -46,9 +46,9 @@ bot.callbackQuery(
 
     // Acknowledge the button press so the loading spinner stops
     await ctx.answerCallbackQuery({ text: `Starting migration for ${paperId.toUpperCase()}...` });
-    
+
     // Remove the keyboard so it isn't clicked twice
-    await ctx.editMessageReplyMarkup(); 
+    await ctx.editMessageReplyMarkup();
 
     const paper = getPaperDetails(paperId);
     if (!paper) {
@@ -99,7 +99,6 @@ bot.callbackQuery(
     await ctx.reply(`✅ Migration complete for **${paperId.toUpperCase()}**. Total files sent: ${sentCount}`, { parse_mode: "Markdown" });
   }
 );
-
 
 bot.use(helpCmd);
 bot.use(batchCmd);
