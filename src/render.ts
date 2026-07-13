@@ -37,7 +37,7 @@ export function renderCaption(
   docType: DocType,
   name: string,
   term: string,
-  kind: string 
+  kind: string
 ): string {
   let caption = "";
   caption += `${renderLevel(id)}\n`;
