@@ -168,7 +168,7 @@ function getPaperDetails(paperId: string) {
   return allPapers.find((p) => p.id === paperId);
 }
 
-function formatSet(id: string): string {
+function _formatSet(id: string): string {
   return id === "s1"
     ? "set: 1"
     : id === "s2"
