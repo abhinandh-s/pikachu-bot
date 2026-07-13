@@ -1,4 +1,4 @@
-export const 23D: Record<string, string> = {
+export const TERM_23D: Record<string, string> = {
   "p5-23d-pyq": "BQACAgUAAxkBAANKakDdYIYh4E5OeUlHnjwt6Jy0nLYAAtUgAAKMjQABVvclehXJh1cePAQ",
   "p6-23d-pyq": "BQACAgUAAxkBAANdakDfbBp_R1TAl19DmZ5toVR4Z2AAAtogAAKMjQABVnDlsqNkxtKkPAQ",
   "p7-23d-pyq": "BQACAgUAAxkBAANoakDgYfVlSnO8A7QVV94Hrva_XsQAAucgAAKMjQABVspQ4pq4fA4BPAQ",
@@ -19,7 +19,7 @@ export const 23D: Record<string, string> = {
   "p20C-23d-pyq": "BQACAgUAAxkBAAIFc2pEvDSN7l9Hn8DL6PzbO5BoeVivAAJqHAAC_YwpViUnaj7MkTGjPAQ"
 };
 
-export const 24J: Record<string, string> = {
+export const TERM_24J: Record<string, string> = {
   "p5-24j-pyq": "BQACAgUAAxkBAANOakDdwU3Stu1aImChmqlZEdwtcycAAtggAAKMjQABVg_THtgAATw3kzwE",
   "p6-24j-pyq": "BQACAgUAAxkBAANnakDgYS9w7FTQDKXruXAnLhoJO6UAAuYgAAKMjQABVjLZT3mlpWOFPAQ",
   "p7-24j-pyq": "BQACAgUAAxkBAANOakDdwU3Stu1aImChmqlZEdwtcycAAtggAAKMjQABVg_THtgAATw3kzwE",
@@ -40,7 +40,7 @@ export const 24J: Record<string, string> = {
   "p20C-24j-pyq": "BQACAgUAAxkBAAIFgWpEvDR1pTj11yE3GVvB01_HeURZAAJ-HAAC_YwpVk6-JveF20DMPAQ"
 };
 
-export const 24D: Record<string, string> = {
+export const TERM_24D: Record<string, string> = {
   "p5-24d-pyq": "BQACAgUAAxkBAANJakDdYAeHUlwuBH3__3z6PjNvN4gAAtQgAAKMjQABVhQstBUkeR3FPAQ",
   "p6-24d-pyq": "BQACAgUAAxkBAANpakDgYYI1WjuaipEkKLTfKER72gAD6CAAAoyNAAFWAQRSQ-nDZNo8BA",
   "p7-24d-pyq": "BQACAgUAAxkBAANJakDdYAeHUlwuBH3__3z6PjNvN4gAAtQgAAKMjQABVhQstBUkeR3FPAQ",
@@ -61,7 +61,7 @@ export const 24D: Record<string, string> = {
   "p20C-24d-pyq": "BQACAgUAAxkBAAIFj2pEvDRpU7es07grPrPsP_Ui65emAAKRHAAC_YwpVnPYTQ5bosv6PAQ"
 };
 
-export const 25J: Record<string, string> = {
+export const TERM_25J: Record<string, string> = {
   "p5-25j-pyq": "BQACAgUAAxkBAANIakDdYApFfWzOpPmfVfT-Ko5jqUEAAtMgAAKMjQABVlGZyv-dM3cbPAQ",
   "p6-25j-pyq": "BQACAgUAAxkBAANhakDfbMcAAZfLtXdkFgABbqewIXJWaQAC3iAAAoyNAAFWL-UWvR4ujGw8BA",
   "p7-25j-pyq": "BQACAgUAAxkBAANqakDgYWLSYlqORqugVjTyOo7cC5EAAukgAAKMjQABVtIdpgnmpdguPAQ",
@@ -82,7 +82,7 @@ export const 25J: Record<string, string> = {
   "p20C-25j-pyq": "BQACAgUAAxkBAAIFnWpEvDS6KWZuKrSyIekQsRdo0yIKAAKgHAAC_YwpVv74Nx3L_noEPAQ"
 };
 
-export const 25D: Record<string, string> = {
+export const TERM_25D: Record<string, string> = {
   "p5-25d-pyq": "BQACAgUAAxkBAAMbakDJOYsw3KFPhgQXVAABuDQDw5AQAAKYIAACjI0AAVZVophejbDLyzwE",
   "p6-25d-pyq": "BQACAgUAAxkBAANgakDfbHPOJpbugFEXrugxVefVftAAAt0gAAKMjQABVsHI2kDQAAFrLjwE",
   "p7-25d-pyq": "BQACAgUAAxkBAANrakDgYahyzaqsLezMKCb8vp1lLAcAAuogAAKMjQABVqbFA1Le_yyKPAQ",
@@ -103,7 +103,7 @@ export const 25D: Record<string, string> = {
   "p20C-25d-pyq": "BQACAgUAAxkBAAIFq2pEvDRFtcWSV1F3lyYvIbiU2X1MAAKwHAAC_YwpVjZE6noCpJbkPAQ"
 };
 
-export const 26J: Record<string, string> = {
+export const TERM_26J: Record<string, string> = {
   "p1-26j-pyq": "BQACAgUAAxkBAAILFGpPWWZ8lgEdvcTTG_eTVcYjvskvAALzHwAC0vJ4VrH07jMaKaYDPAQ",
   "p2-26j-pyq": "BQACAgUAAxkBAAILE2pPWWblKgQ0PmLBUYsIgNZVqCUOAALyHwAC0vJ4VhT9UgNt4JyCPAQ",
   "p3-26j-pyq": "BQACAgUAAxkBAAILEmpPWWYR9rwrZ3FaVKZVR17zu1ADAALxHwAC0vJ4Vgcg_zSXV2opPAQ",
