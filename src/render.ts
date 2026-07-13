@@ -30,7 +30,7 @@ export function renderCaption(
   _name: string, id: string, docType: DocType
 ): string {
   let caption = "";
-  caption += `${renderLevel(paperId)}\n`;
+  caption += `${renderLevel(id)}\n`;
   caption += `#${docType.toUpperCase()}\n`;
   // const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${id.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
