@@ -1,5 +1,5 @@
 import { Bot, Context, InlineKeyboard, webhookCallback } from "grammy";
-import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level } from "./db/mod.ts";
+import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level, paperIdToLevel } from "./db/mod.ts";
 import { helpCmd } from "./cmd/help.ts";
 import { batchCmd } from "./cmd/batch.ts";
 import { inlineQueryHandler } from "./inline.ts";
@@ -73,9 +73,11 @@ bot.callbackQuery(
         const files = getFiles(docType, key);
 
         if (!files) continue;
+        
+        const quote = `<blockquote>CMA ${paperIdToLevel(paperId)}`</blockquote>`;
 
         const header = `#${docType.toUpperCase()}`;
-        const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
+        const commonCaption = `${header}\n\n${quote}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
         try {
           if (docType === "pyq") {
