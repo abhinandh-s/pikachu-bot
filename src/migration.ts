@@ -1,5 +1,5 @@
-import { Composer } from "grammy";
-import { InputFile } from "https://deno.land/x/grammy/mod.ts";
+import { Composer, InputFile } from "grammy";
+
 import oldData from "./db/old_pyqs.json" with { type: "json" }; 
 
 export const migrationCmd = new Composer();
