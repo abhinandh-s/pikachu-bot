@@ -11,7 +11,6 @@ const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 bot.use(helpCmd);
 bot.use(batchCmd);
 bot.use(inlineQueryHandler);
-bot.use(migrationCmd);
 
 async function startHandler(
   ctx: Context,
