@@ -39,7 +39,6 @@ export function renderCaption(
   caption += `🗂️ paper no: ${id.replace("p", "")}\n`;
   caption += `📆 term: ${renderTerm(term)}`;
   caption += `🗄️ ${renderSet(kind)}`;
-
   return caption;
 }
 
