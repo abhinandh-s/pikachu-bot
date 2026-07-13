@@ -7,6 +7,19 @@ import { formatTerm } from "./utils.ts";
 
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
+bot.command("migrate", async (ctx) => {
+  if (ctx.from?.id !== ADMIN_ID) {
+    return;
+  }
+
+  await ctx.reply(
+    "You are an admin!",
+    {
+      parse_mode: "HTML"
+    }
+  );
+});
+
 bot.use(helpCmd);
 bot.use(batchCmd);
 bot.use(inlineQueryHandler);
