@@ -37,6 +37,7 @@ export function renderCaption(
   docType: DocType,
   name: string,
   term: string,
+  syllabus?: string,
   kind?: string
 ): string {
   let caption = "";
@@ -45,6 +46,9 @@ export function renderCaption(
   caption += `📄 paper: ${name}\n`;
   caption += `🗂️ paper no: ${id.replace("p", "")}\n`;
   caption += `📆 term: ${renderTerm(term)}`;
+  if (syllabus) {
+    caption += `\n📚syllabus: ${syllabus}`;
+  }
   if (kind) {
     caption += `\n🗄️ ${renderSet(kind)}`;
   }
