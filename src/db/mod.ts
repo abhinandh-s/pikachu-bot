@@ -143,12 +143,38 @@ export function getAllFiles(doc: DocType, paperId: string) {
   return results;
 }
 
-export function paperIdToLevel(id: string):string {
-  return if id === "p1" | "p2" | "p3" | "p4" {
-     "foundation"
-  } else if id === "p5" | "p6" | "p7" | "p8" | "p9" | "p10" |  "p11" |  "p12"  {
- "intermediate"
-  } else if id === "p13" | "p14" | "p15" | "p16" | "p17" | "p18" |  "p19" |  "p20" | "p20A" | "p20B"|"p20C" {
- "final"
+export function paperIdToLevel(id: string): string {
+  switch (id) {
+    case "p1":
+    case "p2":
+    case "p3":
+    case "p4":
+      return "foundation";
+    
+    case "p5":
+    case "p6":
+    case "p7":
+    case "p8":
+    case "p9":
+    case "p10":
+    case "p11":
+    case "p12":
+      return "intermediate";
+    
+    case "p13":
+    case "p14":
+    case "p15":
+    case "p16":
+    case "p17":
+    case "p18":
+    case "p19":
+    case "p20":
+    case "p20A":
+    case "p20B":
+    case "p20C":
+      return "final";
+      
+    default:
+      return "unknown";
   }
 }
