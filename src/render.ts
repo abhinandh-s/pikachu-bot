@@ -21,7 +21,7 @@ export function renderSet(id: string): string {
 }
 
 function renderSyllabus(ctx: string): string {
-  return ctx === "syl16" ? "syllabus: 2016"
-    : ctx === "syl22" ? "syllabus: 2022"
+  return ctx === "syl16" ? "<b>syllabus</b>: 2016"
+    : ctx === "syl22" ? "<b>syllabus</b>: 2022"
     : ctx;
 }
