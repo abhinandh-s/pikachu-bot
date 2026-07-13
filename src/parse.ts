@@ -21,8 +21,8 @@ export function getFileId(data: FileData, key: string): string | undefined {
 const jsonFiles = [
   "./db/syllabus/2016/23d.json",
   "./db/syllabus/2022/26j.json",
-   "./db/syllabus/2022/1.json",
-   "./db/syllabus/2022/2.json",
+  "./db/syllabus/2022/1.json",
+  "./db/syllabus/2022/2.json"
 ];
 
 // Initialize an empty master object
@@ -30,13 +30,13 @@ export const JSON_DATA: FileData = {
   ptp: {},
   mqp: {},
   pyq: {},
-  unrecognized: [],
+  unrecognized: []
 };
 
 // Loop through the files, read, parse, and merge them into JSON_DATA
 for (const filePath of jsonFiles) {
   const fullPath = resolve(new URL(filePath, import.meta.url).pathname);
-  
+
   try {
     const rawData = readFileSync(fullPath, "utf-8");
     const parsedData = JSON.parse(rawData) as FileData;
