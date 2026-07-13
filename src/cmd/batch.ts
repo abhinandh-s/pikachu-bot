@@ -35,10 +35,10 @@ batchCmd.command("batch", async (ctx) => {
     const entries = kv.list<string>({ prefix: ["batch_files", ADMIN_ID] });
     let count = 0;
 
-    // Base JSON structure (Flattened: Term key removed)
+    // Simplified Base JSON structure (No intermediate term keys)
     const jsonData = {
-      ptp: {} as Record<string, { name: string; id: string }[]>,
-      mqp: {} as Record<string, { name: string; id: string }[]>,
+      ptp: {} as Record<string, string>,
+      mqp: {} as Record<string, string>,
       pyq: {} as Record<string, string>,
       unrecognized: [] as string[]
     };
@@ -51,10 +51,8 @@ batchCmd.command("batch", async (ctx) => {
       // Clean up KV
       await kv.delete(entry.key);
 
-      // Remove .pdf and any -syl[number] before splitting
-      let baseName = fileName.replace(/\.pdf$/i, "");
-      baseName = baseName.replace(/-syl\d+$/i, "");
-
+      // Using the exact standardized file name (minus .pdf) as the JSON key
+      const baseName = fileName.replace(/\.pdf$/i, "");
       const parts = baseName.split("-");
 
       if (parts.length < 3) {
@@ -62,21 +60,16 @@ batchCmd.command("batch", async (ctx) => {
         continue;
       }
 
-      const paper = parts[0];
-      const termRaw = parts[1];
+      // The document type is perfectly aligned as the 3rd part of the standardized name
       const docType = parts[2].toLowerCase();
-      const key = `${paper}-${termRaw}-${docType}`;
 
+      // Assigning the precise filename as the key
       if (docType === "pyq") {
-        jsonData.pyq[key] = newFileId;
+        jsonData.pyq[baseName] = newFileId;
       } else if (docType === "mqp") {
-        const setName = parts[3] || "unknown";
-        if (!jsonData.mqp[key]) jsonData.mqp[key] = [];
-        jsonData.mqp[key].push({ name: setName, id: newFileId });
+        jsonData.mqp[baseName] = newFileId;
       } else if (docType === "ptp") {
-        const setName = parts[3] || "q";
-        if (!jsonData.ptp[key]) jsonData.ptp[key] = [];
-        jsonData.ptp[key].push({ name: setName, id: newFileId });
+        jsonData.ptp[baseName] = newFileId;
       } else {
         jsonData.unrecognized.push(`Unknown docType in: ${fileName} -> ${newFileId}`);
       }
@@ -88,19 +81,22 @@ batchCmd.command("batch", async (ctx) => {
       return ctx.reply("No files were logged during this batch.");
     }
 
-    // Sort the arrays alphabetically by 'name' (s1 before s2)
-    const sortArrays = (dataObj: Record<string, { name: string; id: string }[]>) => {
-      for (const key in dataObj) {
-        dataObj[key].sort((a, b) => a.name.localeCompare(b.name));
-      }
+    // Helper to sort the final objects alphabetically by their keys
+    const sortObject = (obj: Record<string, string>) => {
+      return Object.keys(obj).sort().reduce((acc, key) => {
+        acc[key] = obj[key];
+        return acc;
+      }, {} as Record<string, string>);
     };
-    sortArrays(jsonData.mqp);
-    sortArrays(jsonData.ptp);
+
+    jsonData.mqp = sortObject(jsonData.mqp);
+    jsonData.ptp = sortObject(jsonData.ptp);
+    jsonData.pyq = sortObject(jsonData.pyq);
 
     // Convert to JSON String
     const jsonString = JSON.stringify(jsonData, null, 2);
 
-    // Generate a .json file in-memory (Using Deno's TextEncoder)
+    // Generate a .json file in-memory
     const uint8 = new TextEncoder().encode(jsonString);
     const inputFile = new InputFile(uint8, "generated_db.json");
 
@@ -127,11 +123,9 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
 
   const fileName = standardizeFileName(originalFileName);
 
-  // Check if admin is currently in batch mode
   const batchMode = await kv.get(["batch_mode", ADMIN_ID]);
 
   if (!batchMode.value) {
-    // Normal behavior if batch mode is OFF
     return ctx.reply(
       `<b>File Name</b>: ${fileName}\n<b>Original File ID</b>: <code>${originalFileId}</code>\n\n<i>Batch mode is off. This file was not processed.</i>`,
       { parse_mode: "HTML" }
@@ -150,17 +144,19 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
 
     const arrayBuffer = await response.arrayBuffer();
     const fileBuffer = new Uint8Array(arrayBuffer);
+
     const thumbnailBuffer = await Deno.readFile(thumbnailPath);
 
-    // Conditionally add caption if the file wasn't fully understood
-    const captionText = fileName.includes("unknown") ? `Original file name: ${originalFileName}` : undefined;
+    // Conditional Caption: Only add caption if "unknown" is present in standard name
+    const hasUnknown = fileName.includes("unknown");
+    const captionText = hasUnknown ? `Original File: ${originalFileName}` : undefined;
 
     // Re-upload with the thumbnail
     const sentMessage = await ctx.replyWithDocument(
       new InputFile(fileBuffer, fileName),
       {
         thumbnail: new InputFile(thumbnailBuffer, "thumbnail.jpeg"),
-        caption: captionText
+        caption: captionText // Injects original name if unrecognizable attributes exist
       }
     );
 
@@ -188,12 +184,12 @@ function standardizeFileName(originalName: string): string {
   // 1. Remove extension and make lowercase for easy matching
   const baseName = originalName.toLowerCase().replace(/\.pdf$/, "");
 
-  // 2. Extract Paper (Matches p1 to p19, p20a, p20b, p20c)
+  // 2. Extract Paper
   const paperMatch = baseName.match(/p(1[0-9]|[1-9]|20[a-c]?)\b/i);
   let paper = paperMatch ? paperMatch[0] : "unknown";
   if (paper.startsWith("p20")) paper = paper.replace("p", "p").toUpperCase().replace("P", "p");
 
-  // 3. Extract Term (Handles both 25d and d25 formats)
+  // 3. Extract Term
   const termMatch = baseName.match(/(2[3-9][dj]|[dj]2[3-9])/i);
   let term = "unknown";
   if (termMatch) {
@@ -212,9 +208,9 @@ function standardizeFileName(originalName: string): string {
   if (typeMatch) {
     docType = typeMatch[0];
   } else if (mqpSetMatch) {
-    docType = "mqp"; // Infer MQP from s1/s2
+    docType = "mqp"; 
   } else if (qaMatch) {
-    docType = "pyq"; // Infer PYQ from q/a
+    docType = "pyq"; 
   }
 
   // 6. Assign the correct suffix based on the document type
@@ -225,14 +221,14 @@ function standardizeFileName(originalName: string): string {
     suffix = qaMatch[0];
   }
 
-  // 7. Extract Syllabus Version (Checks for syl16, syl20, etc.)
-  const sylMatch = baseName.match(/syl\d+/i);
-  const sylVersion = sylMatch ? sylMatch[0].toLowerCase() : "syl22";
+  // 7. Dynamic Syllabus check (catches anything like syl16, syl20, or sets to syl22)
+  const sylMatch = baseName.match(/\b(syl\d+)\b/i);
+  const syl = sylMatch ? sylMatch[1].toLowerCase() : "syl22";
 
   // 8. Reconstruct the standard name
   let newName = `${paper}-${term}-${docType}`;
   if (suffix) newName += `-${suffix}`;
-  newName += `-${sylVersion}.pdf`;
+  newName += `-${syl}.pdf`;
 
   return newName;
 }
