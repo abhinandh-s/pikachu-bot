@@ -10,14 +10,17 @@ export function formatTerm(code: string): string {
   return `${year} ${month}`;
 }
 
+// p1 to p19, p20A, p20B, p20C - are all the ids
 export function renderLevel(id: string): string {
-  // "p7"
-  //   ^
-  const n = code.slice(1); 
+  // Use `parseInt` to safely extract the integer, handling suffixes like "A", "B", "C"
+  const n = parseInt(id.slice(1), 10); 
 
   const res = n > 12 ? 'CMA FINAL' : n > 4 ? 'CMA INTERMEDIATE' : 'CMA FOUNDATION';
 
-  return `<blockqoute>${year}</blockqoute>`;
+  return `<blockquote>${res}</blockquote>`;
 }
 
-console.log(`p4 = `)
+console.log(renderLevel("p4"));   // <blockquote>CMA FOUNDATION</blockquote>
+console.log(renderLevel("p12"));  // <blockquote>CMA INTERMEDIATE</blockquote>
+console.log(renderLevel("p13"));  // <blockquote>CMA FINAL</blockquote>
+console.log(renderLevel("p20A")); // <blockquote>CMA FINAL</blockquote>
