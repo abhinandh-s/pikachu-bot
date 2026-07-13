@@ -5,6 +5,7 @@ import { batchCmd } from "./cmd/batch.ts";
 import { inlineQueryHandler } from "./inline.ts";
 import { formatTerm } from "./utils.ts";
 import { resolve } from "@std/path";
+import { getFileId, JSON_DATA } from "./parse.ts"; 
 
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
@@ -112,10 +113,6 @@ bot.callbackQuery(
   }
 );
 
-const thumbnailPath = resolve(
-  new URL("./assets/thumbnail_190x190.jpeg", import.meta.url).pathname
-);
-
 bot.callbackQuery(
   /^file:/,
   async (ctx) => {
@@ -123,14 +120,17 @@ bot.callbackQuery(
 
     await ctx.editMessageReplyMarkup(); // closes the keyboard
 
-    const key = `${paperId}-${term}-${docType}`;
-    const files = getFiles(
-      docType as DocType,
-      key
-    );
+    // Construct the new key format. 
+    // Based on your test "p15-23d-pyq-syl16", you need to append the syllabus identifier.
+    const syllabus = "syl16"; // Determine this dynamically if needed
+    const key = `${paperId}-${term}-${docType}-${syllabus}`; 
+    
+    // Fetch the file ID using your new function
+    const fileId = getFileId(JSON_DATA, key);
     const paper = getPaperDetails(paperId);
 
-    if (!files) {
+    // Handle missing files
+    if (!fileId) {
       await ctx.answerCallbackQuery({
         text: "File not available",
         show_alert: true
@@ -141,21 +141,16 @@ bot.callbackQuery(
     await ctx.answerCallbackQuery();
 
     const header = `#${docType.toUpperCase()}`;
-    const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
+    const commonCaption = `${header}\n📄 paper: ${paper?.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
-    if (docType === "pyq") {
-      await ctx.replyWithDocument(files as string, {
-        caption: commonCaption,
-        thumbnail: new InputFile(thumbnailPath)
-      });
-    } else {
-      for (const file of files as FileRecord) {
-        await ctx.replyWithDocument(file.id, {
-          caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`,
-          thumbnail: new InputFile(thumbnailPath)
-        });
-      }
-    }
+    // Send the document
+    // Since getFileId now returns a single string regardless of docType, 
+    // you no longer need the `for...of` loop for mqp/ptp unless the JSON 
+    // logic is meant to handle sets differently.
+    await ctx.replyWithDocument(fileId, {
+      caption: commonCaption,
+      thumbnail: new InputFile(thumbnailPath)
+    });
 
     try {
       await ctx.deleteMessage(); // delete "Select term:" msg
