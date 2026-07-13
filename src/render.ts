@@ -47,7 +47,7 @@ export function renderCaption(
   caption += `🗂️ paper no: ${id.replace("p", "")}\n`;
   caption += `📆 term: ${renderTerm(term)}`;
   if (syllabus) {
-    caption += `\n📚syllabus: ${syllabus}`;
+    caption += `\n📚 syllabus: ${syllabus}`;
   }
   if (kind) {
     caption += `\n🗄️ ${renderSet(kind)}`;
