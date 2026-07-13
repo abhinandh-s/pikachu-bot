@@ -187,7 +187,7 @@ function standardizeFileName(originalName: string): string {
   const baseName = originalName.toLowerCase().replace(/\.pdf$/, "");
 
   // 2. Extract Paper
-  const paperMatch = baseName.match(/p(1[0-9]|[1-9]|[01-09]|20[a-c]?)\b/i);
+  const paperMatch = baseName.match(/p(0?[1-9]|1[0-9]|20[a-c]?)\b/i);
   let paper = paperMatch ? paperMatch[0] : "unknown";
   if (paper.startsWith("p20")) paper = paper.replace("p", "p").toUpperCase().replace("P", "p");
 
@@ -204,7 +204,7 @@ function standardizeFileName(originalName: string): string {
   const qaMatch = baseName.match(/\b([qa])\b/i); // q or a
 
   // 5. Extract or Infer Document Type
-  const typeMatch = BaseName.match(/p(0?[1-9]|1[0-9]|20[a-c]?)\b/i);
+  const typeMatch = baseName.match(/\b(pyq|mqp|ptp)\b/i);
   let docType = "pyq"; // Default fallback
 
   if (typeMatch) {
