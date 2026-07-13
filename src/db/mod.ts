@@ -150,7 +150,7 @@ export function paperIdToLevel(id: string): string {
     case "p3":
     case "p4":
       return "foundation";
-    
+
     case "p5":
     case "p6":
     case "p7":
@@ -160,7 +160,7 @@ export function paperIdToLevel(id: string): string {
     case "p11":
     case "p12":
       return "intermediate";
-    
+
     case "p13":
     case "p14":
     case "p15":
@@ -173,7 +173,7 @@ export function paperIdToLevel(id: string): string {
     case "p20B":
     case "p20C":
       return "final";
-      
+
     default:
       return "unknown";
   }
