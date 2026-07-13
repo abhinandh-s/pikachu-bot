@@ -60,22 +60,22 @@ batchCmd.command("batch", async (ctx) => {
         continue;
       }
 
-      const paper = parts[0]; 
+      const paper = parts[0];
       const termRaw = parts[1];
-      const docType = parts[2].toLowerCase(); 
-      const termUpper = termRaw.toUpperCase(); 
+      const docType = parts[2].toLowerCase();
+      const termUpper = termRaw.toUpperCase();
       const key = `${paper}-${termRaw}-${docType}`;
 
       if (docType === "pyq") {
         if (!jsonData.pyq[termUpper]) jsonData.pyq[termUpper] = {};
         jsonData.pyq[termUpper][key] = newFileId;
       } else if (docType === "mqp") {
-        const setName = parts[3] || "unknown"; 
+        const setName = parts[3] || "unknown";
         if (!jsonData.mqp[termUpper]) jsonData.mqp[termUpper] = {};
         if (!jsonData.mqp[termUpper][key]) jsonData.mqp[termUpper][key] = [];
         jsonData.mqp[termUpper][key].push({ name: setName, id: newFileId });
       } else if (docType === "ptp") {
-        const setName = parts[3] || "q"; 
+        const setName = parts[3] || "q";
         if (!jsonData.ptp[termUpper]) jsonData.ptp[termUpper] = {};
         if (!jsonData.ptp[termUpper][key]) jsonData.ptp[termUpper][key] = [];
         jsonData.ptp[termUpper][key].push({ name: setName, id: newFileId });
@@ -91,7 +91,7 @@ batchCmd.command("batch", async (ctx) => {
     }
 
     // Sort the arrays alphabetically by 'name' (s1 before s2)
-    const sortArrays = (dataObj: Record<string, Record<string, {name: string, id: string}[]>>) => {
+    const sortArrays = (dataObj: Record<string, Record<string, { name: string; id: string }[]>>) => {
       for (const term in dataObj) {
         for (const key in dataObj[term]) {
           dataObj[term][key].sort((a, b) => a.name.localeCompare(b.name));
@@ -103,7 +103,7 @@ batchCmd.command("batch", async (ctx) => {
 
     // Convert to JSON String
     const jsonString = JSON.stringify(jsonData, null, 2);
-    
+
     // Generate a .json file in-memory (Using Deno's TextEncoder)
     const uint8 = new TextEncoder().encode(jsonString);
     const inputFile = new InputFile(uint8, "generated_db.json");
@@ -153,7 +153,7 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
     const arrayBuffer = await response.arrayBuffer();
     // Use standard Deno Uint8Array instead of Node's Buffer
     const fileBuffer = new Uint8Array(arrayBuffer);
-    
+
     // Read thumbnail directly into memory
     const thumbnailBuffer = await Deno.readFile(thumbnailPath);
 
@@ -161,7 +161,7 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
     const sentMessage = await ctx.replyWithDocument(
       new InputFile(fileBuffer, fileName),
       {
-        thumbnail: new InputFile(thumbnailBuffer, "thumbnail.jpeg"),
+        thumbnail: new InputFile(thumbnailBuffer, "thumbnail.jpeg")
       }
     );
 
@@ -177,9 +177,9 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
   } catch (error) {
     console.error(`Error processing ${fileName}:`, error);
     await ctx.api.editMessageText(
-      ctx.chat.id, 
-      statusMsg.message_id, 
-      `❌ Failed to process <code>${fileName}</code>.`, 
+      ctx.chat.id,
+      statusMsg.message_id,
+      `❌ Failed to process <code>${fileName}</code>.`,
       { parse_mode: "HTML" }
     );
   }
