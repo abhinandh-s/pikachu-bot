@@ -1,4 +1,4 @@
-interface FileData {
+export interface FileData {
   ptp: Record<string, string>;
   mqp: Record<string, string>;
   pyq: Record<string, string>;
