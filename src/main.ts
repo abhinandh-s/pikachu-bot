@@ -237,11 +237,12 @@ bot.callbackQuery(
     const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
     if (docType === "pyq") {
-      await ctx.replyWithDocument(files as string, { caption: commonCaption });
+      await ctx.replyWithDocument(files as string, { caption: commonCaption, parse_mode: "HTML", });
     } else {
       for (const file of files as FileRecord) {
         await ctx.replyWithDocument(file.id, {
-          caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`
+          caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`, 
+  parse_mode: "HTML",
         });
       }
     }
