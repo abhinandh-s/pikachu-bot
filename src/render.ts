@@ -27,7 +27,7 @@ export function renderSyllabus(ctx: string): string {
 }
 
 export function renderCaption(
-name, ):string {
+name: string ):string {
 
 let caption = "";
 
