@@ -1,0 +1,30 @@
+{
+  "ptp": {
+    "p3-26j-ptp-a-syl22": "BQACAgUAAxkDAAIqe2pU8NqpCbhdgJ-SXrltxjenaJgoAAJ3LAACEmGpVsP4hz_2PHSHPAQ",
+    "p3-26j-ptp-syl22": "BQACAgUAAxkDAAIqfWpU8NwD0ag7bLVNPMcOxGOsbdBHAAJ4LAACEmGpVsVcwm1CUcD4PAQ"
+  },
+  "mqp": {
+    "p3-24d-mqp-s1-syl22": "BQACAgUAAxkDAAIqV2pU8MHg4Yfin6lUjCdbK8ecLc37AAJlLAACEmGpVjSSRrJKVJpFPAQ",
+    "p3-24d-mqp-s1a-syl22": "BQACAgUAAxkDAAIqWWpU8MI8NWKzQrQ-vGT__eEf1KKaAAJmLAACEmGpVikN04tBP0cfPAQ",
+    "p3-24d-mqp-s2-syl22": "BQACAgUAAxkDAAIqW2pU8MRVWUwqrO8kuc5BINKaC0y1AAJnLAACEmGpViGYcAX8VpMxPAQ",
+    "p3-24d-mqp-s2a-syl22": "BQACAgUAAxkDAAIqXWpU8MVCc28jqOMOSaxg0JYJQtrjAAJoLAACEmGpVrESeGE73mlPPAQ",
+    "p3-24j-mqp-s1-syl22": "BQACAgUAAxkDAAIqX2pU8Mewr3WvaoMKDQpeaG69u9WZAAJpLAACEmGpViy7CJY1CdZRPAQ",
+    "p3-24j-mqp-s1a-syl22": "BQACAgUAAxkDAAIqYWpU8Mh16dKi39_eXKXAG5x0Mj8WAAJqLAACEmGpVlxG4KTWUc4QPAQ",
+    "p3-25d-mqp-s1-syl22": "BQACAgUAAxkDAAIqY2pU8Mppz54IqA_yjBGpIcFMGkGLAAJrLAACEmGpVs_ojhPnjmwVPAQ",
+    "p3-25d-mqp-s1a-syl22": "BQACAgUAAxkDAAIqZWpU8MsO2DvKpNOZafUh_0i0_XIIAAJsLAACEmGpVpy6wXXKzsOePAQ",
+    "p3-25d-mqp-s2-syl22": "BQACAgUAAxkDAAIqZ2pU8MwIL1f-QCcNgaqBMDg2Xhu1AAJtLAACEmGpVoCxOOZNlFe0PAQ",
+    "p3-25d-mqp-s2a-syl22": "BQACAgUAAxkDAAIqaWpU8M6U4pPxa0id2lQcyXcnlXtLAAJuLAACEmGpVvkLwCCm6V5vPAQ",
+    "p3-25j-mqp-s1-syl22": "BQACAgUAAxkDAAIqa2pU8M-9cp-TrEk9h4A5ICEhuVARAAJvLAACEmGpVhOeyaIS-JsfPAQ",
+    "p3-25j-mqp-s1a-syl22": "BQACAgUAAxkDAAIqbWpU8NDuhMGtwze0CwFJfQABDk_mHwACcCwAAhJhqVa1AQuT1vM-iDwE",
+    "p3-25j-mqp-s2-syl22": "BQACAgUAAxkDAAIqb2pU8NJqwq6rips1KU3rxsaqFXArAAJxLAACEmGpVqkgfjCKr4FdPAQ",
+    "p3-25j-mqp-s2a-syl22": "BQACAgUAAxkDAAIqcWpU8NMU4a_kXsl2oD1xvxdwHOWEAAJyLAACEmGpVv1EfqUsZTTIPAQ",
+    "p3-26j-mqp-s1-syl22": "BQACAgUAAxkDAAIqc2pU8NXTqUpEaZxKb4-tFJsfwfJvAAJzLAACEmGpVsPi4B1HrVL_PAQ",
+    "p3-26j-mqp-s1a-syl22": "BQACAgUAAxkDAAIqdWpU8Nbrq-EMCnKdLsvIjX6KgZbeAAJ0LAACEmGpVh39J5JcI2IAATwE",
+    "p3-26j-mqp-s2-syl22": "BQACAgUAAxkDAAIqd2pU8NfLX3Ow0sq3r396zjQEFIw3AAJ1LAACEmGpVpnOqUw6jZi4PAQ",
+    "p3-26j-mqp-s2a-syl22": "BQACAgUAAxkDAAIqeWpU8Nn57RThEmcV41dk52scGAdKAAJ2LAACEmGpVm3v-r-M6Ux8PAQ"
+  },
+  "pyq": {
+    "p3-26j-pyq-syl22": "BQACAgUAAxkDAAIqVWpU8L9O5L0nkcxGTZP4qjN4TYaWAAJkLAACEmGpVg7BZj7UWS2GPAQ"
+  },
+  "unrecognized": []
+}
