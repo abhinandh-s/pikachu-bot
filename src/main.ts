@@ -74,10 +74,9 @@ bot.callbackQuery(
 
         if (!files) continue;
         
-        const quote = `<blockquote>CMA ${paperIdToLevel(paperId)}`</blockquote>`;
-
+        
         const header = `#${docType.toUpperCase()}`;
-        const commonCaption = `${header}\n\n${quote}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
+        const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
         try {
           if (docType === "pyq") {
@@ -233,8 +232,10 @@ bot.callbackQuery(
     }
 
     await ctx.answerCallbackQuery();
+    const quote = `<blockquote>CMA ${paperIdToLevel(paperId)}</blockquote>`;
 
-    const header = `#${docType.toUpperCase()}`;
+
+    const header = `#${docType.toUpperCase()}\n\n${quote}`;
     const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
     if (docType === "pyq") {
