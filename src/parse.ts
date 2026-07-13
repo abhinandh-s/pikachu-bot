@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { resolve } from "@std/path";
 
 export interface FileData {
   ptp: Record<string, string>;
@@ -17,7 +18,11 @@ export function getFileId(data: FileData, key: string): string | undefined {
   return undefined;
 }
 
-const rawData = readFileSync("./db/syllabus/2016/23d.json", "utf-8");
+const jsonPath = resolve(
+  new URL("./syllabus/2016/23d.json", import.meta.url).pathname
+);
+
+const rawData = readFileSync(jsonPath, "utf-8");
 export const JSON_DATA = JSON.parse(rawData) as FileData;
 
 // test
