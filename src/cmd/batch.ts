@@ -52,8 +52,9 @@ batchCmd.command("batch", async (ctx) => {
       // Clean up KV
       await kv.delete(entry.key);
 
-      const baseName = fileName.split(".")[0];
-      const parts = baseName.split("-");
+         // Remove .pdf and -syl22 before splitting so parts align perfectly
+      let baseName = fileName.replace(/\.pdf$/i, "");
+      baseName = baseName.replace(/-syl22$/i, ""); 
 
       if (parts.length < 3) {
         jsonData.unrecognized.push(`Unrecognized format: ${fileName} -> ${newFileId}`);
@@ -125,9 +126,12 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
     return ctx.reply("File uploads are restricted to admins only.");
   }
 
-  const document = ctx.message.document;
+    const document = ctx.message.document;
   const originalFileId = document.file_id;
-  const fileName = document.file_name || "downloaded_document.pdf";
+  const originalFileName = document.file_name || "downloaded_document.pdf";
+  
+  const fileName = standardizeFileName(originalFileName);
+
 
   // Check if admin is currently in batch mode
   const batchMode = await kv.get(["batch_mode", ADMIN_ID]);
@@ -184,3 +188,54 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
     );
   }
 });
+
+function standardizeFileName(originalName: string): string {
+  // 1. Remove extension and make lowercase for easy matching
+  const baseName = originalName.toLowerCase().replace(/\.pdf$/, "");
+  
+  // 2. Extract Paper (Matches p1 to p19, p20a, p20b, p20c)
+  const paperMatch = baseName.match(/p(1[0-9]|[1-9]|20[a-c]?)\b/i);
+  let paper = paperMatch ? paperMatch[0] : "unknown";
+  // Format p20A, p20B, p20C correctly
+  if (paper.startsWith("p20")) paper = paper.replace("p", "p").toUpperCase().replace("P", "p");
+
+  // 3. Extract Term (Handles both 25d and d25 formats)
+  const termMatch = baseName.match(/(2[3-9][dj]|[dj]2[3-9])/i);
+  let term = "unknown";
+  if (termMatch) {
+    const t = termMatch[0];
+    // If it starts with a letter (d25), flip it to (25d)
+    term = /^[dj]/i.test(t) ? t.slice(1) + t[0] : t;
+  }
+
+  // 4. Extract explicit Suffixes
+  const mqpSetMatch = baseName.match(/\b(s[1-2]a?)\b/i); // s1, s1a, s2, s2a
+  const qaMatch = baseName.match(/\b([qa])\b/i); // q or a
+
+  // 5. Extract or Infer Document Type
+  const typeMatch = baseName.match(/\b(pyq|mqp|ptp)\b/i);
+  let docType = "pyq"; // Default fallback
+  
+  if (typeMatch) {
+    docType = typeMatch[0];
+  } else if (mqpSetMatch) {
+    docType = "mqp"; // Infer MQP from s1/s2
+  } else if (qaMatch) {
+    docType = "pyq"; // Infer PYQ from q/a
+  }
+
+  // 6. Assign the correct suffix based on the document type
+  let suffix = "";
+  if (docType === "mqp" && mqpSetMatch) {
+    suffix = mqpSetMatch[0];
+  } else if ((docType === "pyq" || docType === "ptp") && qaMatch) {
+    suffix = qaMatch[0];
+  }
+
+  // 7. Reconstruct the standard name
+  let newName = `${paper}-${term}-${docType}`;
+  if (suffix) newName += `-${suffix}`;
+  newName += `-syl22.pdf`;
+
+  return newName;
+}
