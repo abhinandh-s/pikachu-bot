@@ -10,9 +10,11 @@ const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
 const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
+/*
 bot.command("all_pyqs", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) return;
 });
+*/
 
 bot.command("migrate", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
@@ -239,7 +241,7 @@ bot.callbackQuery(
 
       for (const file of files as FileRecord) {
         await ctx.replyWithDocument(file.id, {
-          caption: renderCaption(paperId, docType, paper.name, term, file.name),
+          caption: renderCaption(paperId, docType, paper.name, term, file.syllabus | '', file.name),
           parse_mode: "HTML"
         });
       
