@@ -153,9 +153,7 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
     const thumbnailBuffer = await Deno.readFile(thumbnailPath);
 
     // Conditionally add caption if the file wasn't fully understood
-    const captionText = fileName.includes("unknown") 
-      ? `Original file name: ${originalFileName}` 
-      : undefined;
+    const captionText = fileName.includes("unknown") ? `Original file name: ${originalFileName}` : undefined;
 
     // Re-upload with the thumbnail
     const sentMessage = await ctx.replyWithDocument(
@@ -226,7 +224,7 @@ function standardizeFileName(originalName: string): string {
   } else if ((docType === "pyq" || docType === "ptp") && qaMatch) {
     suffix = qaMatch[0];
   }
-  
+
   // 7. Extract Syllabus Version (Checks for syl16, syl20, etc.)
   const sylMatch = baseName.match(/syl\d+/i);
   const sylVersion = sylMatch ? sylMatch[0].toLowerCase() : "syl22";
