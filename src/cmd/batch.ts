@@ -171,12 +171,14 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
     await ctx.react("👍");
   } catch (error) {
     console.error(`Error processing ${fileName}:`, error);
+/*
     await ctx.api.editMessageText(
       ctx.chat.id,
       statusMsg.message_id,
       `❌ Failed to process <code>${fileName}</code>.`,
       { parse_mode: "HTML" }
     );
+*/
   }
 });
 
