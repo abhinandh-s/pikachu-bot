@@ -1,10 +1,9 @@
 import { Bot, Context, InlineKeyboard, InputFile, webhookCallback } from "grammy";
-import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level } from "./db/mod.ts";
+import { ACADEMIC_DATA, DocType, getAllFiles, Level } from "./db/mod.ts";
 import { helpCmd } from "./cmd/help.ts";
 import { batchCmd } from "./cmd/batch.ts";
 import { inlineQueryHandler } from "./inline.ts";
 import { formatTerm } from "./utils.ts";
-import { resolve } from "@std/path";
 import { getFileId, JSON_DATA } from "./parse.ts"; 
 
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
