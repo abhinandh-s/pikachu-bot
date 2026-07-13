@@ -27,5 +27,5 @@ export const JSON_DATA = JSON.parse(rawData) as FileData;
 
 // test
 
-const id = getFileId(data, "p15-23d-pyq-syl16");
+const id = getFileId(JSON_DATA, "p15-23d-pyq-syl16");
 console.log(id);
