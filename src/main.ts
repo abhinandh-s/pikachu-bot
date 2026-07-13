@@ -12,48 +12,6 @@ const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
 bot.command("all_pyqs", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) return;
-
-  const docType: DocType = "pyq";
-
-  // Define all valid paper IDs
-  const paperIds = [
-    ...Array.from({ length: 19 }, (_, i) => `p${i + 1}`),
-    "p20A",
-    "p20B",
-    "p20C"
-  ];
-
-  await ctx.reply(`🚀 Starting batch send for all PYQs...`);
-
-  let totalSent = 0;
-
-  for (const paperId of paperIds) {
-    const paper = getPaperDetails(paperId);
-    if (!paper) continue;
-
-    // Get all available terms for this specific paper
-    const allTerms = getAllFiles(docType, paperId);
-
-    for (const item of allTerms) {
-      const term = item.key.split("-")[1];
-      const key = `${paperId}-${term}-${docType}`;
-      const files = getFiles(docType, key);
-
-      if (!files) continue;
-
-      try {
-        await ctx.replyWithDocument(files as string, {
-          caption: renderCaption(paperId, docType, paper.name, term),
-          parse_mode: "HTML"
-        });
-        totalSent++;
-      } catch (error) {
-        console.error(`Failed to send ${key}:`, error);
-      }
-    }
-  }
-
-  await ctx.reply(`✅ Batch processing complete. Total files sent: ${totalSent}`);
 });
 
 bot.command("migrate", async (ctx) => {
