@@ -1,19 +1,5 @@
 import { TERM_26J_PTPS } from "./ptp.ts";
-import { PYQ_TERM_23D, PYQ_TERM_24D, PYQ_TERM_24J, PYQ_TERM_25D, PYQ_TERM_25J, PYQ_TERM_26J } from "./pyq.ts";
-
-export const PYQ_FILE_IDS: Record<string, string> = {
-  ...PYQ_TERM_23D,
-  ...PYQ_TERM_24D,
-  ...PYQ_TERM_24J,
-  ...PYQ_TERM_25D,
-  ...PYQ_TERM_25J,
-  ...PYQ_TERM_26J
-};
-
-export const PTP_FILE_IDS: Record<string, FileRecord> = {
-  ...TERM_26J_PTPS
-};
-
+import * as PYQ from "./pyq.ts";
 import {
   TERM_23D,
   TERM_23D_L3_MQPS,
@@ -29,6 +15,19 @@ import {
   TERM_26J_L3_MQPS,
   TERM_L1
 } from "./mqp.ts";
+
+export const PYQ_FILE_IDS: Record<string, string> = {
+  ...PYQ.TERM_23D,
+  ...PYQ.TERM_24D,
+  ...PYQ.TERM_24J,
+  ...PYQ.TERM_25D,
+  ...PYQ.TERM_25J,
+  ...PYQ.TERM_26J
+};
+
+export const PTP_FILE_IDS: Record<string, FileRecord> = {
+  ...TERM_26J_PTPS
+};
 
 export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...TERM_L1,
