@@ -14,11 +14,13 @@ bot.command("all_pyqs", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) return;
 
   const docType: DocType = "pyq";
-  
+
   // Define all valid paper IDs
   const paperIds = [
     ...Array.from({ length: 19 }, (_, i) => `p${i + 1}`),
-    "p20A", "p20B", "p20C"
+    "p20A",
+    "p20B",
+    "p20C"
   ];
 
   await ctx.reply(`🚀 Starting batch send for all PYQs...`);
@@ -53,7 +55,6 @@ bot.command("all_pyqs", async (ctx) => {
 
   await ctx.reply(`✅ Batch processing complete. Total files sent: ${totalSent}`);
 });
-
 
 bot.command("migrate", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
