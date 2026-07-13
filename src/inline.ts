@@ -1,11 +1,11 @@
-import { MQP_FILE_IDS, PTP_FILE_IDS, PYQ_FILE_IDS } from './db/mod.ts';
-import { Composer } from 'grammy';
+import { MQP_FILE_IDS, PTP_FILE_IDS, PYQ_FILE_IDS } from "./db/mod.ts";
+import { Composer } from "grammy";
 
 export const inlineQueryHandler = new Composer();
 
 // Listen for any inline query.
-inlineQueryHandler.on('inline_query', async (ctx) => {
-  const query = ctx.inlineQuery.query.trim().toLowerCase().replace(/\s+/g, '-');
+inlineQueryHandler.on("inline_query", async (ctx) => {
+  const query = ctx.inlineQuery.query.trim().toLowerCase().replace(/\s+/g, "-");
 
   // If the query is empty, you can return a prompt or an empty array
   if (!query) {
@@ -24,11 +24,11 @@ inlineQueryHandler.on('inline_query', async (ctx) => {
     // Because PTP_FILE_IDS values are arrays of { name: string, id: string }
     files.forEach((file, index) => {
       results.push({
-        type: 'document',
+        type: "document",
         id: `ptp-${key}-${file.name}-${index}`,
         title: `PTP: ${key.toUpperCase()} (${file.name.toUpperCase()})`,
         document_file_id: file.id,
-        description: 'Practice Test Paper'
+        description: "Practice Test Paper"
       });
     });
   });
@@ -38,11 +38,11 @@ inlineQueryHandler.on('inline_query', async (ctx) => {
 
   pyqMatches.forEach(([key, fileId]) => {
     results.push({
-      type: 'document',
+      type: "document",
       id: `pyq-${key}`,
       title: `PYQ: ${key.toUpperCase()}`,
       document_file_id: fileId,
-      description: 'Previous Year Question Paper'
+      description: "Previous Year Question Paper"
     });
   });
 
@@ -53,11 +53,11 @@ inlineQueryHandler.on('inline_query', async (ctx) => {
     // Because MQP_FILE_IDS values are arrays of { name: string, id: string }
     files.forEach((file, index) => {
       results.push({
-        type: 'document',
+        type: "document",
         id: `mqp-${key}-${file.name}-${index}`,
         title: `MQP: ${key.toUpperCase()} (${file.name.toUpperCase()})`,
         document_file_id: file.id,
-        description: 'Mock Question Paper'
+        description: "Mock Question Paper"
       });
     });
   });

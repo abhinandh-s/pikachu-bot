@@ -1,39 +1,39 @@
-import { Composer, InputFile } from 'grammy';
-import { resolve } from '@std/path';
+import { Composer, InputFile } from "grammy";
+import { resolve } from "@std/path";
 
 export const batchCmd = new Composer();
 
-const ADMIN_ID = Number(Deno.env.get('ADMIN_ID'));
+const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
 // Open a connection to Deno's built-in Key-Value store
 const kv = await Deno.openKv();
 
-batchCmd.command('batch', async (ctx) => {
+batchCmd.command("batch", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) return;
 
   const action = ctx.match.trim().toLowerCase();
 
-  if (action === 'start') {
+  if (action === "start") {
     // Turn batch mode on for the admin
-    await kv.set(['batch_mode', ADMIN_ID], true);
+    await kv.set(["batch_mode", ADMIN_ID], true);
     await ctx.reply(
-      '🟢 <b>Batch mode started.</b>\n\nForward or upload your documents now. Send <code>/batch stop</code> when you are done.',
-      { parse_mode: 'HTML' }
+      "🟢 <b>Batch mode started.</b>\n\nForward or upload your documents now. Send <code>/batch stop</code> when you are done.",
+      { parse_mode: "HTML" }
     );
-  } else if (action === 'stop' || action === 'done') {
-    const batchMode = await kv.get(['batch_mode', ADMIN_ID]);
+  } else if (action === "stop" || action === "done") {
+    const batchMode = await kv.get(["batch_mode", ADMIN_ID]);
     if (!batchMode.value) {
-      return ctx.reply('Batch mode is not active. Use /batch start first.');
+      return ctx.reply("Batch mode is not active. Use /batch start first.");
     }
 
-    const entries = kv.list<string>({ prefix: ['batch_files', ADMIN_ID] });
+    const entries = kv.list<string>({ prefix: ["batch_files", ADMIN_ID] });
     let count = 0;
 
     // Data structures to group the files dynamically
     const pyqData: Record<string, Record<string, string>> = {};
     const mqpData: Record<string, Record<string, { name: string; id: string }[]>> = {};
     const ptpData: Record<string, Record<string, { name: string; id: string }[]>> = {};
-    let unrecognizedFiles = '';
+    let unrecognizedFiles = "";
 
     for await (const entry of entries) {
       const fileId = entry.key[2] as string;
@@ -44,8 +44,8 @@ batchCmd.command('batch', async (ctx) => {
       await kv.delete(entry.key);
 
       // Parse filename: e.g. "p5-23d-mqp-s1.pdf" -> ["p5", "23d", "mqp", "s1"]
-      const baseName = fileName.split('.')[0];
-      const parts = baseName.split('-');
+      const baseName = fileName.split(".")[0];
+      const parts = baseName.split("-");
       // const parts = baseName.toLowerCase().split('-')
 
       if (parts.length < 3) {
@@ -59,17 +59,17 @@ batchCmd.command('batch', async (ctx) => {
       const termUpper = termRaw.toUpperCase(); // '23D'
       const key = `${paper}-${termRaw}-${docType}`;
 
-      if (docType === 'pyq') {
+      if (docType === "pyq") {
         if (!pyqData[termUpper]) pyqData[termUpper] = {};
         pyqData[termUpper][key] = fileId;
-      } else if (docType === 'mqp') {
-        const setName = parts[3] || 'unknown'; // 's1', 's1a', etc.
+      } else if (docType === "mqp") {
+        const setName = parts[3] || "unknown"; // 's1', 's1a', etc.
         if (!mqpData[termUpper]) mqpData[termUpper] = {};
         if (!mqpData[termUpper][key]) mqpData[termUpper][key] = [];
 
         mqpData[termUpper][key].push({ name: setName, id: fileId });
-      } else if (docType === 'ptp') {
-        const setName = parts[3] || 'q'; // '' or 'a'
+      } else if (docType === "ptp") {
+        const setName = parts[3] || "q"; // '' or 'a'
         if (!ptpData[termUpper]) ptpData[termUpper] = {};
         if (!ptpData[termUpper][key]) ptpData[termUpper][key] = [];
 
@@ -79,14 +79,14 @@ batchCmd.command('batch', async (ctx) => {
       }
     }
 
-    await kv.delete(['batch_mode', ADMIN_ID]);
+    await kv.delete(["batch_mode", ADMIN_ID]);
 
     if (count === 0) {
-      return ctx.reply('No files were logged during this batch.');
+      return ctx.reply("No files were logged during this batch.");
     }
 
     // --- GENERATE TYPESCRIPT CODE ---
-    let fileContent = '';
+    let fileContent = "";
 
     // Generate PTP code
     for (const [term, records] of Object.entries(ptpData)) {
@@ -138,32 +138,32 @@ batchCmd.command('batch', async (ctx) => {
 
     // Generate a .ts file in-memory
     const uint8 = new TextEncoder().encode(fileContent);
-    const inputFile = new InputFile(uint8, 'generated_db.ts');
+    const inputFile = new InputFile(uint8, "generated_db.ts");
 
     await ctx.replyWithDocument(inputFile, {
       caption: `🔴 <b>Batch mode stopped.</b>\nProcessed ${count} files.\nYour TypeScript code is ready!`,
-      parse_mode: 'HTML'
+      parse_mode: "HTML"
     });
   } else {
-    await ctx.reply('<b>Usage:</b>\n<code>/batch start</code> OR <code>/batch stop</code>', { parse_mode: 'HTML' });
+    await ctx.reply("<b>Usage:</b>\n<code>/batch start</code> OR <code>/batch stop</code>", { parse_mode: "HTML" });
   }
 });
 
 const thumbnailPath = resolve(
-  new URL('../assets/thumbnail_190x190.jpeg', import.meta.url).pathname
+  new URL("../assets/thumbnail_190x190.jpeg", import.meta.url).pathname
 );
 
-batchCmd.chatType('private').on('message:document', async (ctx) => {
+batchCmd.chatType("private").on("message:document", async (ctx) => {
   // Extract document details from the incoming message
   const document = ctx.message.document;
   const fileId = document.file_id;
 
   // Fallback to a default name if original file_name is missing
-  const fileName = document.file_name || 'downloaded_document.ext';
+  const fileName = document.file_name || "downloaded_document.ext";
 
   try {
     // 1. Inform the user the process has started (optional but good for UX)
-    const statusMsg = await ctx.reply('Downloading and processing your file...');
+    const statusMsg = await ctx.reply("Downloading and processing your file...");
 
     // 2. Get the file path using the getFile API
     const fileInfo = await ctx.api.getFile(fileId);
@@ -186,15 +186,15 @@ batchCmd.chatType('private').on('message:document', async (ctx) => {
     // 6. Re-upload the document with the thumbnail
     await ctx.replyWithDocument(documentToUpload, {
       thumbnail: thumbnailToUpload,
-      caption: '<blockquote>CMA INTERMEDIATE</blockquote>\nHere is your re-uploaded document with the new thumbnail!',
-      parse_mode: 'HTML'
+      caption: "<blockquote>CMA INTERMEDIATE</blockquote>\nHere is your re-uploaded document with the new thumbnail!",
+      parse_mode: "HTML"
     });
 
     // Clean up the status message
     await ctx.api.deleteMessage(ctx.chat.id, statusMsg.message_id);
   } catch (error) {
-    console.error('Error processing document:', error);
-    await ctx.reply('Sorry, an error occurred while trying to process the file.');
+    console.error("Error processing document:", error);
+    await ctx.reply("Sorry, an error occurred while trying to process the file.");
   }
 });
 

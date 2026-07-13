@@ -1,5 +1,5 @@
-import { TERM_26J_PTPS } from './ptp.ts';
-import { PYQ_TERM_23D, PYQ_TERM_24D, PYQ_TERM_24J, PYQ_TERM_25D, PYQ_TERM_25J, PYQ_TERM_26J } from './pyq.ts';
+import { TERM_26J_PTPS } from "./ptp.ts";
+import { PYQ_TERM_23D, PYQ_TERM_24D, PYQ_TERM_24J, PYQ_TERM_25D, PYQ_TERM_25J, PYQ_TERM_26J } from "./pyq.ts";
 
 export const PYQ_FILE_IDS: Record<string, string> = {
   ...PYQ_TERM_23D,
@@ -28,7 +28,7 @@ import {
   TERM_26J,
   TERM_26J_L3_MQPS,
   TERM_L1
-} from './mqp.ts';
+} from "./mqp.ts";
 
 export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...TERM_L1,
@@ -46,8 +46,8 @@ export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...TERM_23D_L3_MQPS
 };
 
-export type Level = 'foundation' | 'intermediate' | 'final';
-export type DocType = 'pyq' | 'mqp' | 'ptp';
+export type Level = "foundation" | "intermediate" | "final";
+export type DocType = "pyq" | "mqp" | "ptp";
 
 export type FileRecord = { name: string; id: string }[];
 
@@ -58,67 +58,67 @@ export const ACADEMIC_DATA: Record<
 > = {
   foundation: [
     {
-      id: 'p1',
-      code: 'BLBS',
-      name: 'Business Laws and Business Communication'
+      id: "p1",
+      code: "BLBS",
+      name: "Business Laws and Business Communication"
     },
-    { id: 'p2', code: 'FCA', name: 'Financial and Cost Accounting' },
-    { id: 'p3', code: 'BMS', name: 'Business Mathematics and Statistics' },
-    { id: 'p4', code: 'BEM', name: 'Business Economics and Management' }
+    { id: "p2", code: "FCA", name: "Financial and Cost Accounting" },
+    { id: "p3", code: "BMS", name: "Business Mathematics and Statistics" },
+    { id: "p4", code: "BEM", name: "Business Economics and Management" }
   ],
   intermediate: [
-    { id: 'p5', code: 'BLE', name: 'Business Laws and Ethics' },
-    { id: 'p6', code: 'FA', name: 'Financial Accounting' },
-    { id: 'p7', code: 'TAX', name: 'Direct and Indirect Taxation' },
-    { id: 'p8', code: 'CA', name: 'Cost Accounting' },
+    { id: "p5", code: "BLE", name: "Business Laws and Ethics" },
+    { id: "p6", code: "FA", name: "Financial Accounting" },
+    { id: "p7", code: "TAX", name: "Direct and Indirect Taxation" },
+    { id: "p8", code: "CA", name: "Cost Accounting" },
     {
-      id: 'p9',
-      code: 'OMSM',
-      name: 'Operations Management and Strategic Management'
+      id: "p9",
+      code: "OMSM",
+      name: "Operations Management and Strategic Management"
     },
-    { id: 'p10', code: 'CAA', name: 'Corporate Accounting and Auditing' },
+    { id: "p10", code: "CAA", name: "Corporate Accounting and Auditing" },
     {
-      id: 'p11',
-      code: 'FM',
-      name: 'Financial Management and Business Data Analytics'
+      id: "p11",
+      code: "FM",
+      name: "Financial Management and Business Data Analytics"
     },
-    { id: 'p12', code: 'MA', name: 'Management Accounting' }
+    { id: "p12", code: "MA", name: "Management Accounting" }
   ],
   final: [
-    { id: 'p13', code: 'CEL', name: 'Corporate and Economic Laws' },
-    { id: 'p14', code: 'SFM', name: 'Strategic Financial Management' },
+    { id: "p13", code: "CEL", name: "Corporate and Economic Laws" },
+    { id: "p14", code: "SFM", name: "Strategic Financial Management" },
     {
-      id: 'p15',
-      code: 'TAX',
-      name: 'Direct Tax Laws and International Taxation'
+      id: "p15",
+      code: "TAX",
+      name: "Direct Tax Laws and International Taxation"
     },
-    { id: 'p16', code: 'SCM', name: 'Strategic Cost Management' },
-    { id: 'p17', code: 'CMAD', name: 'Cost and Management Audit' },
-    { id: 'p18', code: 'CFR', name: 'Corporate Financial Reporting' },
-    { id: 'p19', code: 'ITLP', name: 'Indirect Tax Laws and Practice' },
+    { id: "p16", code: "SCM", name: "Strategic Cost Management" },
+    { id: "p17", code: "CMAD", name: "Cost and Management Audit" },
+    { id: "p18", code: "CFR", name: "Corporate Financial Reporting" },
+    { id: "p19", code: "ITLP", name: "Indirect Tax Laws and Practice" },
     {
-      id: 'p20A',
-      code: 'SPMA',
-      name: 'Strategic Performance Management and Business Valuation'
-    },
-    {
-      id: 'p20B',
-      code: 'RMBI',
-      name: 'Risk Management in Banking and Insurance'
+      id: "p20A",
+      code: "SPMA",
+      name: "Strategic Performance Management and Business Valuation"
     },
     {
-      id: 'p20C',
-      code: 'ES',
-      name: 'Entrepreneurship and Startup'
+      id: "p20B",
+      code: "RMBI",
+      name: "Risk Management in Banking and Insurance"
+    },
+    {
+      id: "p20C",
+      code: "ES",
+      name: "Entrepreneurship and Startup"
     }
   ]
 };
 
 // Returns a single string for PYQ, or an array of objects for MQP
 export function getFiles(doc: DocType, key: string) {
-  if (doc === 'pyq') {
+  if (doc === "pyq") {
     return PYQ_FILE_IDS[key]; // returns string | undefined
-  } else if (doc === 'ptp') {
+  } else if (doc === "ptp") {
     return PTP_FILE_IDS[key]; // returns {name: string, id: string}[] | undefined
   } else {
     return MQP_FILE_IDS[key]; // returns {name: string, id: string}[] | undefined
@@ -127,9 +127,9 @@ export function getFiles(doc: DocType, key: string) {
 
 export function getAllFiles(doc: DocType, paperId: string) {
   let source;
-  if (doc === 'pyq') {
+  if (doc === "pyq") {
     source = PYQ_FILE_IDS;
-  } else if (doc === 'ptp') {
+  } else if (doc === "ptp") {
     source = PTP_FILE_IDS;
   } else {
     source = MQP_FILE_IDS;

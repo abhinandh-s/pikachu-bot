@@ -1,12 +1,12 @@
-import { Bot, Context, InlineKeyboard, InputFile, webhookCallback } from 'grammy';
-import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level } from './db/mod.ts';
-import { helpCmd } from './cmd/help.ts';
-import { batchCmd } from './cmd/batch.ts';
-import { inlineQueryHandler } from './inline.ts';
-import { formatTerm } from './utils.ts';
-import { resolve } from '@std/path';
+import { Bot, Context, InlineKeyboard, InputFile, webhookCallback } from "grammy";
+import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level } from "./db/mod.ts";
+import { helpCmd } from "./cmd/help.ts";
+import { batchCmd } from "./cmd/batch.ts";
+import { inlineQueryHandler } from "./inline.ts";
+import { formatTerm } from "./utils.ts";
+import { resolve } from "@std/path";
 
-const bot = new Bot(Deno.env.get('TELEGRAM_TOKEN') || '');
+const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
 bot.use(helpCmd);
 bot.use(batchCmd);
@@ -18,24 +18,24 @@ async function startHandler(
 ) {
   const keyboard = new InlineKeyboard()
     .text(
-      'Foundation',
+      "Foundation",
       `level:${docType}:foundation`
     )
     .row()
     .text(
-      'Intermediate',
+      "Intermediate",
       `level:${docType}:intermediate`
     )
     .row()
     .text(
-      'Final',
+      "Final",
       `level:${docType}:final`
     );
 
   await ctx.reply(
     `Select level for <b>${docType.toUpperCase()}</b>:`,
     {
-      parse_mode: 'HTML',
+      parse_mode: "HTML",
       reply_markup: keyboard
     }
   );
@@ -44,7 +44,7 @@ async function startHandler(
 bot.callbackQuery(
   /^level:/,
   async (ctx) => {
-    const [, docType, level] = ctx.callbackQuery.data.split(':');
+    const [, docType, level] = ctx.callbackQuery.data.split(":");
 
     const keyboard = new InlineKeyboard();
 
@@ -60,7 +60,7 @@ bot.callbackQuery(
     }
 
     await ctx.editMessageText(
-      'Select subject:',
+      "Select subject:",
       {
         reply_markup: keyboard
       }
@@ -73,7 +73,7 @@ bot.callbackQuery(
 bot.callbackQuery(
   /^subject:/,
   async (ctx) => {
-    const [, docType, paperId] = ctx.callbackQuery.data.split(':');
+    const [, docType, paperId] = ctx.callbackQuery.data.split(":");
 
     const all = getAllFiles(
       docType as DocType,
@@ -82,7 +82,7 @@ bot.callbackQuery(
 
     if (all.length === 0) {
       await ctx.answerCallbackQuery({
-        text: 'No files available',
+        text: "No files available",
         show_alert: true
       });
       return;
@@ -91,7 +91,7 @@ bot.callbackQuery(
     const keyboard = new InlineKeyboard();
 
     for (const item of all) {
-      const term = item.key.split('-')[1];
+      const term = item.key.split("-")[1];
 
       keyboard
         .text(
@@ -102,7 +102,7 @@ bot.callbackQuery(
     }
 
     await ctx.editMessageText(
-      'Select term:',
+      "Select term:",
       {
         reply_markup: keyboard
       }
@@ -113,13 +113,13 @@ bot.callbackQuery(
 );
 
 const thumbnailPath = resolve(
-  new URL('./assets/thumbnail_190x190.jpeg', import.meta.url).pathname
+  new URL("./assets/thumbnail_190x190.jpeg", import.meta.url).pathname
 );
 
 bot.callbackQuery(
   /^file:/,
   async (ctx) => {
-    const [, docType, paperId, term] = ctx.callbackQuery.data.split(':');
+    const [, docType, paperId, term] = ctx.callbackQuery.data.split(":");
 
     await ctx.editMessageReplyMarkup(); // closes the keyboard
 
@@ -132,7 +132,7 @@ bot.callbackQuery(
 
     if (!files) {
       await ctx.answerCallbackQuery({
-        text: 'File not available',
+        text: "File not available",
         show_alert: true
       });
       return;
@@ -141,9 +141,9 @@ bot.callbackQuery(
     await ctx.answerCallbackQuery();
 
     const header = `#${docType.toUpperCase()}`;
-    const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace('p', '')}\n📆 term: ${formatTerm(term)}`;
+    const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
-    if (docType === 'pyq') {
+    if (docType === "pyq") {
       await ctx.replyWithDocument(files as string, {
         caption: commonCaption,
         thumbnail: new InputFile(thumbnailPath)
@@ -160,7 +160,7 @@ bot.callbackQuery(
     try {
       await ctx.deleteMessage(); // delete "Select term:" msg
     } catch (e) {
-      console.error('Could not delete message:', e);
+      console.error("Could not delete message:", e);
     }
   }
 );
@@ -175,28 +175,28 @@ function getPaperDetails(paperId: string) {
 }
 
 function formatSet(id: string): string {
-  return id === 's1'
-    ? 'set: 1'
-    : id === 's2'
-    ? 'set: 2'
-    : id === 's1a'
-    ? 'set: 1 solution'
-    : id === 's2a'
-    ? 'set: 2 solution'
-    : id === 'q'
-    ? 'Question Paper'
-    : id === 'a'
-    ? 'Answer Key'
+  return id === "s1"
+    ? "set: 1"
+    : id === "s2"
+    ? "set: 2"
+    : id === "s1a"
+    ? "set: 1 solution"
+    : id === "s2a"
+    ? "set: 2 solution"
+    : id === "q"
+    ? "Question Paper"
+    : id === "a"
+    ? "Answer Key"
     : id;
 }
 
-bot.command('pyq', (ctx) => startHandler(ctx, 'pyq'));
-bot.command('mqp', (ctx) => startHandler(ctx, 'mqp'));
-bot.command('ptp', (ctx) => startHandler(ctx, 'ptp'));
+bot.command("pyq", (ctx) => startHandler(ctx, "pyq"));
+bot.command("mqp", (ctx) => startHandler(ctx, "mqp"));
+bot.command("ptp", (ctx) => startHandler(ctx, "ptp"));
 
 const handleUpdate = webhookCallback(
   bot,
-  'std/http'
+  "std/http"
 );
 
 bot.catch((err) => {
@@ -204,14 +204,14 @@ bot.catch((err) => {
 });
 
 Deno.serve(async (req) => {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     try {
       return await handleUpdate(req);
     } catch (err) {
       console.error(err);
 
       return new Response(
-        'Error processing update',
+        "Error processing update",
         {
           status: 500
         }
@@ -220,6 +220,6 @@ Deno.serve(async (req) => {
   }
 
   return new Response(
-    'Telegram Bot is running!'
+    "Telegram Bot is running!"
   );
 });
