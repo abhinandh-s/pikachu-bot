@@ -11,13 +11,58 @@ bot.command("migrate", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
     return;
   }
+      const all = getAllFiles(
+      docType as DocType,
+      paperId
+    );
 
-  await ctx.reply(
-    "You are an admin!",
-    {
-      parse_mode: "HTML"
+    if (all.length === 0) {
+      await ctx.answerCallbackQuery({
+        text: "No files available",
+        show_alert: true
+      });
+      return;
     }
-  );
+
+    const keyboard = new InlineKeyboard();
+
+    for (const item of all) {
+      const term = item.key.split("-")[1];
+
+      const key = `${paperId}-${term}-${docType}`;
+    const files = getFiles(
+      docType as DocType,
+      key
+    );
+    const paper = getPaperDetails(paperId);
+
+    if (!files) {
+      await ctx.answerCallbackQuery({
+        text: "File not available",
+        show_alert: true
+      });
+      return;
+    }
+
+    await ctx.answerCallbackQuery();
+
+    const header = `#${docType.toUpperCase()}`;
+    const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
+
+    if (docType === "pyq") {
+      await ctx.replyWithDocument(files as string, { caption: commonCaption });
+    } else {
+      for (const file of files as FileRecord) {
+        await ctx.replyWithDocument(file.id, {
+          caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`
+        });
+      }
+    }
+
+    await ctx.deleteMessage(); // delete "Select term:" msg
+    }
+
+  
 });
 
 bot.use(helpCmd);
