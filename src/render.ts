@@ -27,17 +27,17 @@ export function renderSyllabus(ctx: string): string {
 }
 
 export function renderCaption(
-_name: string ):string {
-
-let caption = "";
-caption += "this will get appended";
+  _name: string
+): string {
+  let caption = "";
+  caption += "this will get appended";
 
   //  const header = `${renderLevel(paperId)}\n#${docType.toUpperCase()}`;
-   // const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
+  // const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
   // if (docType === "pyq") {
-      
-        //  caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`,
 
-return caption;
+  //  caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`,
+
+  return caption;
 }
