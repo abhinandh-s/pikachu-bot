@@ -6,11 +6,14 @@ import { inlineQueryHandler } from "./inline.ts";
 import { formatTerm } from "./utils.ts";
 import { resolve } from "@std/path";
 
+import { migrationCmd } from "./migration";
+
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
 bot.use(helpCmd);
 bot.use(batchCmd);
 bot.use(inlineQueryHandler);
+bot.use(migrationCmd);
 
 async function startHandler(
   ctx: Context,
