@@ -43,7 +43,7 @@ bot.command("all_pyqs", async (ctx) => {
             
             // Safe 1-second delay between file deliveries
             await new Promise((resolve) => setTimeout(resolve, 1000));
-          } catch (sendError: any) {
+          } catch (sendError: unknown) {
             console.error(`Failed to send ${key}:`, sendError);
             
             if (sendError.parameters?.retry_after) {
