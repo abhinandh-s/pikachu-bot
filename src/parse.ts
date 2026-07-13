@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+
 export interface FileData {
   ptp: Record<string, string>;
   mqp: Record<string, string>;
@@ -16,6 +18,13 @@ export function getFileId(data: FileData, key: string): string | undefined {
       return area[key];
     }
   }
-
   return undefined; // no key found :(
 }
+
+const rawData = fs.readFileSync('./db/syllabus/2016/23d.json', 'utf-8');
+export const data = JSON.parse(rawData);
+
+// test
+
+const id = getFileId(data, "p15-23d-pyq-syl16");
+console.log(id);
