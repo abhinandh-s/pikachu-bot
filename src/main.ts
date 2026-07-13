@@ -233,7 +233,7 @@ bot.callbackQuery(
 
     await ctx.answerCallbackQuery();
 
-     const header = `${renderLevel(paperId)}\n#${docType.toUpperCase()}`;
+    const header = `${renderLevel(paperId)}\n#${docType.toUpperCase()}`;
     const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
     if (docType === "pyq") {
