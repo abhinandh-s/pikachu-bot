@@ -147,7 +147,7 @@ export function paperIdToLevel(id: string):string {
   return if id === "p1" | "p2" | "p3" | "p4" {
      "foundation"
   } else if id === "p5" | "p6" | "p7" | "p8" | "p9" | "p10" |  "p11" |  "p12"  {
- “intermediate"
+ "intermediate"
   } else if id === "p13" | "p14" | "p15" | "p16" | "p17" | "p18" |  "p19" |  "p20" | "p20A" | "p20B"|"p20C" {
  "final"
   }
