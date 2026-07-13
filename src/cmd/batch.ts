@@ -35,16 +35,15 @@ batchCmd.command("batch", async (ctx) => {
     const entries = kv.list<string>({ prefix: ["batch_files", ADMIN_ID] });
     let count = 0;
 
-    // Base JSON structure
+    // Base JSON structure (Flattened: Term key removed)
     const jsonData = {
-      ptp: {} as Record<string, Record<string, { name: string; id: string }[]>>,
-      mqp: {} as Record<string, Record<string, { name: string; id: string }[]>>,
-      pyq: {} as Record<string, Record<string, string>>,
+      ptp: {} as Record<string, { name: string; id: string }[]>,
+      mqp: {} as Record<string, { name: string; id: string }[]>,
+      pyq: {} as Record<string, string>,
       unrecognized: [] as string[]
     };
 
     for await (const entry of entries) {
-      // In our new flow, entry.key[2] is the NEW fileId
       const newFileId = entry.key[2] as string;
       const fileName = entry.value;
       count++;
@@ -52,11 +51,10 @@ batchCmd.command("batch", async (ctx) => {
       // Clean up KV
       await kv.delete(entry.key);
 
-      // Remove .pdf and -syl22 before splitting so parts align perfectly
+      // Remove .pdf and any -syl[number] before splitting
       let baseName = fileName.replace(/\.pdf$/i, "");
-      baseName = baseName.replace(/-syl22$/i, "");
+      baseName = baseName.replace(/-syl\d+$/i, "");
 
-      // 🔴 MISSING LINE ADDED HERE 🔴
       const parts = baseName.split("-");
 
       if (parts.length < 3) {
@@ -67,22 +65,18 @@ batchCmd.command("batch", async (ctx) => {
       const paper = parts[0];
       const termRaw = parts[1];
       const docType = parts[2].toLowerCase();
-      const termUpper = termRaw.toUpperCase();
       const key = `${paper}-${termRaw}-${docType}`;
 
       if (docType === "pyq") {
-        if (!jsonData.pyq[termUpper]) jsonData.pyq[termUpper] = {};
-        jsonData.pyq[termUpper][key] = newFileId;
+        jsonData.pyq[key] = newFileId;
       } else if (docType === "mqp") {
         const setName = parts[3] || "unknown";
-        if (!jsonData.mqp[termUpper]) jsonData.mqp[termUpper] = {};
-        if (!jsonData.mqp[termUpper][key]) jsonData.mqp[termUpper][key] = [];
-        jsonData.mqp[termUpper][key].push({ name: setName, id: newFileId });
+        if (!jsonData.mqp[key]) jsonData.mqp[key] = [];
+        jsonData.mqp[key].push({ name: setName, id: newFileId });
       } else if (docType === "ptp") {
         const setName = parts[3] || "q";
-        if (!jsonData.ptp[termUpper]) jsonData.ptp[termUpper] = {};
-        if (!jsonData.ptp[termUpper][key]) jsonData.ptp[termUpper][key] = [];
-        jsonData.ptp[termUpper][key].push({ name: setName, id: newFileId });
+        if (!jsonData.ptp[key]) jsonData.ptp[key] = [];
+        jsonData.ptp[key].push({ name: setName, id: newFileId });
       } else {
         jsonData.unrecognized.push(`Unknown docType in: ${fileName} -> ${newFileId}`);
       }
@@ -95,11 +89,9 @@ batchCmd.command("batch", async (ctx) => {
     }
 
     // Sort the arrays alphabetically by 'name' (s1 before s2)
-    const sortArrays = (dataObj: Record<string, Record<string, { name: string; id: string }[]>>) => {
-      for (const term in dataObj) {
-        for (const key in dataObj[term]) {
-          dataObj[term][key].sort((a, b) => a.name.localeCompare(b.name));
-        }
+    const sortArrays = (dataObj: Record<string, { name: string; id: string }[]>) => {
+      for (const key in dataObj) {
+        dataObj[key].sort((a, b) => a.name.localeCompare(b.name));
       }
     };
     sortArrays(jsonData.mqp);
@@ -157,17 +149,20 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
     if (!response.ok) throw new Error(`Fetch failed: ${response.statusText}`);
 
     const arrayBuffer = await response.arrayBuffer();
-    // Use standard Deno Uint8Array instead of Node's Buffer
     const fileBuffer = new Uint8Array(arrayBuffer);
-
-    // Read thumbnail directly into memory
     const thumbnailBuffer = await Deno.readFile(thumbnailPath);
+
+    // Conditionally add caption if the file wasn't fully understood
+    const captionText = fileName.includes("unknown") 
+      ? `Original file name: ${originalFileName}` 
+      : undefined;
 
     // Re-upload with the thumbnail
     const sentMessage = await ctx.replyWithDocument(
       new InputFile(fileBuffer, fileName),
       {
-        thumbnail: new InputFile(thumbnailBuffer, "thumbnail.jpeg")
+        thumbnail: new InputFile(thumbnailBuffer, "thumbnail.jpeg"),
+        caption: captionText
       }
     );
 
@@ -198,7 +193,6 @@ function standardizeFileName(originalName: string): string {
   // 2. Extract Paper (Matches p1 to p19, p20a, p20b, p20c)
   const paperMatch = baseName.match(/p(1[0-9]|[1-9]|20[a-c]?)\b/i);
   let paper = paperMatch ? paperMatch[0] : "unknown";
-  // Format p20A, p20B, p20C correctly
   if (paper.startsWith("p20")) paper = paper.replace("p", "p").toUpperCase().replace("P", "p");
 
   // 3. Extract Term (Handles both 25d and d25 formats)
@@ -206,7 +200,6 @@ function standardizeFileName(originalName: string): string {
   let term = "unknown";
   if (termMatch) {
     const t = termMatch[0];
-    // If it starts with a letter (d25), flip it to (25d)
     term = /^[dj]/i.test(t) ? t.slice(1) + t[0] : t;
   }
 
@@ -233,11 +226,15 @@ function standardizeFileName(originalName: string): string {
   } else if ((docType === "pyq" || docType === "ptp") && qaMatch) {
     suffix = qaMatch[0];
   }
+  
+  // 7. Extract Syllabus Version (Checks for syl16, syl20, etc.)
+  const sylMatch = baseName.match(/syl\d+/i);
+  const sylVersion = sylMatch ? sylMatch[0].toLowerCase() : "syl22";
 
-  // 7. Reconstruct the standard name
+  // 8. Reconstruct the standard name
   let newName = `${paper}-${term}-${docType}`;
   if (suffix) newName += `-${suffix}`;
-  newName += `-syl22.pdf`;
+  newName += `-${sylVersion}.pdf`;
 
   return newName;
 }
