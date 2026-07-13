@@ -40,12 +40,12 @@ bot.command("all_pyqs", async (ctx) => {
             await ctx.replyWithDocument(file.id, {
               caption: `📄 Key: ${key}\n📚 Syllabus: ${file.syllabus ?? "Unknown"}`
             });
-            
+
             // Safe 1-second delay between file deliveries
             await new Promise((resolve) => setTimeout(resolve, 1000));
           } catch (sendError: unknown) {
             console.error(`Failed to send ${key}:`, sendError);
-            
+
             if (sendError.parameters?.retry_after) {
               const waitTime = sendError.parameters.retry_after * 1000;
               await new Promise((resolve) => setTimeout(resolve, waitTime));
@@ -63,9 +63,7 @@ bot.command("all_pyqs", async (ctx) => {
       isSendingPyqs = false;
     }
   })(); // The () here immediately invokes the background task asynchronously
-
 });
-
 
 bot.command("migrate", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
