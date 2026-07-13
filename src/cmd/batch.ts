@@ -187,7 +187,7 @@ function standardizeFileName(originalName: string): string {
   const baseName = originalName.toLowerCase().replace(/\.pdf$/, "");
 
   // 2. Extract Paper
-  const paperMatch = baseName.match(/p(1[0-9]|[1-9]|20[a-c]?)\b/i);
+  const paperMatch = baseName.match(/p(1[0-9]|[1-9]|[01-09]|20[a-c]?)\b/i);
   let paper = paperMatch ? paperMatch[0] : "unknown";
   if (paper.startsWith("p20")) paper = paper.replace("p", "p").toUpperCase().replace("P", "p");
 
