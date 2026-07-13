@@ -1,4 +1,4 @@
-import { paperIdToLevel } from "./db/mod.ts";
+import { paperIdToLevel, DocType } from "./db/mod.ts";
 
 export function renderLevel(id: string): string {
   return `<blockquote>CMA ${paperIdToLevel(id).toUpperCase()}</blockquote>`;
@@ -27,7 +27,7 @@ export function renderSyllabus(ctx: string): string {
 }
 
 export function renderCaption(
-  _name: string
+  _name: string, id: string, docType: DocType
 ): string {
   let caption = "";
   caption += `${renderLevel(paperId)}\n`;
