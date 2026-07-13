@@ -4,7 +4,7 @@ export interface FileData {
   ptp: Record<string, string>;
   mqp: Record<string, string>;
   pyq: Record<string, string>;
-  unrecognized: any[];
+  unrecognized: unknown[];
 }
 
 
