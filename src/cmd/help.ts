@@ -2,6 +2,8 @@ import { Composer } from "grammy";
 
 export const helpCmd = new Composer();
 
+const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
+
 helpCmd.command("admin", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
     return;
