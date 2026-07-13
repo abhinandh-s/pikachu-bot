@@ -7,7 +7,8 @@ import { formatTerm } from "./utils.ts";
 
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
-// (Make sure ADMIN_ID is defined in your file)
+const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
+
 bot.command("migrate", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
     return;
