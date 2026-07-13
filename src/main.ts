@@ -233,14 +233,12 @@ bot.callbackQuery(
 
     await ctx.answerCallbackQuery();
 
-    const caption = renderCaption(paperId, docType, paper.name, term);
-
     if (docType === "pyq") {
-      await ctx.replyWithDocument(files as string, { caption: caption, parse_mode: "HTML" });
+      await ctx.replyWithDocument(files as string, { caption: renderCaption(paperId, docType, paper.name, term), parse_mode: "HTML" });
     } else {
       for (const file of files as FileRecord) {
         await ctx.replyWithDocument(file.id, {
-          caption: caption,
+          caption: renderCaption(paperId, docType, paper.name, term, file.name),
           parse_mode: "HTML"
         });
       }
