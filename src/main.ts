@@ -4,7 +4,7 @@ import { helpCmd } from "./cmd/help.ts";
 import { batchCmd } from "./cmd/batch.ts";
 import { inlineQueryHandler } from "./inline.ts";
 import { formatTerm } from "./utils.ts";
-import { renderLevel } from "./render.ts";
+import { renderLevel, renderCaption } from "./render.ts";
 
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
@@ -233,15 +233,14 @@ bot.callbackQuery(
 
     await ctx.answerCallbackQuery();
 
-    const header = `${renderLevel(paperId)}\n#${docType.toUpperCase()}`;
-    const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
+    const caption = renderCaption(paperId, docType, paper.name, term, file.name);
 
     if (docType === "pyq") {
-      await ctx.replyWithDocument(files as string, { caption: commonCaption, parse_mode: "HTML" });
+      await ctx.replyWithDocument(files as string, { caption: caption, parse_mode: "HTML" });
     } else {
       for (const file of files as FileRecord) {
         await ctx.replyWithDocument(file.id, {
-          caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`,
+          caption: caption,
           parse_mode: "HTML"
         });
       }
