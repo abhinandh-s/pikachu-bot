@@ -32,7 +32,7 @@ export function renderCaption(
   let caption = "";
   caption += `${renderLevel(paperId)}\n`;
   caption += `#${docType.toUpperCase()}\n`;
-  // const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
+  // const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${id.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
   // if (docType === "pyq") {
 
