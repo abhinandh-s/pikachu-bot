@@ -1,12 +1,11 @@
-import { Bot, Context, InlineKeyboard, InputFile, webhookCallback } from "grammy";
-import { ACADEMIC_DATA, DocType, getAllFiles, Level } from "./db/mod.ts";
-import { helpCmd } from "./cmd/help.ts";
-import { batchCmd } from "./cmd/batch.ts";
-import { inlineQueryHandler } from "./inline.ts";
-import { formatTerm } from "./utils.ts";
-import { getFileId, JSON_DATA } from "./parse.ts";
+import { Bot, Context, InlineKeyboard, webhookCallback } from 'grammy';
+import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level } from './db/mod.ts';
+import { helpCmd } from './cmd/help.ts';
+import { batchCmd } from './cmd/batch.ts';
+import { inlineQueryHandler } from './inline.ts';
+import { formatTerm } from './utils.ts';
 
-const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
+const bot = new Bot(Deno.env.get('TELEGRAM_TOKEN') || '');
 
 bot.use(helpCmd);
 bot.use(batchCmd);
@@ -18,33 +17,34 @@ async function startHandler(
 ) {
   const keyboard = new InlineKeyboard()
     .text(
-      "Foundation",
+      'Foundation',
       `level:${docType}:foundation`
     )
     .row()
     .text(
-      "Intermediate",
+      'Intermediate',
       `level:${docType}:intermediate`
     )
     .row()
     .text(
-      "Final",
+      'Final',
       `level:${docType}:final`
     );
 
   await ctx.reply(
     `Select level for <b>${docType.toUpperCase()}</b>:`,
     {
-      parse_mode: "HTML",
+      parse_mode: 'HTML',
       reply_markup: keyboard
     }
   );
 }
 
+// ---------- LEVEL ----------
 bot.callbackQuery(
   /^level:/,
   async (ctx) => {
-    const [, docType, level] = ctx.callbackQuery.data.split(":");
+    const [, docType, level] = ctx.callbackQuery.data.split(':');
 
     const keyboard = new InlineKeyboard();
 
@@ -60,7 +60,7 @@ bot.callbackQuery(
     }
 
     await ctx.editMessageText(
-      "Select subject:",
+      'Select subject:',
       {
         reply_markup: keyboard
       }
@@ -70,10 +70,11 @@ bot.callbackQuery(
   }
 );
 
+// ---------- SUBJECT ----------
 bot.callbackQuery(
   /^subject:/,
   async (ctx) => {
-    const [, docType, paperId] = ctx.callbackQuery.data.split(":");
+    const [, docType, paperId] = ctx.callbackQuery.data.split(':');
 
     const all = getAllFiles(
       docType as DocType,
@@ -82,7 +83,7 @@ bot.callbackQuery(
 
     if (all.length === 0) {
       await ctx.answerCallbackQuery({
-        text: "No files available",
+        text: 'No files available',
         show_alert: true
       });
       return;
@@ -91,7 +92,7 @@ bot.callbackQuery(
     const keyboard = new InlineKeyboard();
 
     for (const item of all) {
-      const term = item.key.split("-")[1];
+      const term = item.key.split('-')[1];
 
       keyboard
         .text(
@@ -102,7 +103,7 @@ bot.callbackQuery(
     }
 
     await ctx.editMessageText(
-      "Select term:",
+      'Select term:',
       {
         reply_markup: keyboard
       }
@@ -112,32 +113,24 @@ bot.callbackQuery(
   }
 );
 
+// ---------- FILE DELIVERY ----------
 bot.callbackQuery(
   /^file:/,
   async (ctx) => {
-    const [, docType, paperId, term] = ctx.callbackQuery.data.split(":");
+    const [, docType, paperId, term] = ctx.callbackQuery.data.split(':');
 
     await ctx.editMessageReplyMarkup(); // closes the keyboard
 
-    // 1. Set the syllabus. 
-    // If '26j' and newer are syl22, you might want to write a tiny helper function 
-    // to determine this based on the 'term' variable later. 
-    const syllabus = "syl22"; 
-
-    // 2. Construct both potential keys based on your JSON structure
-    const questionKey = `${paperId}-${term}-${docType}-${syllabus}`;
-    const answerKey = `${paperId}-${term}-${docType}-a-${syllabus}`;
-
-    // 3. Fetch both file IDs
-    const questionFileId = getFileId(JSON_DATA, questionKey);
-    const answerFileId = getFileId(JSON_DATA, answerKey);
-
+    const key = `${paperId}-${term}-${docType}`;
+    const files = getFiles(
+      docType as DocType,
+      key
+    );
     const paper = getPaperDetails(paperId);
 
-    // 4. Handle missing files completely
-    if (!questionFileId && !answerFileId) {
+    if (!files) {
       await ctx.answerCallbackQuery({
-        text: "Files not available for this selection.",
+        text: 'File not available',
         show_alert: true
       });
       return;
@@ -146,35 +139,21 @@ bot.callbackQuery(
     await ctx.answerCallbackQuery();
 
     const header = `#${docType.toUpperCase()}`;
-    const commonCaption = `${header}\n📄 paper: ${paper?.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
+    const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace('p', '')}\n📆 term: ${formatTerm(term)}`;
 
-    // NOTE: Make sure `thumbnailPath` is defined in your file!
-    // const thumbnailPath = resolve(new URL("./assets/thumbnail_190x190.jpeg", import.meta.url).pathname);
-
-    // 5. Send Question Paper if it exists
-    if (questionFileId) {
-      await ctx.replyWithDocument(questionFileId, {
-        caption: `${commonCaption}\n🗄️ Question Paper`,
-        // thumbnail: new InputFile(thumbnailPath) // Uncomment if thumbnailPath is defined
-      });
+    if (docType === 'pyq') {
+      await ctx.replyWithDocument(files as string, { caption: commonCaption });
+    } else {
+      for (const file of files as FileRecord) {
+        await ctx.replyWithDocument(file.id, {
+          caption: `${commonCaption}\n🗄️ ${formatSet(file.name)}`
+        });
+      }
     }
 
-    // 6. Send Answer Key if it exists
-    if (answerFileId) {
-      await ctx.replyWithDocument(answerFileId, {
-        caption: `${commonCaption}\n🗄️ Answer Key`,
-        // thumbnail: new InputFile(thumbnailPath) // Uncomment if thumbnailPath is defined
-      });
-    }
-
-    try {
-      await ctx.deleteMessage(); // delete "Select term:" msg
-    } catch (e) {
-      console.error("Could not delete message:", e);
-    }
+    await ctx.deleteMessage(); // delete "Select term:" msg
   }
 );
-
 
 function getPaperDetails(paperId: string) {
   const allPapers = [
@@ -185,44 +164,47 @@ function getPaperDetails(paperId: string) {
   return allPapers.find((p) => p.id === paperId);
 }
 
-function _formatSet(id: string): string {
-  return id === "s1"
-    ? "set: 1"
-    : id === "s2"
-    ? "set: 2"
-    : id === "s1a"
-    ? "set: 1 solution"
-    : id === "s2a"
-    ? "set: 2 solution"
-    : id === "q"
-    ? "Question Paper"
-    : id === "a"
-    ? "Answer Key"
+function formatSet(id: string): string {
+  return id === 's1'
+    ? 'set: 1'
+    : id === 's2'
+    ? 'set: 2'
+    : id === 's1a'
+    ? 'set: 1 solution'
+    : id === 's2a'
+    ? 'set: 2 solution'
+    : id === 'q'
+    ? 'Question Paper'
+    : id === 'a'
+    ? 'Answer Key'
     : id;
 }
 
-bot.command("pyq", (ctx) => startHandler(ctx, "pyq"));
-bot.command("mqp", (ctx) => startHandler(ctx, "mqp"));
-bot.command("ptp", (ctx) => startHandler(ctx, "ptp"));
+// ---------- COMMANDS ----------
+bot.command('pyq', (ctx) => startHandler(ctx, 'pyq'));
+bot.command('mqp', (ctx) => startHandler(ctx, 'mqp'));
+bot.command('ptp', (ctx) => startHandler(ctx, 'ptp'));
 
+// ---------- WEBHOOK ----------
 const handleUpdate = webhookCallback(
   bot,
-  "std/http"
+  'std/http'
 );
 
 bot.catch((err) => {
   console.error(`Error while handling update ${err.ctx.update.update_id}:`, err.error);
+  // The webhook will now return 200 OK to Telegram, stopping the retry loop.
 });
 
 Deno.serve(async (req) => {
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     try {
       return await handleUpdate(req);
     } catch (err) {
       console.error(err);
 
       return new Response(
-        "Error processing update",
+        'Error processing update',
         {
           status: 500
         }
@@ -231,6 +213,6 @@ Deno.serve(async (req) => {
   }
 
   return new Response(
-    "Telegram Bot is running!"
+    'Telegram Bot is running!'
   );
 });
