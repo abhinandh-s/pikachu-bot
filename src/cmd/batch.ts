@@ -5,7 +5,6 @@ export const batchCmd = new Composer();
 
 const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
-// Open a connection to Deno's built-in Key-Value store
 const kv = await Deno.openKv();
 
 // Cross-platform path resolution in Deno
