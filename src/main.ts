@@ -239,12 +239,11 @@ bot.callbackQuery(
 
     await ctx.answerCallbackQuery();
 
-      for (const file of files as FileRecord) {
-        await ctx.replyWithDocument(file.id, {
-          caption: renderCaption(paperId, docType, paper.name, term, file.syllabus | '', file.name),
-          parse_mode: "HTML"
-        });
-      
+    for (const file of files as FileRecord) {
+      await ctx.replyWithDocument(file.id, {
+        caption: renderCaption(paperId, docType, paper.name, term, file.syllabus | "", file.name),
+        parse_mode: "HTML"
+      });
     }
 
     await ctx.deleteMessage(); // delete "Select term:" msg
