@@ -10,11 +10,39 @@ const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
 const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
-/*
 bot.command("all_pyqs", async (ctx) => {
+  // 1. Authorization guard
   if (ctx.from?.id !== ADMIN_ID) return;
+
+  try {
+    // 2. Alert the admin that processing has started
+    await ctx.reply("🚀 Starting to send all PYQ documents...");
+
+    // 3. Loop through every key-value pair inside the PYQ database
+    for (const [key, fileRecords] of Object.entries(PYQ_FILE_IDS)) {
+      // TypeScript safety check: ensure the record array exists and contains items
+      if (!Array.isArray(fileRecords) || fileRecords.length === 0) continue;
+
+      for (const file of fileRecords) {
+        if (!file.id) continue;
+
+        // Optional decoration: adding the paper key to the document caption
+        await ctx.replyWithDocument(file.id, {
+          caption: `📄 Key: ${key}\n📚 Syllabus: ${file.syllabus ?? "Unknown"}`
+        });
+
+        // 4. Introduce a 500ms delay to avoid hitting Telegram's rate limits
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+    }
+
+    await ctx.reply("✅ All PYQ documents have been successfully sent!");
+  } catch (error) {
+    console.error("Error sending PYQs:", error);
+    await ctx.reply("❌ An error occurred while exporting PYQ files.");
+  }
 });
-*/
+
 
 bot.command("migrate", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
