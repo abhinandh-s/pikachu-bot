@@ -7,7 +7,7 @@ export const migrationCmd = new Composer();
 const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
 const thumbnailPath = resolve(
-  new URL("../assets/thumbnail_190x190.jpeg", import.meta.url).pathname
+  new URL("./assets/thumbnail_190x190.jpeg", import.meta.url).pathname
 );
 
 migrationCmd.command("migrate", async (ctx) => {
