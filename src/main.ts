@@ -43,7 +43,6 @@ bot.command("all_pyqs", async (ctx) => {
   }
 });
 
-
 bot.command("migrate", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
     return;
