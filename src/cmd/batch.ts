@@ -208,9 +208,9 @@ function standardizeFileName(originalName: string): string {
   if (typeMatch) {
     docType = typeMatch[0];
   } else if (mqpSetMatch) {
-    docType = "mqp"; 
+    docType = "mqp";
   } else if (qaMatch) {
-    docType = "pyq"; 
+    docType = "pyq";
   }
 
   // 6. Assign the correct suffix based on the document type
