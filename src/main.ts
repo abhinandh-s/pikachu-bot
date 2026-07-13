@@ -73,8 +73,7 @@ bot.callbackQuery(
         const files = getFiles(docType, key);
 
         if (!files) continue;
-        
-        
+
         const header = `#${docType.toUpperCase()}`;
         const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
@@ -233,7 +232,6 @@ bot.callbackQuery(
 
     await ctx.answerCallbackQuery();
     const quote = `<blockquote>CMA ${paperIdToLevel(paperId)}</blockquote>`;
-
 
     const header = `#${docType.toUpperCase()}\n\n${quote}`;
     const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
