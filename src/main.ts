@@ -10,38 +10,61 @@ const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
 const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
+// 1. Define a global execution lock outside the command handler
+let isSendingPyqs = false;
+
 bot.command("all_pyqs", async (ctx) => {
-  // 1. Authorization guard
+  // 2. Authorization guard
   if (ctx.from?.id !== ADMIN_ID) return;
 
-  try {
-    // 2. Alert the admin that processing has started
-    await ctx.reply("🚀 Starting to send all PYQ documents...");
+  // 3. Concurrency guard: Stop the execution if it's already running
+  if (isSendingPyqs) {
+    return await ctx.reply("⚠️ An upload process is already active. Please wait until it finishes!");
+  }
 
-    // 3. Loop through every key-value pair inside the PYQ database
+  try {
+    // Activate the lock
+    isSendingPyqs = true;
+
+    await ctx.reply("🚀 Starting to send all PYQ documents safely...");
+
     for (const [key, fileRecords] of Object.entries(PYQ_FILE_IDS)) {
-      // TypeScript safety check: ensure the record array exists and contains items
       if (!Array.isArray(fileRecords) || fileRecords.length === 0) continue;
 
       for (const file of fileRecords) {
         if (!file.id) continue;
 
-        // Optional decoration: adding the paper key to the document caption
-        await ctx.replyWithDocument(file.id, {
-          caption: `📄 Key: ${key}\n📚 Syllabus: ${file.syllabus ?? "Unknown"}`
-        });
-
-        // 4. Introduce a 500ms delay to avoid hitting Telegram's rate limits
-        await new Promise((resolve) => setTimeout(resolve, 500));
+        try {
+          await ctx.replyWithDocument(file.id, {
+            caption: `📄 Key: ${key}\n📚 Syllabus: ${file.syllabus ?? "Unknown"}`
+          });
+          
+          // 4. Safe delay: 1000ms (1 second) is highly recommended for media/files
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        } catch (sendError: any) {
+          // Catch individual file errors so one bad file doesn't kill the whole loop
+          console.error(`Failed to send ${key}:`, sendError);
+          
+          // If it's explicitly a flood wait error, respect it and pause longer
+          if (sendError.parameters?.retry_after) {
+            const waitTime = sendError.parameters.retry_after * 1000;
+            await ctx.reply(`⏳ Rate limit hit. Cooling down for ${sendError.parameters.retry_after}s...`);
+            await new Promise((resolve) => setTimeout(resolve, waitTime));
+          }
+        }
       }
     }
 
     await ctx.reply("✅ All PYQ documents have been successfully sent!");
   } catch (error) {
-    console.error("Error sending PYQs:", error);
-    await ctx.reply("❌ An error occurred while exporting PYQ files.");
+    console.error("Critical Error sending PYQs:", error);
+    await ctx.reply("❌ An unexpected error occurred while exporting PYQ files.");
+  } finally {
+    // 5. CRITICAL: Always release the lock, even if the code crashes
+    isSendingPyqs = false;
   }
 });
+
 
 bot.command("migrate", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
