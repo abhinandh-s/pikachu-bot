@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as fs from "fs";
 
 export interface FileData {
   ptp: Record<string, string>;
@@ -6,7 +6,6 @@ export interface FileData {
   pyq: Record<string, string>;
   unrecognized: unknown[];
 }
-
 
 // @returns The file_id string, or undefined if not found.
 export function getFileId(data: FileData, key: string): string | undefined {
@@ -21,7 +20,7 @@ export function getFileId(data: FileData, key: string): string | undefined {
   return undefined; // no key found :(
 }
 
-const rawData = fs.readFileSync('./db/syllabus/2016/23d.json', 'utf-8');
+const rawData = fs.readFileSync("./db/syllabus/2016/23d.json", "utf-8");
 export const data = JSON.parse(rawData);
 
 // test
