@@ -11,6 +11,6 @@
     "singleQuote": false,
     "trailingCommas": "never",
     "proseWrap": "never",
-    "exclude": ["src/testdata/", "src/generated/**/*.ts"]
+    "exclude": ["src/db/", "src/generated/**/*.ts"]
   },
 }
