@@ -231,7 +231,7 @@ bot.callbackQuery(
     }
 
     await ctx.answerCallbackQuery();
-    const quote = `<blockquote>CMA ${paperIdToLevel(paperId)}</blockquote>`;
+    const quote = `<blockquote>CMA ${paperIdToLevel(paperId).toUpperCase()}</blockquote>`;
 
     const header = `#${docType.toUpperCase()}\n${quote}\n`;
     const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
