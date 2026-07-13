@@ -8,7 +8,7 @@
   },
   "fmt": {
     "lineWidth": 150,
-    "singleQuote": true,
+    "singleQuote": false,
     "trailingCommas": "never",
     "proseWrap": "never",
     "exclude": ["src/testdata/", "src/generated/**/*.ts"]
