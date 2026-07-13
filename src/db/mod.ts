@@ -48,7 +48,7 @@ export const MQP_FILE_IDS: Record<string, FileRecord> = {
 export type Level = "foundation" | "intermediate" | "final";
 export type DocType = "pyq" | "mqp" | "ptp";
 
-export type FileRecord = { name: string; id: string }[];
+export type FileRecord = { name: string; id: string, syllabus?: string }[];
 
 // Structured Academic Data - The Single Source of Truth
 export const ACADEMIC_DATA: Record<
