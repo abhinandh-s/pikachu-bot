@@ -4,6 +4,7 @@ import { helpCmd } from "./cmd/help.ts";
 import { batchCmd } from "./cmd/batch.ts";
 import { inlineQueryHandler } from "./inline.ts";
 import { formatTerm } from "./utils.ts";
+import { renderLevel } from "./render.ts";
 
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
@@ -231,9 +232,8 @@ bot.callbackQuery(
     }
 
     await ctx.answerCallbackQuery();
-    const quote = `<blockquote>CMA ${paperIdToLevel(paperId).toUpperCase()}</blockquote>`;
 
-    const header = `${quote}\n\n#${docType.toUpperCase()}`;
+     const header = `${renderLevel(paperId)}\n#${docType.toUpperCase()}`;
     const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
     if (docType === "pyq") {
