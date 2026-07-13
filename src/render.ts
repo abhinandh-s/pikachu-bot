@@ -37,7 +37,7 @@ export function renderCaption(
   docType: DocType,
   name: string,
   term: string,
-  kind: string
+  kind?: string
 ): string {
   let caption = "";
   caption += `${renderLevel(id)}\n`;
@@ -45,7 +45,9 @@ export function renderCaption(
   caption += `📄 paper: ${name}\n`;
   caption += `🗂️ paper no: ${id.replace("p", "")}\n`;
   caption += `📆 term: ${renderTerm(term)}`;
-  caption += `🗄️ ${renderSet(kind)}`;
+  if (kind) {
+  caption += `\n🗄️ ${renderSet(kind)}`;
+  }
   return caption;
 }
 
