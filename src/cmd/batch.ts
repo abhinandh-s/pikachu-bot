@@ -56,6 +56,9 @@ batchCmd.command("batch", async (ctx) => {
       let baseName = fileName.replace(/\.pdf$/i, "");
       baseName = baseName.replace(/-syl22$/i, "");
 
+      // 🔴 MISSING LINE ADDED HERE 🔴
+      const parts = baseName.split("-");
+
       if (parts.length < 3) {
         jsonData.unrecognized.push(`Unrecognized format: ${fileName} -> ${newFileId}`);
         continue;
