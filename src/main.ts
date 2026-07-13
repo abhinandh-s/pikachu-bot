@@ -4,7 +4,7 @@ import { helpCmd } from "./cmd/help.ts";
 import { batchCmd } from "./cmd/batch.ts";
 import { inlineQueryHandler } from "./inline.ts";
 import { formatTerm } from "./utils.ts";
-import { renderLevel, renderCaption } from "./render.ts";
+import { renderCaption } from "./render.ts";
 
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
