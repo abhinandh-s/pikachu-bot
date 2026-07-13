@@ -10,59 +10,60 @@ const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
 const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
-// 1. Define a global execution lock outside the command handler
+// Global execution lock to prevent duplicate runs
 let isSendingPyqs = false;
 
 bot.command("all_pyqs", async (ctx) => {
-  // 2. Authorization guard
   if (ctx.from?.id !== ADMIN_ID) return;
 
-  // 3. Concurrency guard: Stop the execution if it's already running
   if (isSendingPyqs) {
     return await ctx.reply("⚠️ An upload process is already active. Please wait until it finishes!");
   }
 
-  try {
-    // Activate the lock
-    isSendingPyqs = true;
+  // 1. Send the initial response IMMEDIATELY.
+  // We AWAIT this so the server knows we responded to the webhook/update.
+  await ctx.reply("🚀 Starting background process to send all 100 PYQ documents...");
 
-    await ctx.reply("🚀 Starting to send all PYQ documents safely...");
+  // 2. Start the heavy processing loop WITHOUT using 'await' on the execution block.
+  // This allows the command handler to exit immediately while the loop runs in the background.
+  (async () => {
+    try {
+      isSendingPyqs = true;
 
-    for (const [key, fileRecords] of Object.entries(PYQ_FILE_IDS)) {
-      if (!Array.isArray(fileRecords) || fileRecords.length === 0) continue;
+      for (const [key, fileRecords] of Object.entries(PYQ_FILE_IDS)) {
+        if (!Array.isArray(fileRecords) || fileRecords.length === 0) continue;
 
-      for (const file of fileRecords) {
-        if (!file.id) continue;
+        for (const file of fileRecords) {
+          if (!file.id) continue;
 
-        try {
-          await ctx.replyWithDocument(file.id, {
-            caption: `📄 Key: ${key}\n📚 Syllabus: ${file.syllabus ?? "Unknown"}`
-          });
-          
-          // 4. Safe delay: 1000ms (1 second) is highly recommended for media/files
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-        } catch (sendError: any) {
-          // Catch individual file errors so one bad file doesn't kill the whole loop
-          console.error(`Failed to send ${key}:`, sendError);
-          
-          // If it's explicitly a flood wait error, respect it and pause longer
-          if (sendError.parameters?.retry_after) {
-            const waitTime = sendError.parameters.retry_after * 1000;
-            await ctx.reply(`⏳ Rate limit hit. Cooling down for ${sendError.parameters.retry_after}s...`);
-            await new Promise((resolve) => setTimeout(resolve, waitTime));
+          try {
+            await ctx.replyWithDocument(file.id, {
+              caption: `📄 Key: ${key}\n📚 Syllabus: ${file.syllabus ?? "Unknown"}`
+            });
+            
+            // Safe 1-second delay between file deliveries
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          } catch (sendError: any) {
+            console.error(`Failed to send ${key}:`, sendError);
+            
+            if (sendError.parameters?.retry_after) {
+              const waitTime = sendError.parameters.retry_after * 1000;
+              await new Promise((resolve) => setTimeout(resolve, waitTime));
+            }
           }
         }
       }
-    }
 
-    await ctx.reply("✅ All PYQ documents have been successfully sent!");
-  } catch (error) {
-    console.error("Critical Error sending PYQs:", error);
-    await ctx.reply("❌ An unexpected error occurred while exporting PYQ files.");
-  } finally {
-    // 5. CRITICAL: Always release the lock, even if the code crashes
-    isSendingPyqs = false;
-  }
+      // 3. Notify the admin when the background thread completely finishes
+      await ctx.reply("✅ All PYQ documents have been successfully sent in the background!");
+    } catch (error) {
+      console.error("Critical Background Error:", error);
+      await ctx.reply("❌ A critical error occurred during the background file export.");
+    } finally {
+      isSendingPyqs = false;
+    }
+  })(); // The () here immediately invokes the background task asynchronously
+
 });
 
 
