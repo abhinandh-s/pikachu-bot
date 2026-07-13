@@ -1,38 +1,64 @@
 import { Composer, InputFile } from "grammy";
-import { resolve } from "@std/path";
+import { fromFileUrl } from "@std/path";
 import oldData from "./db/old_pyqs.json" with { type: "json" };
 
 export const migrationCmd = new Composer();
 
 const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
-const thumbnailPath = resolve(
-  new URL("./assets/thumbnail_190x190.jpeg", import.meta.url).pathname
+// Safely resolve the local path in Deno across all operating systems
+const thumbnailPath = fromFileUrl(
+  new URL("./assets/thumbnail_190x190.jpeg", import.meta.url)
 );
 
+// Helper function to pause execution and avoid Telegram's FloodWait errors
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 migrationCmd.command("migrate", async (ctx) => {
+  // 1. Security Check
   if (ctx.from?.id !== ADMIN_ID) {
     return;
   }
 
-  // 1. Initial setup
-  const statusMsg = await ctx.reply("Starting migration... This will take a while due to rate limits.");
+  // 2. Initial setup and status message
+  const statusMsg = await ctx.reply(
+    "Starting migration in the background... You will be notified of the progress. Please do not trigger this command again while it runs."
+  );
 
-  // We will build this object in memory
+  // 3. Fire-and-forget the background task
+  // We DO NOT await this function so the webhook can immediately return HTTP 200
+  runMigrationInBackground(ctx, statusMsg.message_id).catch((err) => {
+    console.error("Critical error in background migration:", err);
+  });
+});
+
+/**
+ * Background function handling the heavy lifting
+ */
+async function runMigrationInBackground(ctx: any, statusMsgId: number) {
   const newData = { pyq: {} as Record<string, string> };
-
-  // Load your thumbnail into memory once to reuse it
-  // (Adjust the path or fetch it if it's hosted elsewhere)
-
   const pyqEntries = Object.entries(oldData.pyq);
   let count = 0;
 
-  // 2. Loop through all old files
+  // Load thumbnail into memory ONCE to save disk reads
+  let thumbnailBuffer: Uint8Array;
+  try {
+    thumbnailBuffer = await Deno.readFile(thumbnailPath);
+  } catch (error) {
+    console.error("Failed to load thumbnail:", error);
+    await ctx.api.editMessageText(
+      ctx.chat.id,
+      statusMsgId,
+      "Migration aborted: Thumbnail file not found."
+    );
+    return;
+  }
+
+  // Loop through all old files
   for (const [key, oldFileId] of pyqEntries) {
     try {
       count++;
-
-      console.log(key);
+      console.log(`Processing: ${key}`);
 
       // A. Get the file path from Telegram
       const fileInfo = await ctx.api.getFile(oldFileId);
@@ -40,58 +66,56 @@ migrationCmd.command("migrate", async (ctx) => {
 
       // B. Download the file into memory
       const response = await fetch(fileUrl);
-      if (!response.ok) throw new Error(`Fetch failed for ${key}`);
+      if (!response.ok) {
+        throw new Error(`Fetch failed for ${key}: ${response.statusText}`);
+      }
       const arrayBuffer = await response.arrayBuffer();
       const fileBuffer = new Uint8Array(arrayBuffer);
 
-      // C. Re-upload with the new thumbnail
-      // We pass the Uint8Array directly to InputFile
+      // C. Re-upload with the new in-memory thumbnail
       const sentMessage = await ctx.replyWithDocument(
         new InputFile(fileBuffer, `${key}.pdf`),
         {
-          thumbnail: new InputFile(thumbnailPath, "thumbnail.jpeg"),
-          caption: `Re-uploaded: ${key}`
+          thumbnail: new InputFile(thumbnailBuffer, "thumbnail.jpeg"),
+          caption: `Re-uploaded: ${key}`,
         }
       );
 
       // D. Save the NEW file_id to our in-memory object
       newData.pyq[key] = sentMessage.document.file_id;
 
-      // Update progress every 5 files
+      // E. Update progress every 5 files to avoid spamming edit requests
       if (count % 5 === 0) {
         await ctx.api.editMessageText(
           ctx.chat.id,
-          statusMsg.message_id,
+          statusMsgId,
           `Progress: ${count}/${pyqEntries.length} files processed...`
         );
       }
 
-      // E. CRITICAL: Wait 3 seconds before the next upload to prevent rate limiting
+      // F. CRITICAL: Wait 3 seconds before the next upload
       await delay(3000);
     } catch (error) {
       console.error(`Failed to process ${key}:`, error);
-      await ctx.reply(`Error processing ${key}. Check logs.`);
+      // We don't throw here so the loop continues even if one file fails
     }
   }
 
-  // 3. Generate and send the new JSON file
-  await ctx.api.editMessageText(ctx.chat.id, statusMsg.message_id, "Migration complete! Generating JSON...");
+  // Finalization: Generate and send the new JSON file
+  await ctx.api.editMessageText(
+    ctx.chat.id,
+    statusMsgId,
+    "Migration complete! Generating JSON..."
+  );
 
-  // Convert the in-memory object to a formatted JSON string
   const jsonString = JSON.stringify(newData, null, 2);
-
-  // Encode the string to a Uint8Array so InputFile can read it
   const jsonBuffer = new TextEncoder().encode(jsonString);
 
-  // Send the JSON file to the chat
   await ctx.replyWithDocument(
     new InputFile(jsonBuffer, "new_pyqs.json"),
     {
       caption: "✅ **Migration Successful!**\nHere is your new database file with the updated file_ids.",
-      parse_mode: "Markdown"
+      parse_mode: "Markdown",
     }
   );
-});
-
-// Helper function to pause execution and avoid Telegram's FloodWait errors
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+}
