@@ -168,7 +168,7 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
 
     // Clean up status message and react to acknowledge success silently
     await ctx.api.deleteMessage(ctx.chat.id, statusMsg.message_id);
-    await ctx.react("👍");
+    // await ctx.react("👍");
   } catch (error) {
     console.error(`Error processing ${fileName}:`, error);
     /*
