@@ -52,9 +52,9 @@ batchCmd.command("batch", async (ctx) => {
       // Clean up KV
       await kv.delete(entry.key);
 
-         // Remove .pdf and -syl22 before splitting so parts align perfectly
+      // Remove .pdf and -syl22 before splitting so parts align perfectly
       let baseName = fileName.replace(/\.pdf$/i, "");
-      baseName = baseName.replace(/-syl22$/i, ""); 
+      baseName = baseName.replace(/-syl22$/i, "");
 
       if (parts.length < 3) {
         jsonData.unrecognized.push(`Unrecognized format: ${fileName} -> ${newFileId}`);
@@ -126,12 +126,11 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
     return ctx.reply("File uploads are restricted to admins only.");
   }
 
-    const document = ctx.message.document;
+  const document = ctx.message.document;
   const originalFileId = document.file_id;
   const originalFileName = document.file_name || "downloaded_document.pdf";
-  
-  const fileName = standardizeFileName(originalFileName);
 
+  const fileName = standardizeFileName(originalFileName);
 
   // Check if admin is currently in batch mode
   const batchMode = await kv.get(["batch_mode", ADMIN_ID]);
@@ -192,7 +191,7 @@ batchCmd.chatType("private").on("message:document", async (ctx) => {
 function standardizeFileName(originalName: string): string {
   // 1. Remove extension and make lowercase for easy matching
   const baseName = originalName.toLowerCase().replace(/\.pdf$/, "");
-  
+
   // 2. Extract Paper (Matches p1 to p19, p20a, p20b, p20c)
   const paperMatch = baseName.match(/p(1[0-9]|[1-9]|20[a-c]?)\b/i);
   let paper = paperMatch ? paperMatch[0] : "unknown";
@@ -215,7 +214,7 @@ function standardizeFileName(originalName: string): string {
   // 5. Extract or Infer Document Type
   const typeMatch = baseName.match(/\b(pyq|mqp|ptp)\b/i);
   let docType = "pyq"; // Default fallback
-  
+
   if (typeMatch) {
     docType = typeMatch[0];
   } else if (mqpSetMatch) {
