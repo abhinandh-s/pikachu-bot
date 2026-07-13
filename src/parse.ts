@@ -18,14 +18,41 @@ export function getFileId(data: FileData, key: string): string | undefined {
   return undefined;
 }
 
-const jsonPath = resolve(
-  new URL("./db/syllabus/2016/23d.json", import.meta.url).pathname
-);
+const jsonFiles = [
+  "./db/syllabus/2016/23d.json",
+  "./db/syllabus/2022/26j.json"
+];
 
-const rawData = readFileSync(jsonPath, "utf-8");
-export const JSON_DATA = JSON.parse(rawData) as FileData;
+// Initialize an empty master object
+export const JSON_DATA: FileData = {
+  ptp: {},
+  mqp: {},
+  pyq: {},
+  unrecognized: [],
+};
+
+// Loop through the files, read, parse, and merge them into JSON_DATA
+for (const filePath of jsonFiles) {
+  const fullPath = resolve(new URL(filePath, import.meta.url).pathname);
+  
+  try {
+    const rawData = readFileSync(fullPath, "utf-8");
+    const parsedData = JSON.parse(rawData) as FileData;
+
+    // Merge the dictionary keys
+    Object.assign(JSON_DATA.ptp, parsedData.ptp || {});
+    Object.assign(JSON_DATA.mqp, parsedData.mqp || {});
+    Object.assign(JSON_DATA.pyq, parsedData.pyq || {});
+
+    // Merge the arrays
+    if (parsedData.unrecognized) {
+      JSON_DATA.unrecognized.push(...parsedData.unrecognized);
+    }
+  } catch (err) {
+    console.error(`Failed to load or parse JSON at ${filePath}:`, err);
+  }
+}
 
 // test
-
 const id = getFileId(JSON_DATA, "p15-23d-pyq-syl16");
-console.log(id);
+console.log("Found ID:", id);
