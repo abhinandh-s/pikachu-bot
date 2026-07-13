@@ -6,14 +6,7 @@ export function renderLevel(id: string): string {
 
 export function renderSet(id: string): string {
   return
-    id === "s1" ? "set: 1" :
-    id === "s2" ? "set: 2" :
-    id === "s1a" ? "set: 1 solution" :
-    id === "s2a" ? "set: 2 solution":
-    id === "q" ? "Question Paper" :
-    id === "a" ? "Answer Key" :
-    id === "sa" ? "Suggested Answer" :
-    id;
+    id === "s1" ? "set: 1" : id === "s2" ? "set: 2" : id === "s1a" ? "set: 1 solution" : id === "s2a" ? "set: 2 solution" : id === "q" ? "Question Paper" : id === "a" ? "Answer Key" : id === "sa" ? "Suggested Answer" : id;
 }
 
 export function renderSyllabus(ctx: string): string {
