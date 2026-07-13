@@ -119,19 +119,25 @@ bot.callbackQuery(
 
     await ctx.editMessageReplyMarkup(); // closes the keyboard
 
-    // Construct the new key format.
-    // Based on your test "p15-23d-pyq-syl16", you need to append the syllabus identifier.
-    const syllabus = "syl16"; // Determine this dynamically if needed
-    const key = `${paperId}-${term}-${docType}-${syllabus}`;
+    // 1. Set the syllabus. 
+    // If '26j' and newer are syl22, you might want to write a tiny helper function 
+    // to determine this based on the 'term' variable later. 
+    const syllabus = "syl22"; 
 
-    // Fetch the file ID using your new function
-    const fileId = getFileId(JSON_DATA, key);
+    // 2. Construct both potential keys based on your JSON structure
+    const questionKey = `${paperId}-${term}-${docType}-${syllabus}`;
+    const answerKey = `${paperId}-${term}-${docType}-a-${syllabus}`;
+
+    // 3. Fetch both file IDs
+    const questionFileId = getFileId(JSON_DATA, questionKey);
+    const answerFileId = getFileId(JSON_DATA, answerKey);
+
     const paper = getPaperDetails(paperId);
 
-    // Handle missing files
-    if (!fileId) {
+    // 4. Handle missing files completely
+    if (!questionFileId && !answerFileId) {
       await ctx.answerCallbackQuery({
-        text: "File not available",
+        text: "Files not available for this selection.",
         show_alert: true
       });
       return;
@@ -142,14 +148,24 @@ bot.callbackQuery(
     const header = `#${docType.toUpperCase()}`;
     const commonCaption = `${header}\n📄 paper: ${paper?.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
-    // Send the document
-    // Since getFileId now returns a single string regardless of docType,
-    // you no longer need the `for...of` loop for mqp/ptp unless the JSON
-    // logic is meant to handle sets differently.
-    await ctx.replyWithDocument(fileId, {
-      caption: commonCaption,
-      thumbnail: new InputFile(thumbnailPath)
-    });
+    // NOTE: Make sure `thumbnailPath` is defined in your file!
+    // const thumbnailPath = resolve(new URL("./assets/thumbnail_190x190.jpeg", import.meta.url).pathname);
+
+    // 5. Send Question Paper if it exists
+    if (questionFileId) {
+      await ctx.replyWithDocument(questionFileId, {
+        caption: `${commonCaption}\n🗄️ Question Paper`,
+        // thumbnail: new InputFile(thumbnailPath) // Uncomment if thumbnailPath is defined
+      });
+    }
+
+    // 6. Send Answer Key if it exists
+    if (answerFileId) {
+      await ctx.replyWithDocument(answerFileId, {
+        caption: `${commonCaption}\n🗄️ Answer Key`,
+        // thumbnail: new InputFile(thumbnailPath) // Uncomment if thumbnailPath is defined
+      });
+    }
 
     try {
       await ctx.deleteMessage(); // delete "Select term:" msg
@@ -158,6 +174,7 @@ bot.callbackQuery(
     }
   }
 );
+
 
 function getPaperDetails(paperId: string) {
   const allPapers = [
