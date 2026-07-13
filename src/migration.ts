@@ -1,9 +1,14 @@
 import { Composer, InputFile } from "grammy";
-
+import { resolve } from "@std/path";
 import oldData from "./db/old_pyqs.json" with { type: "json" };
 
 export const migrationCmd = new Composer();
+
 const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
+
+const thumbnailPath = resolve(
+  new URL("../assets/thumbnail_190x190.jpeg", import.meta.url).pathname
+);
 
 migrationCmd.command("migrate", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
@@ -18,7 +23,6 @@ migrationCmd.command("migrate", async (ctx) => {
 
   // Load your thumbnail into memory once to reuse it
   // (Adjust the path or fetch it if it's hosted elsewhere)
-  const thumbnailData = await Deno.readFile("./assets/thumbnail_190x190.jpeg");
 
   const pyqEntries = Object.entries(oldData.pyq);
   let count = 0;
@@ -45,7 +49,7 @@ migrationCmd.command("migrate", async (ctx) => {
       const sentMessage = await ctx.replyWithDocument(
         new InputFile(fileBuffer, `${key}.pdf`),
         {
-          thumbnail: new InputFile(thumbnailData, "thumbnail.jpeg"),
+          thumbnail: new InputFile(thumbnailPath, "thumbnail.jpeg"),
           caption: `Re-uploaded: ${key}`
         }
       );
