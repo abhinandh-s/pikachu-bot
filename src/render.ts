@@ -14,11 +14,11 @@ export function renderSet(id: string): string {
     : id === "s2a"
     ? "set: 2 solution"
     : id === "q"
-    ? "Question Paper"
+    ? "type: Question Paper"
     : id === "a"
-    ? "Answer Key"
+    ? "type: Answer Key"
     : id === "sa"
-    ? "Suggested Answer"
+    ? "type: Suggested Answer"
     : id;
 }
 
@@ -26,12 +26,18 @@ export function renderSyllabus(ctx: string): string {
   return ctx === "syl16" ? "<b>syllabus</b>: 2016" : ctx === "syl22" ? "<b>syllabus</b>: 2022" : ctx;
 }
 
+// | CMA INTERMEDIATE ”
+// #PYQ
+// paper: Financial Accounting
+// paper no: 6
+// term: 2025 June
+// type: Question Paper
 export function renderCaption(
-  name: string,
   id: string,
   docType: DocType,
-  kind: string,
-  term: string
+  name: string,
+  term: string,
+  kind: string 
 ): string {
   let caption = "";
   caption += `${renderLevel(id)}\n`;
