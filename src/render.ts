@@ -30,9 +30,8 @@ export function renderCaption(
   _name: string
 ): string {
   let caption = "";
-  caption += "this will get appended";
-
-  //  const header = `${renderLevel(paperId)}\n#${docType.toUpperCase()}`;
+  caption += `${renderLevel(paperId)}\n`;
+  caption += `#${docType.toUpperCase()}\n`;
   // const commonCaption = `${header}\n📄 paper: ${paper.name}\n🗂️ paper no: ${paperId.replace("p", "")}\n📆 term: ${formatTerm(term)}`;
 
   // if (docType === "pyq") {
