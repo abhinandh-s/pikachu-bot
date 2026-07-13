@@ -1,6 +1,6 @@
 import { Composer, InputFile } from "grammy";
 
-import oldData from "./db/old_pyqs.json" with { type: "json" }; 
+import oldData from "./db/old_pyqs.json" with { type: "json" };
 
 export const migrationCmd = new Composer();
 
@@ -11,10 +11,10 @@ migrationCmd.command("migrate", async (ctx) => {
 
   // 1. Initial setup
   const statusMsg = await ctx.reply("Starting migration... This will take a while due to rate limits.");
-  
+
   // We will build this object in memory
   const newData = { pyq: {} as Record<string, string> };
-  
+
   // Load your thumbnail into memory once to reuse it
   // (Adjust the path or fetch it if it's hosted elsewhere)
   const thumbnailData = await Deno.readFile("./assets/thumbnail_190x190.jpeg");
@@ -26,7 +26,7 @@ migrationCmd.command("migrate", async (ctx) => {
   for (const [key, oldFileId] of pyqEntries) {
     try {
       count++;
-      
+
       // A. Get the file path from Telegram
       const fileInfo = await ctx.api.getFile(oldFileId);
       const fileUrl = `https://api.telegram.org/file/bot${ctx.api.token}/${fileInfo.file_path}`;
@@ -40,7 +40,7 @@ migrationCmd.command("migrate", async (ctx) => {
       // C. Re-upload with the new thumbnail
       // We pass the Uint8Array directly to InputFile
       const sentMessage = await ctx.replyWithDocument(
-        new InputFile(fileBuffer, `${key}.pdf`), 
+        new InputFile(fileBuffer, `${key}.pdf`),
         {
           thumbnail: new InputFile(thumbnailData, "thumbnail.jpeg"),
           caption: `Re-uploaded: ${key}`
@@ -53,15 +53,14 @@ migrationCmd.command("migrate", async (ctx) => {
       // Update progress every 5 files
       if (count % 5 === 0) {
         await ctx.api.editMessageText(
-          ctx.chat.id, 
-          statusMsg.message_id, 
+          ctx.chat.id,
+          statusMsg.message_id,
           `Progress: ${count}/${pyqEntries.length} files processed...`
         );
       }
 
       // E. CRITICAL: Wait 3 seconds before the next upload to prevent rate limiting
       await delay(3000);
-
     } catch (error) {
       console.error(`Failed to process ${key}:`, error);
       await ctx.reply(`Error processing ${key}. Check logs.`);
@@ -73,7 +72,7 @@ migrationCmd.command("migrate", async (ctx) => {
 
   // Convert the in-memory object to a formatted JSON string
   const jsonString = JSON.stringify(newData, null, 2);
-  
+
   // Encode the string to a Uint8Array so InputFile can read it
   const jsonBuffer = new TextEncoder().encode(jsonString);
 
@@ -87,7 +86,5 @@ migrationCmd.command("migrate", async (ctx) => {
   );
 });
 
-
 // Helper function to pause execution and avoid Telegram's FloodWait errors
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
