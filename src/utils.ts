@@ -1,5 +1,3 @@
-
-
 export function formatTerm(code: string): string {
   if (!code || code.length < 3) return code;
 
