@@ -1,23 +1,9 @@
-// import { * as syllabus2016 } from '../db/..'
+import { FILE_IDS as PYQS } from "./pyqs.ts";
+// import { FILE_IDS as PTPS } from "./ptps.ts";
+// import { FILE_IDS as MQPS } from "./mqps.ts";
 
-export const _PYQS: Record<string, string> = {
-  "p5-21d-pyq": ""
-};
-
-export const _MQPS: Record<string, FileRecord> = {
-  "p5-21d-mqp": [
-    {
-      name: "s1",
-      id: ""
-    }
-  ]
-};
-
-export const _PTPS: Record<string, FileRecord> = {
-  "p5-21d-ptp": [
-    {
-      name: "q",
-      id: ""
-    }
-  ]
+export const TERM_23D = {
+  PYQS,
+  // PTPS,
+  // MQPS
 };
