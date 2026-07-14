@@ -1,3 +1,5 @@
+import { FileRecord } from "../../../mod.ts";
+
 // updated
 export const FILE_IDS: Record<string, FileRecord> = {
   "p5-23d-pyq": [
