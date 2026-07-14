@@ -13,7 +13,7 @@ import {
   TERM_25D_L3_MQPS,
   TERM_25J,
   TERM_25J_L3_MQPS,
-  TERM_26J,
+  TERM_26J as TERM_26J_MQPS,
   TERM_26J_L3_MQPS,
   TERM_L1
 } from "./mqp.ts";
@@ -38,7 +38,7 @@ export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...TERM_24J,
   ...TERM_25D,
   ...TERM_25J,
-  ...TERM_26J,
+  ...TERM_26J_MQPS,
   ...TERM_25D_L3_MQPS,
   ...TERM_26J_L3_MQPS,
   ...TERM_25J_L3_MQPS,
