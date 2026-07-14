@@ -23,23 +23,23 @@ function chunkArray<T>(array: T[], size: number): T[][] {
   return result;
 }
 
-bot.command("all_pyqs", async (ctx: Context) => {
-  if (isSendingPyqs) {
-    return ctx.reply("⏳ A file export is already in progress. Please wait.");
+// Use a dynamic command: /pyqs 23d
+bot.command("pyqs", async (ctx: Context) => {
+  // Extract the term from the message (e.g., "23d" from "/pyqs 23d")
+  const requestedTerm = ctx.match.trim().toLowerCase();
+
+  if (!requestedTerm) {
+    return ctx.reply("❌ Please provide a term. Example: `/pyqs 23d`", { parse_mode: "Markdown" });
   }
 
-  await ctx.reply("🚀 Gathering and sending PYQ documents in batches. Please wait...");
+  await ctx.reply(`🚀 Gathering PYQ documents for **${requestedTerm.toUpperCase()}**...`, { parse_mode: "Markdown" });
 
   try {
-    isSendingPyqs = true;
+    const filesToSend: InputMediaDocument[] = [];
 
-    // 1. Gather all the files you want to send. 
-    // (If "23d" is a specific key, we filter for it here, otherwise we collect all)
-    const filesToSend = [];
-    
+    // Filter files for ONLY the requested term
     for (const [key, fileRecords] of Object.entries(PYQ_FILE_IDS)) {
-      // If you ONLY want '23d', uncomment the next line:
-      // if (key !== "23d") continue; 
+      if (!key.includes(`-${requestedTerm}-`)) continue; 
 
       if (!Array.isArray(fileRecords)) continue;
 
@@ -49,47 +49,44 @@ bot.command("all_pyqs", async (ctx: Context) => {
             type: "document",
             media: file.id,
             caption: `📄 Key: ${key}\n📚 Syllabus: ${file.syllabus ?? "Unknown"}`
-          } as InputMediaDocument);
+          });
         }
       }
     }
 
     if (filesToSend.length === 0) {
-      return ctx.reply("❌ No files found for 23d.");
+      return ctx.reply(`❌ No files found for term: ${requestedTerm.toUpperCase()}`);
     }
 
-    // 2. Split into chunks of 10 (Telegram's max limit for media groups)
+    // Split into chunks of 10 
     const batches = chunkArray(filesToSend, 10);
+    const totalBatches = batches.length;
 
-    // 3. Send batches sequentially WITH await so Deno doesn't kill the isolate
-    for (const batch of batches) {
+    // Send batches sequentially 
+    for (let i = 0; i < totalBatches; i++) {
       try {
-        await ctx.replyWithMediaGroup(batch);
+        await ctx.replyWithMediaGroup(batches[i]);
         
-        // Short delay between batches (2 seconds is plenty safe for media groups)
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        // Short delay to avoid 429 Too Many Requests
+        if (i < totalBatches - 1) {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
       } catch (sendError: any) {
-        console.error("Failed to send batch:", sendError);
+        console.error(`Failed to send batch ${i + 1}:`, sendError);
 
-        // Handle Telegram Rate Limit (429) natively
         if (sendError.parameters?.retry_after) {
           const waitTime = sendError.parameters.retry_after * 1000;
-          console.log(`Rate limited! Waiting for ${waitTime}ms...`);
           await new Promise((resolve) => setTimeout(resolve, waitTime));
-          
-          // Retry the failed batch once
-          await ctx.replyWithMediaGroup(batch); 
+          await ctx.replyWithMediaGroup(batches[i]); 
         }
       }
     }
 
-    await ctx.reply("✅ All PYQ documents have been successfully sent!");
+    await ctx.reply(`✅ All PYQs for **${requestedTerm.toUpperCase()}** sent successfully!`, { parse_mode: "Markdown" });
     
   } catch (error) {
     console.error("Critical Error:", error);
     await ctx.reply("❌ A critical error occurred during the file export.");
-  } finally {
-    isSendingPyqs = false;
   }
 });
 
