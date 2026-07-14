@@ -21,6 +21,7 @@ function chunkArray<T>(array: T[], size: number): T[][] {
   return result;
 }
 
+/*
 // Use a dynamic command: /mqps 23d
 bot.command("mqps", async (ctx: Context) => {
   // Extract the term from the message (e.g., "23d" from "/pyqs 23d")
@@ -86,6 +87,8 @@ bot.command("mqps", async (ctx: Context) => {
     await ctx.reply("❌ A critical error occurred during the file export.");
   }
 });
+
+*/
 
 // Use a dynamic command: /pyqs 23d
 bot.command("pyqs", async (ctx: Context) => {
