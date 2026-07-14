@@ -37,7 +37,7 @@ bot.command("pyqs", async (ctx: Context) => {
 
     // Filter files for ONLY the requested term
     for (const [key, fileRecords] of Object.entries(PYQ_FILE_IDS)) {
-      if (!key.includes(`-${requestedTerm}-`)) continue; 
+      if (!key.includes(`-${requestedTerm}-`)) continue;
 
       if (!Array.isArray(fileRecords)) continue;
 
@@ -56,15 +56,15 @@ bot.command("pyqs", async (ctx: Context) => {
       return ctx.reply(`❌ No files found for term: ${requestedTerm.toUpperCase()}`);
     }
 
-    // Split into chunks of 10 
+    // Split into chunks of 10
     const batches = chunkArray(filesToSend, 10);
     const totalBatches = batches.length;
 
-    // Send batches sequentially 
+    // Send batches sequentially
     for (let i = 0; i < totalBatches; i++) {
       try {
         await ctx.replyWithMediaGroup(batches[i]);
-        
+
         // Short delay to avoid 429 Too Many Requests
         if (i < totalBatches - 1) {
           await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -75,13 +75,12 @@ bot.command("pyqs", async (ctx: Context) => {
         if (sendError.parameters?.retry_after) {
           const waitTime = sendError.parameters.retry_after * 1000;
           await new Promise((resolve) => setTimeout(resolve, waitTime));
-          await ctx.replyWithMediaGroup(batches[i]); 
+          await ctx.replyWithMediaGroup(batches[i]);
         }
       }
     }
 
     await ctx.reply(`✅ All PYQs for **${requestedTerm.toUpperCase()}** sent successfully!`, { parse_mode: "Markdown" });
-    
   } catch (error) {
     console.error("Critical Error:", error);
     await ctx.reply("❌ A critical error occurred during the file export.");
