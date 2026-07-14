@@ -55,7 +55,7 @@ export function renderCaption(
   return caption;
 }
 
-// 26j => 2025 June
+// 26j => 2026 June
 export function renderTerm(code: string): string {
   if (!code || code.length < 3) return code;
 
