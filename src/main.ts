@@ -1,5 +1,5 @@
 import { Bot, Context, InlineKeyboard, webhookCallback } from "grammy";
-import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level, MQP_FILE_IDS, PYQ_FILE_IDS } from "./db/mod.ts";
+import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level, PYQ_FILE_IDS } from "./db/mod.ts";
 import { helpCmd } from "./cmd/help.ts";
 import { batchCmd } from "./cmd/batch.ts";
 import { inlineQueryHandler } from "./inline.ts";
