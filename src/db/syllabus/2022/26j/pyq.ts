@@ -1,7 +1,7 @@
 import { FileRecord } from "../../../mod.ts";
 
 export const FILE_IDS: Record<string, FileRecord> = {
-    "p1-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-gmpWTeTw0p_91onnaa-7oFQa42rKAAKOKQACLHuxVrxw2NS5GzqfPQQ", syllabus: "2022" }],
+  "p1-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-gmpWTeTw0p_91onnaa-7oFQa42rKAAKOKQACLHuxVrxw2NS5GzqfPQQ", syllabus: "2022" }],
   "p2-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-hGpWTeYkbK-vYzi3AZmF6VGKuEZHAAKPKQACLHuxVj2GbW1fUkTaPQQ", syllabus: "2022" }],
   "p3-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-hmpWTegtGLnxlMDDR0Pqmj7HO9xPAAKQKQACLHuxVojBXMg60CuLPQQ", syllabus: "2022" }],
   "p4-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-iGpWTeox0Wjerq1G7ltTBJ1qeMCvAAKRKQACLHuxVj2liMB8COnuPQQ", syllabus: "2022" }],
@@ -17,10 +17,10 @@ export const FILE_IDS: Record<string, FileRecord> = {
   "p14-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAI-TWpWTQLdkGOKRNtGz7BmU_u2XBVHAAK8LQACEmGpVp1BybEns5c_PQQ", syllabus: "2022" }],
   "p15-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAI-TmpWTQIKffknOF6k0pfWQ4wYsqSSAALXLQACEmGpVqGnu87PWsUJPQQ", syllabus: "2022" }],
   "p16-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAI-T2pWTQKVSd82OFruCihO-5t5kh-IAALyLQACEmGpVlTSFJaeg2M0PQQ", syllabus: "2022" }],
-    "p17-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-lmpWTfjx28odXDATxnkg1MF-Kt8EAAKYKQACLHuxVsLhlD3g30O3PQQ", syllabus: "2022" }],
+  "p17-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-lmpWTfjx28odXDATxnkg1MF-Kt8EAAKYKQACLHuxVsLhlD3g30O3PQQ", syllabus: "2022" }],
   "p18-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-mGpWTfsMkSTSeSzBCS6jXXnQzVADAAKZKQACLHuxVky4w8VY6CBxPQQ", syllabus: "2022" }],
   "p19-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-mmpWTf0JGMkxXxbRFLkkG3UvAAH73AACmikAAix7sVZ7iWnjoe44Lz0E", syllabus: "2022" }],
   "p20A-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-nGpWTf8EYvalxLWe6W7OsjsPdaTsAAKbKQACLHuxVmzacdMCTROQPQQ", syllabus: "2022" }],
   "p20B-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-nmpWTgI7P1v21mSjBsmEX-ym2Z1JAAKcKQACLHuxVhKwCk0Dz-_MPQQ", syllabus: "2022" }],
-  "p20C-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-oGpWTgRXWsqqZI4X8trHon1vmJWMAAKdKQACLHuxVgyovg58bdiTPQQ", syllabus: "2022" }],
+  "p20C-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-oGpWTgRXWsqqZI4X8trHon1vmJWMAAKdKQACLHuxVgyovg58bdiTPQQ", syllabus: "2022" }]
 };

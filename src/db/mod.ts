@@ -25,7 +25,7 @@ export const PYQ_FILE_IDS: Record<string, string> = {
   ...SYLLABUS_2022.TERM_24D.PYQS,
   ...SYLLABUS_2022.TERM_25J.PYQS,
   ...SYLLABUS_2022.TERM_25D.PYQS,
-  ...SYLLABUS_2022.TERM_26J.PYQS,
+  ...SYLLABUS_2022.TERM_26J.PYQS
 };
 
 export const PTP_FILE_IDS: Record<string, FileRecord> = {
@@ -51,7 +51,7 @@ export const MQP_FILE_IDS: Record<string, FileRecord> = {
 export type Level = "foundation" | "intermediate" | "final";
 export type DocType = "pyq" | "mqp" | "ptp";
 
-export type FileRecord = { name: string; id: string, syllabus?: string }[];
+export type FileRecord = { name: string; id: string; syllabus?: string }[];
 
 // Structured Academic Data - The Single Source of Truth
 export const ACADEMIC_DATA: Record<

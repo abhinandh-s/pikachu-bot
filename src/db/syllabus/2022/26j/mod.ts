@@ -4,6 +4,6 @@ import { FILE_IDS as PTPS } from "./ptp.ts";
 
 export const TERM_26J = {
   PYQS,
-  PTPS,
+  PTPS
   // MQPS
 };
