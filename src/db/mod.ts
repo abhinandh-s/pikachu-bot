@@ -1,7 +1,7 @@
-import { TERM_25J, TERM_25D, TERM_26J } from "./syllabus/2022/mod.ts";
+import * as SYLLABUS_2022 from "./syllabus/2022/mod.ts";
 import * as SYLLABUS_2016 from "./syllabus/2016/mod.ts";
 export { SYLLABUS_2016 };
-export { TERM_25J, TERM_25D, TERM_26J };
+export { SYLLABUS_2022 };
 
 import * as PYQ from "./pyq.ts";
 import {
@@ -24,13 +24,13 @@ export const PYQ_FILE_IDS: Record<string, string> = {
   ...PYQ.TERM_23D,
   ...PYQ.TERM_24D,
   ...PYQ.TERM_24J,
-  ...TERM_25J.PYQS,
-  ...TERM_25D.PYQS,
-  ...TERM_26J.PYQS,
+  ...SYLLABUS_2022.TERM_25J.PYQS,
+  ...SYLLABUS_2022.TERM_25D.PYQS,
+  ...SYLLABUS_2022.TERM_26J.PYQS,
 };
 
 export const PTP_FILE_IDS: Record<string, FileRecord> = {
-  ...TERM_26J.PTPS
+  ...SYLLABUS_2022.TERM_26J.PTPS
 };
 
 export const MQP_FILE_IDS: Record<string, FileRecord> = {
