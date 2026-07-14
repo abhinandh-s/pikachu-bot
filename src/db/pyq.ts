@@ -151,7 +151,7 @@ export const TERM_24J: Record<string, FileRecord> = {
     { name: "sa", id: "BQACAgUAAxkDAAI8RGpV2If1fN7pnMRPlEfQHUn4blMLAAKrJwACLHuxVk92o_w9Q8UqPQQ", syllabus: "2022" }
   ],
   "p6-24j-pyq": [
-    { name: "q", id: "BQACAgUAAxkBAANnakDgYS9w7FTQDKXruXAnLhoJO6UAAuYgAAKMjQABVjLZT3mlpWOFPAQ", syllabus: "2022" },
+    { name: "q", id: "BQACAgUAAxkBAAI90GpV4CfBuz4qjfhfdmlN-mLteTg8AAKnKwACEmGpVp1U-SqlJOP8PQQ", syllabus: "2022" },
     { name: "sa", id: "BQACAgUAAxkDAAI8TGpV2I6jR4cv9--t65omcXF14JzSAAKwJwACLHuxVroI-EHka_ucPQQ", syllabus: "2022" }
   ],
   "p7-24j-pyq": [
@@ -226,7 +226,7 @@ export const TERM_24D: Record<string, FileRecord> = {
     { name: "sa", id: "BQACAgUAAxkDAAI8QmpV2IX1YgKAvdM6_TaghqBPkkbOAAKqJwACLHuxVoS5taxPVIOfPQQ", syllabus: "2022" }
   ],
   "p6-24d-pyq": [
-    { name: "q", id: "BQACAgUAAxkBAANpakDgYYI1WjuaipEkKLTfKER72gAD6CAAAoyNAAFWAQRSQ-nDZNo8BA", syllabus: "2022" },
+    { name: "q", id: "BQACAgUAAxkBAAI90WpV4CdT-AtcHG1qFJR_R4GXXzZdAAKoKwACEmGpVvMUe1GLadWWPQQ", syllabus: "2022" },
     { name: "sa", id: "BQACAgUAAxkDAAI8SmpV2Iz2KQt0Prqawec_Zb1QphQyAAKvJwACLHuxVusExvKE010DPQQ", syllabus: "2022" }
   ],
   "p7-24d-pyq": [
