@@ -201,7 +201,7 @@ function standardizeFileName(originalName: string): string {
 
   // 4. Extract explicit Suffixes
   const mqpSetMatch = baseName.match(/\b(s[1-2]a?)\b/i); // s1, s1a, s2, s2a
-  const qaMatch = baseName.match(/\b([qa])\b/i); // q or a
+  const qaMatch = baseName.match(/\b(q|sa|a)\b/i); // q, sa or a
 
   // 5. Extract or Infer Document Type
   const typeMatch = baseName.match(/\b(pyq|mqp|ptp)\b/i);
