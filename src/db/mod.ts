@@ -168,7 +168,7 @@ export function paperIdToLevel(id: string): string {
     case "p17":
     case "p18":
     case "p19":
-    case "p20":
+    case "p20": // syllabus 2016
     case "p20A":
     case "p20B":
     case "p20C":
