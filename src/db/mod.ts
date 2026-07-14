@@ -1,5 +1,5 @@
-import { TERM_26J } from "./syllabus/2022/mod.ts";
-export { TERM_26J };
+import { TERM_25D, TERM_26J } from "./syllabus/2022/mod.ts";
+export { TERM_25D, TERM_26J };
 
 import * as PYQ from "./pyq.ts";
 import {
