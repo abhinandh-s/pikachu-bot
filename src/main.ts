@@ -12,8 +12,6 @@ const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
 import { InputMediaDocument } from "grammy/types.ts";
 
-let isSendingPyqs = false;
-
 // Helper function to split arrays into chunks of 10
 function chunkArray<T>(array: T[], size: number): T[][] {
   const result = [];
@@ -71,7 +69,7 @@ bot.command("pyqs", async (ctx: Context) => {
         if (i < totalBatches - 1) {
           await new Promise((resolve) => setTimeout(resolve, 2000));
         }
-      } catch (sendError: any) {
+      } catch (sendError: unknown) {
         console.error(`Failed to send batch ${i + 1}:`, sendError);
 
         if (sendError.parameters?.retry_after) {
