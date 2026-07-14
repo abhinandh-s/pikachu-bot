@@ -1,3 +1,6 @@
+export * from "./syllabus/2022/mod.ts";
+// export * from "./syllabus/2016/mod.ts";
+
 import * as PTP26J from "./syllabus/2022/26j/ptp.ts";
 import * as PYQ from "./pyq.ts";
 import {
