@@ -1,4 +1,4 @@
-import * as PTP26J from "./syllabus/26j/ptp.ts";
+import * as PTP26J from "./syllabus/2022/26j/ptp.ts";
 import * as PYQ from "./pyq.ts";
 import {
   TERM_23D,
