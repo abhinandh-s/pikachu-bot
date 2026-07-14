@@ -1,4 +1,4 @@
-import { FileRecord } from "db/mod.ts";
+import { FileRecord } from "../../../mod.ts";
 
 export const FILE_IDS: Record<string, FileRecord> = {
   "p1-26j-ptp": [
