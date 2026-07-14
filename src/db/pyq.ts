@@ -444,28 +444,3 @@ export const TERM_25D: Record<string, FileRecord> = {
     { name: "sa", id: "BQACAgUAAxkDAAI8PmpV2IIGQbXe02UMbsyi6JCcyz8UAAKoJwACLHuxVqu6Ms6W6Lo1PQQ", syllabus: "2022" }
   ]
 };
-
-export const TERM_26J: Record<string, FileRecord> = {
-  "p1-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAILFGpPWWZ8lgEdvcTTG_eTVcYjvskvAALzHwAC0vJ4VrH07jMaKaYDPAQ", syllabus: "2022" }],
-  "p2-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAILE2pPWWblKgQ0PmLBUYsIgNZVqCUOAALyHwAC0vJ4VhT9UgNt4JyCPAQ", syllabus: "2022" }],
-  "p3-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAILEmpPWWYR9rwrZ3FaVKZVR17zu1ADAALxHwAC0vJ4Vgcg_zSXV2opPAQ", syllabus: "2022" }],
-  "p4-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAILEWpPWWbtbpxbfD8rvnNnwLfqPbD2AALwHwAC0vJ4Vq53y5oI_nPUPAQ", syllabus: "2022" }],
-  "p5-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAIFtWpEvDS6t-YOZ8k7NuDpm8g4oOLYAAK6HAAC_YwpVoxA6cBTwwmkPAQ", syllabus: "2022" }],
-  "p6-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAIFtmpEvDR4ZQg96e7blX_fXkJi3fQ7AAK7HAAC_YwpVhNx1gRAHNAbPAQ", syllabus: "2022" }],
-  "p7-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAIFt2pEvDSH7hpeTiRWaiWcJxO6ToonAAK8HAAC_YwpVmqnYj_tmpyyPAQ", syllabus: "2022" }],
-  "p8-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAILEGpPWWbG-eGlYkq8ByKLsm4Xiw2gAALvHwAC0vJ4VgZfi4E2JyFqPAQ", syllabus: "2022" }],
-  "p9-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAIFuGpEvDSdXWodcTxNn2XzMS8BJSX8AAK9HAAC_YwpVqabyUcBckyoPAQ", syllabus: "2022" }],
-  "p10-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAIFrWpEvDSR6JELpMeSGxeFXmCoNSUfAAKyHAAC_YwpVgqqll60uSYfPAQ", syllabus: "2022" }],
-  "p11-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAI-SmpWTQIkutIu304MvEj8dyLBmrGzAAJVLQACEmGpVm7eVEpshLi3PQQ", syllabus: "2022" }],
-  "p12-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAI-S2pWTQKP1B0y3gQcYgABFgmgEVtO7wACdC0AAhJhqVb2aIMUk6pr5D0E", syllabus: "2022" }],
-  "p13-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAI-TGpWTQLasbzxHn0b7jaoGM6bt3FZAAKiLQACEmGpVv0qLEa_igKMPQQ", syllabus: "2022" }],
-  "p14-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAI-TWpWTQLdkGOKRNtGz7BmU_u2XBVHAAK8LQACEmGpVp1BybEns5c_PQQ", syllabus: "2022" }],
-  "p15-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAI-TmpWTQIKffknOF6k0pfWQ4wYsqSSAALXLQACEmGpVqGnu87PWsUJPQQ", syllabus: "2022" }],
-  "p16-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAI-T2pWTQKVSd82OFruCihO-5t5kh-IAALyLQACEmGpVlTSFJaeg2M0PQQ", syllabus: "2022" }],
-  "p17-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAIFsmpEvDRVyk-12O6YL5JiuSvz5w2QAAK3HAAC_YwpVmLfi2iQRS0TPAQ", syllabus: "2022" }],
-  "p18-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAIFs2pEvDSjO9iTvyWqF-Da5Ck7k_wrAAK4HAAC_YwpVv7JRuUGbcP0PAQ", syllabus: "2022" }],
-  "p19-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAIFtGpEvDRNEZ9pCd_0MVwxK1exGvBHAAK5HAAC_YwpVj2HJk4rVyfsPAQ", syllabus: "2022" }],
-  "p20A-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAILDWpPWWZEksnOxSE3CAzH4rjX81v8AALsHwAC0vJ4VoaOtUFl9NK4PAQ", syllabus: "2022" }],
-  "p20B-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAILDmpPWWYIIFfnNiwxPOPeVisgD08JAALtHwAC0vJ4VgkkMNWEeDh2PAQ", syllabus: "2022" }],
-  "p20C-26j-pyq": [{ name: "q", id: "BQACAgUAAxkBAAILD2pPWWaU3sbojzlF1YDKYhqM9GDkAALuHwAC0vJ4VuC8E6oLLtN3PAQ", syllabus: "2022" }]
-};
