@@ -21,7 +21,7 @@ import {
 } from "./mqp.ts";
 
 export const PYQ_FILE_IDS: Record<string, string> = {
-  ...PYQ.TERM_23D,
+  ...SYLLABUS_2022.TERM_23D.PYQS,
   ...SYLLABUS_2022.TERM_24J.PYQS,
   ...SYLLABUS_2022.TERM_24D.PYQS,
   ...SYLLABUS_2022.TERM_25J.PYQS,
