@@ -43,6 +43,7 @@ bot.command("pyqs", async (ctx: Context) => {
 
       for (const file of fileRecords) {
         if (file.id) {
+          console.log(`Adding file: ${file.id} for ${key}`); 
           filesToSend.push({
             type: "document",
             media: file.id,
