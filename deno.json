@@ -4,7 +4,8 @@
   },
   "imports": {
      "@std/path": "https://deno.land/std@0.224.0/path/mod.ts",
-    "grammy": "https://deno.land/x/grammy@v1.44.0/mod.ts"
+    "grammy": "https://deno.land/x/grammy@v1.44.0/mod.ts",
+      "grammy/types.ts": "https://deno.land/x/grammy@v1.34.0/types.ts",
   },
   "fmt": {
     "lineWidth": 150,
