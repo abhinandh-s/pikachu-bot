@@ -1,4 +1,4 @@
-import { TERM_26J_PTPS } from "./ptp.ts";
+import * as PTP26J from "./syllabus/26j/ptp.ts";
 import * as PYQ from "./pyq.ts";
 import {
   TERM_23D,
@@ -26,7 +26,7 @@ export const PYQ_FILE_IDS: Record<string, string> = {
 };
 
 export const PTP_FILE_IDS: Record<string, FileRecord> = {
-  ...TERM_26J_PTPS
+  ...PTP26J.FILE_IDS
 };
 
 export const MQP_FILE_IDS: Record<string, FileRecord> = {
