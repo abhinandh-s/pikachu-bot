@@ -10,59 +10,85 @@ const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
 const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
-// Global execution lock to prevent duplicate runs
-let isSendingPyqs = false;
+import { InputMediaDocument } from "grammy/types.ts";
 
-bot.command("all_pyqs", async (ctx) => {
-  if (ctx.from?.id !== ADMIN_ID) return;
+// Helper function to split arrays into chunks of 10
+function chunkArray<T>(array: T[], size: number): T[][] {
+  const result = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
+  }
+  return result;
+}
 
+bot.command("all_pyqs", async (ctx: Context) => {
   if (isSendingPyqs) {
-    return await ctx.reply("⚠️ An upload process is already active. Please wait until it finishes!");
+    return ctx.reply("⏳ A file export is already in progress. Please wait.");
   }
 
-  // 1. Send the initial response IMMEDIATELY.
-  // We AWAIT this so the server knows we responded to the webhook/update.
-  await ctx.reply("🚀 Starting background process to send all 100 PYQ documents...");
+  await ctx.reply("🚀 Gathering and sending PYQ documents in batches. Please wait...");
 
-  // 2. Start the heavy processing loop WITHOUT using 'await' on the execution block.
-  // This allows the command handler to exit immediately while the loop runs in the background.
-  (async () => {
-    try {
-      isSendingPyqs = true;
+  try {
+    isSendingPyqs = true;
 
-      for (const [key, fileRecords] of Object.entries(PYQ_FILE_IDS)) {
-        if (!Array.isArray(fileRecords) || fileRecords.length === 0) continue;
+    // 1. Gather all the files you want to send. 
+    // (If "23d" is a specific key, we filter for it here, otherwise we collect all)
+    const filesToSend = [];
+    
+    for (const [key, fileRecords] of Object.entries(PYQ_FILE_IDS)) {
+      // If you ONLY want '23d', uncomment the next line:
+      // if (key !== "23d") continue; 
 
-        for (const file of fileRecords) {
-          if (!file.id) continue;
+      if (!Array.isArray(fileRecords)) continue;
 
-          try {
-            await ctx.replyWithDocument(file.id, {
-              caption: `📄 Key: ${key}\n📚 Syllabus: ${file.syllabus ?? "Unknown"}`
-            });
-
-            // Safe 1-second delay between file deliveries
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-          } catch (sendError: unknown) {
-            console.error(`Failed to send ${key}:`, sendError);
-
-            if (sendError.parameters?.retry_after) {
-              const waitTime = sendError.parameters.retry_after * 1000;
-              await new Promise((resolve) => setTimeout(resolve, waitTime));
-            }
-          }
+      for (const file of fileRecords) {
+        if (file.id) {
+          filesToSend.push({
+            type: "document",
+            media: file.id,
+            caption: `📄 Key: ${key}\n📚 Syllabus: ${file.syllabus ?? "Unknown"}`
+          } as InputMediaDocument);
         }
       }
-
-      // 3. Notify the admin when the background thread completely finishes
-      await ctx.reply("✅ All PYQ documents have been successfully sent in the background!");
-    } catch (error) {
-      console.error("Critical Background Error:", error);
-      await ctx.reply("❌ A critical error occurred during the background file export.");
-    } finally {
-      isSendingPyqs = false;
     }
-  })(); // The () here immediately invokes the background task asynchronously
+
+    if (filesToSend.length === 0) {
+      return ctx.reply("❌ No files found for 23d.");
+    }
+
+    // 2. Split into chunks of 10 (Telegram's max limit for media groups)
+    const batches = chunkArray(filesToSend, 10);
+
+    // 3. Send batches sequentially WITH await so Deno doesn't kill the isolate
+    for (const batch of batches) {
+      try {
+        await ctx.replyWithMediaGroup(batch);
+        
+        // Short delay between batches (2 seconds is plenty safe for media groups)
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      } catch (sendError: any) {
+        console.error("Failed to send batch:", sendError);
+
+        // Handle Telegram Rate Limit (429) natively
+        if (sendError.parameters?.retry_after) {
+          const waitTime = sendError.parameters.retry_after * 1000;
+          console.log(`Rate limited! Waiting for ${waitTime}ms...`);
+          await new Promise((resolve) => setTimeout(resolve, waitTime));
+          
+          // Retry the failed batch once
+          await ctx.replyWithMediaGroup(batch); 
+        }
+      }
+    }
+
+    await ctx.reply("✅ All PYQ documents have been successfully sent!");
+    
+  } catch (error) {
+    console.error("Critical Error:", error);
+    await ctx.reply("❌ A critical error occurred during the file export.");
+  } finally {
+    isSendingPyqs = false;
+  }
 });
 
 bot.command("migrate", async (ctx) => {
