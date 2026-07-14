@@ -1,3 +1,5 @@
+import { FileRecord } from "../../../mod.ts";
+
 export const TERM_26J: Record<string, FileRecord> = {
     "p1-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-gmpWTeTw0p_91onnaa-7oFQa42rKAAKOKQACLHuxVrxw2NS5GzqfPQQ", syllabus: "2022" }],
   "p2-26j-pyq": [{ name: "q", id: "BQACAgUAAxkDAAI-hGpWTeYkbK-vYzi3AZmF6VGKuEZHAAKPKQACLHuxVj2GbW1fUkTaPQQ", syllabus: "2022" }],
