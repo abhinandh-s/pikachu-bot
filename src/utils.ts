@@ -45,8 +45,3 @@ export function paperIdToLevel(id: string): string {
       return "unknown";
   }
 }
-
-console.log(renderLevel("p4")); // <blockquote>CMA FOUNDATION</blockquote>
-console.log(renderLevel("p12")); // <blockquote>CMA INTERMEDIATE</blockquote>
-console.log(renderLevel("p13")); // <blockquote>CMA FINAL</blockquote>
-console.log(renderLevel("p20A")); // <blockquote>CMA FINAL</blockquote>
