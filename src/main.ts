@@ -12,6 +12,8 @@ const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
 import { InputMediaDocument } from "grammy/types.ts";
 
+let isSendingPyqs = false;
+
 // Helper function to split arrays into chunks of 10
 function chunkArray<T>(array: T[], size: number): T[][] {
   const result = [];
