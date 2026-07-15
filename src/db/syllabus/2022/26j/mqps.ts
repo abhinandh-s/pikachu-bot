@@ -58,7 +58,7 @@ export const TERM_26J: Record<string, FileRecord[]> = {
   "p10-26j-mqp": [
     { name: "s1", id: "BQACAgUAAxkDAAJEYWpXfJzQhRGamzh1Ha5392fxGCnuAAIKIgACLHvBVuFjWa7xFzD0PQQ", syllabus: "2022" },
     { name: "s1a", id: "BQACAgUAAxkDAAJEi2pXfMPzA2MG67wnfyzaNwLddUREAAIfIgACLHvBVuzStxH9_x4sPQQ", syllabus: "2022" },
-     { name: "s2", id: "BQACAgUAAxkDAAJE4GpXfnAxF3v9tu35YPetxPcsuv1eAAJPIgACLHvBVl2peOr1NaR-PQQ", syllabus: "2022" },
+    { name: "s2", id: "BQACAgUAAxkDAAJE4GpXfnAxF3v9tu35YPetxPcsuv1eAAJPIgACLHvBVl2peOr1NaR-PQQ", syllabus: "2022" },
     { name: "s2a", id: "BQACAgUAAxkDAAJEtWpXfOo-SxC3s5ykO7y46uQM7BODAAI0IgACLHvBVlbFSvWC4xwdPQQ", syllabus: "2022" }
   ],
   "p11-26j-mqp": [
@@ -114,5 +114,5 @@ export const TERM_26J: Record<string, FileRecord[]> = {
   "p20C-26j-mqp": [
     { name: "s1", id: "BQACAgUAAxkDAAJEeWpXfLIVUaqL8fqVLdpHmQVkqhzUAAIWIgACLHvBVgr7v6bXxt31PQQ", syllabus: "2022" },
     { name: "s1a", id: "BQACAgUAAxkDAAJEo2pXfNlKfsEeVW0UvacPfGYdlBFXAAIrIgACLHvBVrS1KqblyBsYPQQ", syllabus: "2022" }
-  ],
+  ]
 };
