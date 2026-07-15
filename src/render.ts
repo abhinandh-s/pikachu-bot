@@ -55,3 +55,13 @@ export function renderCaption(
   }
   return caption;
 }
+
+
+import { add, Greeter } from "paper-utils";
+
+// adds
+console.log(add(1, 1));
+
+// greets
+const greeter = new Greeter("world");
+console.log(greeter.greet());
