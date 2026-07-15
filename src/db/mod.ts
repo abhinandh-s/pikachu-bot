@@ -27,7 +27,7 @@ export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...TERM_25D_MQPS,
   ...TERM_25J_MQPS,
   ...TERM_25D_L3_MQPS,
-  ...TERM_25J_L3_MQPS,
+  ...TERM_25J_L3_MQPS
 };
 
 export type Level = "foundation" | "intermediate" | "final";
