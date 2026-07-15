@@ -4,8 +4,6 @@ export { SYLLABUS_2016 };
 export { SYLLABUS_2022 };
 
 import {
-  TERM_24J,
-  TERM_24J_L3_MQPS,
   TERM_25D as TERM_25D_MQPS,
   TERM_25D_L3_MQPS,
   TERM_25J as TERM_25J_MQPS,
@@ -28,14 +26,13 @@ export const PTP_FILE_IDS: Record<string, FileRecord> = {
 
 export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...TERM_L1,
-  ...TERM_24J,
   ...TERM_25D_MQPS,
   ...TERM_25J_MQPS,
   ...TERM_25D_L3_MQPS,
   ...TERM_25J_L3_MQPS,
-  ...TERM_24J_L3_MQPS,
   ...SYLLABUS_2022.TERM_26J.MQPS,
   ...SYLLABUS_2022.TERM_23D.MQPS,
+  ...SYLLABUS_2022.TERM_24J.MQPS,
   ...SYLLABUS_2022.TERM_24D.MQPS
 };
 
