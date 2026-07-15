@@ -30,16 +30,15 @@ export const PTP_FILE_IDS: Record<string, FileRecord> = {
 
 export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...TERM_L1,
-  ...TERM_24D,
   ...TERM_24J,
   ...TERM_25D_MQPS,
   ...TERM_25J_MQPS,
   ...TERM_25D_L3_MQPS,
   ...TERM_25J_L3_MQPS,
-  ...TERM_24D_L3_MQPS,
   ...TERM_24J_L3_MQPS,
   ...SYLLABUS_2022.TERM_26J.MQPS,
-  ...SYLLABUS_2022.TERM_23D.MQPS
+  ...SYLLABUS_2022.TERM_23D.MQPS,
+  ...SYLLABUS_2022.TERM_24D.MQPS
 };
 
 export type Level = "foundation" | "intermediate" | "final";
