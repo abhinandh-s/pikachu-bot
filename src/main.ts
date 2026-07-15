@@ -275,7 +275,7 @@ bot.command("mqps_s1", async (ctx: Context) => {
       if (!Array.isArray(fileRecords)) continue;
 
       for (const file of fileRecords) {
-        if (file.name === "s1a" && file.id) {
+        if (file.name === "s1" && file.id) {
           // FIX 1: Clean any copy-paste whitespaces/newlines from your data source
           const cleanId = file.id.trim();
 
