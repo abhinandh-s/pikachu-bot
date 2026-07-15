@@ -4,8 +4,6 @@ export { SYLLABUS_2016 };
 export { SYLLABUS_2022 };
 
 import {
-  TERM_24D,
-  TERM_24D_L3_MQPS,
   TERM_24J,
   TERM_24J_L3_MQPS,
   TERM_25D as TERM_25D_MQPS,
