@@ -3,7 +3,7 @@ import * as SYLLABUS_2016 from "./syllabus/2016/mod.ts";
 export { SYLLABUS_2016 };
 export { SYLLABUS_2022 };
 
-import { TERM_L1 } from "./mqp.ts";
+// import { TERM_L1 } from "./mqp.ts";
 
 export const PYQ_FILE_IDS: Record<string, string> = {
   ...SYLLABUS_2022.TERM_23D.PYQS,
@@ -25,7 +25,7 @@ export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...SYLLABUS_2022.TERM_24D.MQPS,
   ...SYLLABUS_2022.TERM_24J.MQPS,
   ...SYLLABUS_2022.TERM_23D.MQPS,
-  ...TERM_L1
+  // ...TERM_L1
 };
 
 export type Level = "foundation" | "intermediate" | "final";
