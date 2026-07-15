@@ -42,7 +42,7 @@ bot.command("mqps", async (ctx: Context) => {
       if (!Array.isArray(fileRecords)) continue;
 
       for (const file of fileRecords) {
-              if file.name === "s1" {
+              if (file.name === "s1") {
         if (file.id) {
           console.log(`Adding file: ${file.id} for ${key}`);
           filesToSend.push({
