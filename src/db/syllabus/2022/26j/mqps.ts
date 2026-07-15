@@ -101,11 +101,9 @@ export const FILE_IDS: Record<string, FileRecord> = {
     { name: "s1", id: "BQACAgUAAxkDAAJEc2pXfKwvlEvJCwtDEGzwNdwC0UvnAAITIgACLHvBVs7wSMknKTqhPQQ", syllabus: "2022" },
     { name: "s1a", id: "BQACAgUAAxkDAAJEnWpXfNMCO5H1TShwMpI4Kg-V-lpqAAIoIgACLHvBVgXRDkgB6uhQPQQ", syllabus: "2022" }
   ],
-  "p20-26j-mqp": [
-    { name: "s1a", id: "BQACAgUAAxkDAAJEn2pXfNV9MitqxYxT6ybhfBVL5HUrAAIpIgACLHvBVh1JaPM7qHZ3PQQ", syllabus: "2022" }
-  ],
   "p20A-26j-mqp": [
-    { name: "s1", id: "BQACAgUAAxkDAAJEdWpXfK7w2zrYfV-J-u8OA9KldpYQAAIUIgACLHvBVuQzzJPfihipPQQ", syllabus: "2022" }
+    { name: "s1", id: "BQACAgUAAxkDAAJEdWpXfK7w2zrYfV-J-u8OA9KldpYQAAIUIgACLHvBVuQzzJPfihipPQQ", syllabus: "2022" },
+  { name: "s1a", id: "BQACAgUAAxkDAAJQYGpXqe9vx9hRIXZ30lsXc_fyRr0aAAJlIgACFnO4Vq0geObsL80sPQQ", syllabus: "2022" }
   ],
   "p20B-26j-mqp": [
     { name: "s1", id: "BQACAgUAAxkDAAJEd2pXfLBXpVneNx3eZrhvt2aRpG7aAAIVIgACLHvBVmzzly8CKoYUPQQ", syllabus: "2022" },
