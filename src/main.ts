@@ -74,7 +74,7 @@ bot.command("mqps_s2a", async (ctx: Context) => {
         if (i < totalBatches - 1) {
           await new Promise((resolve) => setTimeout(resolve, 2000));
         }
-      } catch (sendError: any) {
+      } catch (sendError: unknown) {
         console.error(`❌ Failed to send batch ${i + 1}:`, sendError.message);
 
         // Fallback: If a batch of 10 fails, try sending them individually so the remaining 9 still go through!
@@ -83,8 +83,8 @@ bot.command("mqps_s2a", async (ctx: Context) => {
         for (const item of batches[i]) {
           try {
             await ctx.replyWithDocument(item.media);
-          } catch (individualError: any) {
-             console.error(`🔥 This specific File ID is dead: "${item.media}"`);
+          } catch (individualError: unknown) {
+             console.error(`🔥 This specific File ID is dead: "${item.media}"`, individualError);
              await ctx.reply(`❌ Failed to send a document due to an invalid Telegram File ID.`);
           }
         }
@@ -151,7 +151,7 @@ bot.command("mqps_s2", async (ctx: Context) => {
         if (i < totalBatches - 1) {
           await new Promise((resolve) => setTimeout(resolve, 2000));
         }
-      } catch (sendError: any) {
+      } catch (sendError: unknown) {
         console.error(`❌ Failed to send batch ${i + 1}:`, sendError.message);
 
         // Fallback: If a batch of 10 fails, try sending them individually so the remaining 9 still go through!
@@ -160,8 +160,8 @@ bot.command("mqps_s2", async (ctx: Context) => {
         for (const item of batches[i]) {
           try {
             await ctx.replyWithDocument(item.media);
-          } catch (individualError: any) {
-             console.error(`🔥 This specific File ID is dead: "${item.media}"`);
+          } catch (individualError: unknown) {
+             console.error(`🔥 This specific File ID is dead: "${item.media}"`, individualError);
              await ctx.reply(`❌ Failed to send a document due to an invalid Telegram File ID.`);
           }
         }
@@ -228,7 +228,7 @@ bot.command("mqps_s1a", async (ctx: Context) => {
         if (i < totalBatches - 1) {
           await new Promise((resolve) => setTimeout(resolve, 2000));
         }
-      } catch (sendError: any) {
+      } catch (sendError: unknown) {
         console.error(`❌ Failed to send batch ${i + 1}:`, sendError.message);
 
         // Fallback: If a batch of 10 fails, try sending them individually so the remaining 9 still go through!
@@ -237,8 +237,8 @@ bot.command("mqps_s1a", async (ctx: Context) => {
         for (const item of batches[i]) {
           try {
             await ctx.replyWithDocument(item.media);
-          } catch (individualError: any) {
-             console.error(`🔥 This specific File ID is dead: "${item.media}"`);
+          } catch (individualError: unknown) {
+             console.error(`🔥 This specific File ID is dead: "${item.media}"`, individualError);
              await ctx.reply(`❌ Failed to send a document due to an invalid Telegram File ID.`);
           }
         }
