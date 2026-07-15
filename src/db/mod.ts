@@ -25,7 +25,7 @@ export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...SYLLABUS_2022.TERM_24D.MQPS,
   ...SYLLABUS_2022.TERM_24J.MQPS,
   ...SYLLABUS_2022.TERM_23D.MQPS,
-  ...TERM_L1,
+  ...TERM_L1
 };
 
 export type Level = "foundation" | "intermediate" | "final";
