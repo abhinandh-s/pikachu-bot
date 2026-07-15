@@ -41,7 +41,7 @@ bot.command("mqps_s2a", async (ctx: Context) => {
       if (!Array.isArray(fileRecords)) continue;
 
       for (const file of fileRecords) {
-              if file.name === "s2a" {
+              if (file.name === "s2a") {
         if (file.id) {
           console.log(`Adding file: ${file.id} for ${key}`);
           filesToSend.push({
@@ -108,7 +108,7 @@ bot.command("mqps_s2", async (ctx: Context) => {
       if (!Array.isArray(fileRecords)) continue;
 
       for (const file of fileRecords) {
-              if file.name === "s2" {
+              if (file.name === "s2") {
         if (file.id) {
           console.log(`Adding file: ${file.id} for ${key}`);
           filesToSend.push({
@@ -175,7 +175,7 @@ bot.command("mqps_s1a", async (ctx: Context) => {
       if (!Array.isArray(fileRecords)) continue;
 
       for (const file of fileRecords) {
-              if file.name === "s1a" {
+              if (file.name === "s1a") {
         if (file.id) {
           console.log(`Adding file: ${file.id} for ${key}`);
           filesToSend.push({
