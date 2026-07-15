@@ -1,9 +1,6 @@
 import * as SYLLABUS_2022 from "./syllabus/2022/mod.ts";
 import * as SYLLABUS_2016 from "./syllabus/2016/mod.ts";
-export { SYLLABUS_2016 };
-export { SYLLABUS_2022 };
-
-// import { TERM_L1 } from "./mqp.ts";
+export { SYLLABUS_2016, SYLLABUS_2022 };
 
 export const PYQ_FILE_IDS: Record<string, string> = {
   ...SYLLABUS_2022.TERM_23D.PYQS,
@@ -24,8 +21,7 @@ export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...SYLLABUS_2022.TERM_25J.MQPS,
   ...SYLLABUS_2022.TERM_24D.MQPS,
   ...SYLLABUS_2022.TERM_24J.MQPS,
-  ...SYLLABUS_2022.TERM_23D.MQPS
-  // ...TERM_L1
+  ...SYLLABUS_2022.TERM_23D.MQPS,
 };
 
 export type Level = "foundation" | "intermediate" | "final";
@@ -124,40 +120,4 @@ export function getAllFiles(doc: DocType, paperId: string) {
     }
   }
   return results;
-}
-
-export function paperIdToLevel(id: string): string {
-  switch (id) {
-    case "p1":
-    case "p2":
-    case "p3":
-    case "p4":
-      return "foundation";
-
-    case "p5":
-    case "p6":
-    case "p7":
-    case "p8":
-    case "p9":
-    case "p10":
-    case "p11":
-    case "p12":
-      return "intermediate";
-
-    case "p13":
-    case "p14":
-    case "p15":
-    case "p16":
-    case "p17":
-    case "p18":
-    case "p19":
-    case "p20": // syllabus 2016
-    case "p20A":
-    case "p20B":
-    case "p20C":
-      return "final";
-
-    default:
-      return "unknown";
-  }
 }
