@@ -37,11 +37,12 @@ bot.command("mqps", async (ctx: Context) => {
 
     // Filter files for ONLY the requested term
     for (const [key, fileRecords] of Object.entries(MQP_FILE_IDS)) {
-      if (!key.includes(`-${requestedTerm}-mqp-s1`)) continue;
+      if (!key.includes(`-${requestedTerm}-mqp`)) continue;
 
       if (!Array.isArray(fileRecords)) continue;
 
       for (const file of fileRecords) {
+              if file.name === "s1" {
         if (file.id) {
           console.log(`Adding file: ${file.id} for ${key}`);
           filesToSend.push({
@@ -49,6 +50,7 @@ bot.command("mqps", async (ctx: Context) => {
             media: file.id
           });
         }
+      }
       }
     }
 
