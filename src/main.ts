@@ -1,5 +1,5 @@
 import { Bot, Context, InlineKeyboard, webhookCallback } from "grammy";
-import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level, PYQ_FILE_IDS } from "./db/mod.ts";
+import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level, MQP_FILE_IDS, PYQ_FILE_IDS } from "./db/mod.ts";
 import { helpCmd } from "./cmd/help.ts";
 import { batchCmd } from "./cmd/batch.ts";
 import { inlineQueryHandler } from "./inline.ts";
@@ -21,7 +21,7 @@ function chunkArray<T>(array: T[], size: number): T[][] {
   return result;
 }
 
-/*
+
 // Use a dynamic command: /mqps 23d
 bot.command("mqps", async (ctx: Context) => {
   // Extract the term from the message (e.g., "23d" from "/pyqs 23d")
@@ -38,7 +38,7 @@ bot.command("mqps", async (ctx: Context) => {
 
     // Filter files for ONLY the requested term
     for (const [key, fileRecords] of Object.entries(MQP_FILE_IDS)) {
-      if (!key.includes(`-${requestedTerm}-`)) continue;
+      if (!key.includes(`-${requestedTerm}-mqp-s1`)) continue;
 
       if (!Array.isArray(fileRecords)) continue;
 
@@ -87,8 +87,6 @@ bot.command("mqps", async (ctx: Context) => {
     await ctx.reply("❌ A critical error occurred during the file export.");
   }
 });
-
-*/
 
 // Use a dynamic command: /pyqs 23d
 bot.command("pyqs", async (ctx: Context) => {
