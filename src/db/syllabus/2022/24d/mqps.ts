@@ -1,6 +1,6 @@
 import { FileRecord } from "../../../mod.ts";
 
-export const FILE_IDS: Record<string, FileRecord[]> = {
+export const FILE_IDS: Record<string, FileRecord> = {
   "p1-24d-mqp": [
     { name: "s1", id: "BQACAgUAAxkDAAJHJ2pXg4_2pAglbMY8FIT5PrwKHFyWAAKTIgACLHvBVvR9LcfOgpuzPQQ", syllabus: "2022" },
     { name: "s1a", id: "BQACAgUAAxkDAAJHU2pXg7cwFCWvEPrqK4SPRVJs7i9dAAKpIgACLHvBVru66cXeGZRkPQQ", syllabus: "2022" },
