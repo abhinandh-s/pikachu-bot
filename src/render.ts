@@ -1,5 +1,6 @@
 import { DocType } from "./types.ts";
-import { formatTerm, paperIdToLevel } from "./utils.ts";
+import { formatTerm } from "./utils.ts";
+import { add, Greeter, paperIdToLevel } from "paper-utils";
 
 export function renderLevel(id: string): string {
   return `<blockquote>CMA ${paperIdToLevel(id).toUpperCase()}</blockquote>`;
@@ -55,8 +56,6 @@ export function renderCaption(
   }
   return caption;
 }
-
-import { add, Greeter } from "paper-utils";
 
 // adds
 console.log(add(1, 1));
