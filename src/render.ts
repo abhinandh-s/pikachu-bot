@@ -56,7 +56,6 @@ export function renderCaption(
   return caption;
 }
 
-
 import { add, Greeter } from "paper-utils";
 
 // adds
