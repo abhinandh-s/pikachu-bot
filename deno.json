@@ -6,6 +6,7 @@
      "@std/path": "https://deno.land/std@0.224.0/path/mod.ts",
     "grammy": "https://deno.land/x/grammy@v1.44.0/mod.ts",
       "grammy/types.ts": "https://deno.land/x/grammy@v1.44.0/types.ts",
+        "paper-utils": "https://raw.githubusercontent.com/abhinandh-s/cma-paper-utils/master/mod.js"
   },
   "fmt": {
     "lineWidth": 150,
