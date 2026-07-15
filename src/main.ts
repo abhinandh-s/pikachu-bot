@@ -84,8 +84,8 @@ bot.command("mqps_s2a", async (ctx: Context) => {
           try {
             await ctx.replyWithDocument(item.media);
           } catch (individualError: unknown) {
-             console.error(`🔥 This specific File ID is dead: "${item.media}"`, individualError);
-             await ctx.reply(`❌ Failed to send a document due to an invalid Telegram File ID.`);
+            console.error(`🔥 This specific File ID is dead: "${item.media}"`, individualError);
+            await ctx.reply(`❌ Failed to send a document due to an invalid Telegram File ID.`);
           }
         }
       }
@@ -161,8 +161,8 @@ bot.command("mqps_s2", async (ctx: Context) => {
           try {
             await ctx.replyWithDocument(item.media);
           } catch (individualError: unknown) {
-             console.error(`🔥 This specific File ID is dead: "${item.media}"`, individualError);
-             await ctx.reply(`❌ Failed to send a document due to an invalid Telegram File ID.`);
+            console.error(`🔥 This specific File ID is dead: "${item.media}"`, individualError);
+            await ctx.reply(`❌ Failed to send a document due to an invalid Telegram File ID.`);
           }
         }
       }
@@ -233,13 +233,13 @@ bot.command("mqps_s1a", async (ctx: Context) => {
 
         // Fallback: If a batch of 10 fails, try sending them individually so the remaining 9 still go through!
         await ctx.reply(`⚠️ Batch ${i + 1} had a broken file ID. Sending items individually...`);
-        
+
         for (const item of batches[i]) {
           try {
             await ctx.replyWithDocument(item.media);
           } catch (individualError: unknown) {
-             console.error(`🔥 This specific File ID is dead: "${item.media}"`, individualError);
-             await ctx.reply(`❌ Failed to send a document due to an invalid Telegram File ID.`);
+            console.error(`🔥 This specific File ID is dead: "${item.media}"`, individualError);
+            await ctx.reply(`❌ Failed to send a document due to an invalid Telegram File ID.`);
           }
         }
       }
@@ -316,8 +316,8 @@ bot.command("mqps_s1", async (ctx: Context) => {
           try {
             await ctx.replyWithDocument(item.media);
           } catch (individualError: unknown) {
-             console.error(`🔥 This specific File ID is dead: "${item.media}"`, individualError);
-             await ctx.reply(`❌ Failed to send a document due to an invalid Telegram File ID.`);
+            console.error(`🔥 This specific File ID is dead: "${item.media}"`, individualError);
+            await ctx.reply(`❌ Failed to send a document due to an invalid Telegram File ID.`);
           }
         }
       }
