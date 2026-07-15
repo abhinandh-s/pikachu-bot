@@ -316,7 +316,7 @@ bot.command("mqps_s1", async (ctx: Context) => {
           try {
             await ctx.replyWithDocument(item.media);
           } catch (individualError: unknown) {
-             console.error(`🔥 This specific File ID is dead: "${item.media}"` individualError);
+             console.error(`🔥 This specific File ID is dead: "${item.media}"`, individualError);
              await ctx.reply(`❌ Failed to send a document due to an invalid Telegram File ID.`);
           }
         }
