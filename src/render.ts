@@ -56,11 +56,11 @@ export function renderCaption(
   return caption;
 }
 
-import { add, Greeter } from "paper-utils";
+import { add } from "paper-utils";
 
 // adds
 console.log(add(1, 1));
 
 // greets
-const greeter = new Greeter("world");
-console.log(greeter.greet());
+// const greeter = new Greeter("world");
+// console.log(greeter.greet());
