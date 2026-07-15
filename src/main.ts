@@ -170,7 +170,7 @@ bot.command("mqps_s2", async (ctx: Context) => {
 // =================================
 // =================================
 
-bot.command("mqps_s2a", async (ctx: Context) => {
+bot.command("mqps_s1a", async (ctx: Context) => {
   const requestedTerm = ctx.match.trim().toLowerCase();
 
   if (!requestedTerm) {
