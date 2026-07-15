@@ -1,4 +1,6 @@
-export const TERM_23D: Record<string, FileRecord[]> = {
+import { FileRecord } from "../../../mod.ts";
+
+export const FILE_IDS: Record<string, FileRecord[]> = {
   "p5-23d-mqp": [
     { name: "s1", id: "BQACAgUAAxkDAAJFvmpXgWGElFczXg7vsQPcLEh_tJuJAAJUIgACLHvBVj6tS3z6BwZmPQQ", syllabus: "2022" },
     { name: "s1a", id: "BQACAgUAAxkDAAJF8mpXgZAogoOV7oKfGeDI2qS4CgABIAACbiIAAix7wVa1UCp7eg_lKD0E", syllabus: "2022" },
