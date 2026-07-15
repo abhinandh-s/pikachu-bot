@@ -41,15 +41,15 @@ bot.command("mqps_s2a", async (ctx: Context) => {
       if (!Array.isArray(fileRecords)) continue;
 
       for (const file of fileRecords) {
-              if (file.name === "s2a") {
-        if (file.id) {
-          console.log(`Adding file: ${file.id} for ${key}`);
-          filesToSend.push({
-            type: "document",
-            media: file.id
-          });
+        if (file.name === "s2a") {
+          if (file.id) {
+            console.log(`Adding file: ${file.id} for ${key}`);
+            filesToSend.push({
+              type: "document",
+              media: file.id
+            });
+          }
         }
-      }
       }
     }
 
@@ -108,15 +108,15 @@ bot.command("mqps_s2", async (ctx: Context) => {
       if (!Array.isArray(fileRecords)) continue;
 
       for (const file of fileRecords) {
-              if (file.name === "s2") {
-        if (file.id) {
-          console.log(`Adding file: ${file.id} for ${key}`);
-          filesToSend.push({
-            type: "document",
-            media: file.id
-          });
+        if (file.name === "s2") {
+          if (file.id) {
+            console.log(`Adding file: ${file.id} for ${key}`);
+            filesToSend.push({
+              type: "document",
+              media: file.id
+            });
+          }
         }
-      }
       }
     }
 
@@ -175,15 +175,15 @@ bot.command("mqps_s1a", async (ctx: Context) => {
       if (!Array.isArray(fileRecords)) continue;
 
       for (const file of fileRecords) {
-              if (file.name === "s1a") {
-        if (file.id) {
-          console.log(`Adding file: ${file.id} for ${key}`);
-          filesToSend.push({
-            type: "document",
-            media: file.id
-          });
+        if (file.name === "s1a") {
+          if (file.id) {
+            console.log(`Adding file: ${file.id} for ${key}`);
+            filesToSend.push({
+              type: "document",
+              media: file.id
+            });
+          }
         }
-      }
       }
     }
 
