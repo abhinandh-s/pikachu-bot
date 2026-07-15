@@ -21,8 +21,209 @@ function chunkArray<T>(array: T[], size: number): T[][] {
   return result;
 }
 
+bot.command("mqps_s2a", async (ctx: Context) => {
+  // Extract the term from the message (e.g., "23d" from "/pyqs 23d")
+  const requestedTerm = ctx.match.trim().toLowerCase();
+
+  if (!requestedTerm) {
+    return ctx.reply("❌ Please provide a term. Example: `/mqps 23d`", { parse_mode: "Markdown" });
+  }
+
+  await ctx.reply(`🚀 Gathering PYQ documents for **${requestedTerm.toUpperCase()}**...`, { parse_mode: "Markdown" });
+
+  try {
+    const filesToSend: InputMediaDocument[] = [];
+
+    // Filter files for ONLY the requested term
+    for (const [key, fileRecords] of Object.entries(MQP_FILE_IDS)) {
+      if (!key.includes(`-${requestedTerm}-mqp`)) continue;
+
+      if (!Array.isArray(fileRecords)) continue;
+
+      for (const file of fileRecords) {
+              if file.name === "s2a" {
+        if (file.id) {
+          console.log(`Adding file: ${file.id} for ${key}`);
+          filesToSend.push({
+            type: "document",
+            media: file.id
+          });
+        }
+      }
+      }
+    }
+
+    if (filesToSend.length === 0) {
+      return ctx.reply(`❌ No files found for term: ${requestedTerm.toUpperCase()}`);
+    }
+
+    // Split into chunks of 10
+    const batches = chunkArray(filesToSend, 10);
+    const totalBatches = batches.length;
+
+    // Send batches sequentially
+    for (let i = 0; i < totalBatches; i++) {
+      try {
+        await ctx.replyWithMediaGroup(batches[i]);
+
+        // Short delay to avoid 429 Too Many Requests
+        if (i < totalBatches - 1) {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
+      } catch (sendError: unknown) {
+        console.error(`Failed to send batch ${i + 1}:`, sendError);
+
+        if (sendError.parameters?.retry_after) {
+          const waitTime = sendError.parameters.retry_after * 1000;
+          await new Promise((resolve) => setTimeout(resolve, waitTime));
+          await ctx.replyWithMediaGroup(batches[i]);
+        }
+      }
+    }
+
+    await ctx.reply(`✅ All PYQs for **${requestedTerm.toUpperCase()}** sent successfully!`, { parse_mode: "Markdown" });
+  } catch (error) {
+    console.error("Critical Error:", error);
+    await ctx.reply("❌ A critical error occurred during the file export.");
+  }
+});
+
+bot.command("mqps_s2", async (ctx: Context) => {
+  // Extract the term from the message (e.g., "23d" from "/pyqs 23d")
+  const requestedTerm = ctx.match.trim().toLowerCase();
+
+  if (!requestedTerm) {
+    return ctx.reply("❌ Please provide a term. Example: `/mqps 23d`", { parse_mode: "Markdown" });
+  }
+
+  await ctx.reply(`🚀 Gathering PYQ documents for **${requestedTerm.toUpperCase()}**...`, { parse_mode: "Markdown" });
+
+  try {
+    const filesToSend: InputMediaDocument[] = [];
+
+    // Filter files for ONLY the requested term
+    for (const [key, fileRecords] of Object.entries(MQP_FILE_IDS)) {
+      if (!key.includes(`-${requestedTerm}-mqp`)) continue;
+
+      if (!Array.isArray(fileRecords)) continue;
+
+      for (const file of fileRecords) {
+              if file.name === "s2" {
+        if (file.id) {
+          console.log(`Adding file: ${file.id} for ${key}`);
+          filesToSend.push({
+            type: "document",
+            media: file.id
+          });
+        }
+      }
+      }
+    }
+
+    if (filesToSend.length === 0) {
+      return ctx.reply(`❌ No files found for term: ${requestedTerm.toUpperCase()}`);
+    }
+
+    // Split into chunks of 10
+    const batches = chunkArray(filesToSend, 10);
+    const totalBatches = batches.length;
+
+    // Send batches sequentially
+    for (let i = 0; i < totalBatches; i++) {
+      try {
+        await ctx.replyWithMediaGroup(batches[i]);
+
+        // Short delay to avoid 429 Too Many Requests
+        if (i < totalBatches - 1) {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
+      } catch (sendError: unknown) {
+        console.error(`Failed to send batch ${i + 1}:`, sendError);
+
+        if (sendError.parameters?.retry_after) {
+          const waitTime = sendError.parameters.retry_after * 1000;
+          await new Promise((resolve) => setTimeout(resolve, waitTime));
+          await ctx.replyWithMediaGroup(batches[i]);
+        }
+      }
+    }
+
+    await ctx.reply(`✅ All PYQs for **${requestedTerm.toUpperCase()}** sent successfully!`, { parse_mode: "Markdown" });
+  } catch (error) {
+    console.error("Critical Error:", error);
+    await ctx.reply("❌ A critical error occurred during the file export.");
+  }
+});
+
+bot.command("mqps_s1a", async (ctx: Context) => {
+  // Extract the term from the message (e.g., "23d" from "/pyqs 23d")
+  const requestedTerm = ctx.match.trim().toLowerCase();
+
+  if (!requestedTerm) {
+    return ctx.reply("❌ Please provide a term. Example: `/mqps 23d`", { parse_mode: "Markdown" });
+  }
+
+  await ctx.reply(`🚀 Gathering PYQ documents for **${requestedTerm.toUpperCase()}**...`, { parse_mode: "Markdown" });
+
+  try {
+    const filesToSend: InputMediaDocument[] = [];
+
+    // Filter files for ONLY the requested term
+    for (const [key, fileRecords] of Object.entries(MQP_FILE_IDS)) {
+      if (!key.includes(`-${requestedTerm}-mqp`)) continue;
+
+      if (!Array.isArray(fileRecords)) continue;
+
+      for (const file of fileRecords) {
+              if file.name === "s1a" {
+        if (file.id) {
+          console.log(`Adding file: ${file.id} for ${key}`);
+          filesToSend.push({
+            type: "document",
+            media: file.id
+          });
+        }
+      }
+      }
+    }
+
+    if (filesToSend.length === 0) {
+      return ctx.reply(`❌ No files found for term: ${requestedTerm.toUpperCase()}`);
+    }
+
+    // Split into chunks of 10
+    const batches = chunkArray(filesToSend, 10);
+    const totalBatches = batches.length;
+
+    // Send batches sequentially
+    for (let i = 0; i < totalBatches; i++) {
+      try {
+        await ctx.replyWithMediaGroup(batches[i]);
+
+        // Short delay to avoid 429 Too Many Requests
+        if (i < totalBatches - 1) {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
+      } catch (sendError: unknown) {
+        console.error(`Failed to send batch ${i + 1}:`, sendError);
+
+        if (sendError.parameters?.retry_after) {
+          const waitTime = sendError.parameters.retry_after * 1000;
+          await new Promise((resolve) => setTimeout(resolve, waitTime));
+          await ctx.replyWithMediaGroup(batches[i]);
+        }
+      }
+    }
+
+    await ctx.reply(`✅ All PYQs for **${requestedTerm.toUpperCase()}** sent successfully!`, { parse_mode: "Markdown" });
+  } catch (error) {
+    console.error("Critical Error:", error);
+    await ctx.reply("❌ A critical error occurred during the file export.");
+  }
+});
+
 // Use a dynamic command: /mqps 23d
-bot.command("mqps", async (ctx: Context) => {
+bot.command("mqps_s1", async (ctx: Context) => {
   // Extract the term from the message (e.g., "23d" from "/pyqs 23d")
   const requestedTerm = ctx.match.trim().toLowerCase();
 
