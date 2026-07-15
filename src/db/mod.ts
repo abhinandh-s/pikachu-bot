@@ -3,13 +3,7 @@ import * as SYLLABUS_2016 from "./syllabus/2016/mod.ts";
 export { SYLLABUS_2016 };
 export { SYLLABUS_2022 };
 
-import {
-  TERM_25D as TERM_25D_MQPS,
-  TERM_25D_L3_MQPS,
-  TERM_25J as TERM_25J_MQPS,
-  TERM_25J_L3_MQPS,
-  TERM_L1
-} from "./mqp.ts";
+import { TERM_25D as TERM_25D_MQPS, TERM_25D_L3_MQPS, TERM_25J as TERM_25J_MQPS, TERM_25J_L3_MQPS, TERM_L1 } from "./mqp.ts";
 
 export const PYQ_FILE_IDS: Record<string, string> = {
   ...SYLLABUS_2022.TERM_23D.PYQS,
