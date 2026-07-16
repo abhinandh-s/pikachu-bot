@@ -5,6 +5,8 @@ export { TERM_24D } from "./24d/mod.ts";
 export { TERM_24J } from "./24j/mod.ts";
 export { TERM_23D } from "./23d/mod.ts";
 
+import { Level } from "../../types.ts";
+
 // Structured Academic Data - The Single Source of Truth
 export const ACADEMIC_DATA: Record<
   Level,
