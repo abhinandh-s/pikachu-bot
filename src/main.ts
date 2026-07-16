@@ -1,5 +1,5 @@
 import { Bot, Context, InlineKeyboard, webhookCallback } from "grammy";
-import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level, MQP_FILE_IDS, PYQ_FILE_IDS } from "./db/mod.ts";
+import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level, PYQ_FILE_IDS } from "./db/mod.ts";
 import { helpCmd } from "./cmd/help.ts";
 import { adminCmds } from "./cmd/admin.ts";
 import { batchCmd } from "./cmd/batch.ts";
@@ -9,8 +9,7 @@ import { renderCaption } from "./render.ts";
 
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
-const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
-
+bot.use(adminCmds);
 bot.use(helpCmd);
 bot.use(batchCmd);
 bot.use(inlineQueryHandler);
