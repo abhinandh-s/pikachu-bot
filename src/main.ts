@@ -18,6 +18,30 @@ bot.use(helpCmd);
 bot.use(batchCmd);
 bot.use(inlineQueryHandler);
 
+bot.callbackQuery(
+  /^dm:/,
+  async (ctx) => {
+    const [, paperId, docType, term, name] = ctx.callbackQuery.data.split(":");
+
+const key = `${paperId}-${term}-${docType}`;
+    const files = getFiles(
+      docType as DocType,
+      key
+    );
+
+console.log(files);
+
+for (const file of files as FileRecord) {
+      await ctx.replyWithDocument(file.id, {
+        caption: renderCaption(paperId, docType, term, file.syllabus | "", file.name),
+        parse_mode: "HTML"
+      });
+    }
+
+await ctx.deleteMessage(); // delete "Select term:" msg
+  
+});
+
 bot.on("message:text", async (ctx) => {
   const query = ctx.message.text.trim().toLowerCase().replace(/\s+/g, "-");
 
@@ -143,28 +167,6 @@ async function startHandler(
     }
   );
 }
-
-bot.callbackQuery(
-  /^dm:/,
-  async (ctx) => {
-    const [, paperId, docType, term, name] = ctx.callbackQuery.data.split(":");
-
-const key = `${paperId}-${term}-${docType}`;
-    const files = getFiles(
-      docType as DocType,
-      key
-    );
-
-for (const file of files as FileRecord) {
-      await ctx.replyWithDocument(file.id, {
-        caption: renderCaption(paperId, docType, term, file.syllabus | "", file.name),
-        parse_mode: "HTML"
-      });
-    }
-
-await ctx.deleteMessage(); // delete "Select term:" msg
-  
-});
 
 // ---------- LEVEL ----------
 bot.callbackQuery(
