@@ -48,7 +48,7 @@ inlineQueryHandler.on("inline_query", async (ctx) => {
     });
   });
 
-  // Process MQPs (Mock Question Papers)
+  // Process MQPs (Model Question Papers)
   const mqpMatches = Object.entries(MQP_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
 
   mqpMatches.forEach(([key, files]) => {
@@ -59,7 +59,7 @@ inlineQueryHandler.on("inline_query", async (ctx) => {
         id: `mqp-${key}-${file.name}-${index}`,
         title: `MQP: ${key.toUpperCase()} (${file.name.toUpperCase()})`,
         document_file_id: file.id,
-        description: "Mock Question Paper"
+        description: "Model Question Paper"
       });
     });
   });
