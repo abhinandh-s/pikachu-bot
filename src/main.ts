@@ -150,10 +150,18 @@ bot.callbackQuery(
   async (ctx) => {
     const [, paperId, docType, term, name] = ctx.callbackQuery.data.split(":");
 
-await ctx.replyWithDocument(file.id, {
-      //  caption: renderCaption(paperId, docType, term, file.syllabus | "", file.name),
-        // parse_mode: "HTML"
+const key = `${paperId}-${term}-${docType}`;
+    const files = getFiles(
+      docType as DocType,
+      key
+    );
+
+for (const file of files as FileRecord) {
+      await ctx.replyWithDocument(file.id, {
+        caption: renderCaption(paperId, docType, term, file.syllabus | "", file.name),
+        parse_mode: "HTML"
       });
+    }
 
 await ctx.deleteMessage(); // delete "Select term:" msg
   }
