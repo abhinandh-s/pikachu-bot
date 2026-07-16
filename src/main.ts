@@ -60,7 +60,7 @@ bot.on("message:text", async (ctx) => {
     files.forEach((file, _) => {
       // (Display , callback text)
       // 
-    keyboard.text(`${paper_id} ${formatTerm(term)} | ${paper_type.toUpperCase()} ${file.name.toUpperCase()} | SYL ${file.syllabus}`, `dm::${paper_id}:${term}:${paper_type}:${file.name}`).row();
+    keyboard.text(`${paper_id} ${formatTerm(term)} | ${paper_type.toUpperCase()} ${file.name.toUpperCase()} | SYL ${file.syllabus}`, `dm:${paper_id}:${term}:${paper_type}:${file.name}`).row();
     });
   });
 
