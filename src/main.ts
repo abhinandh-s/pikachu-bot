@@ -33,9 +33,10 @@ bot.on("message:text", async (ctx) => {
 
   ptpMatches.forEach(([key, files]) => {
     const { paper_id, term, paper_type } = parseKey(key);
-    files.forEach((file, index) => {
+    files.forEach((file, _) => {
       // (Display , callback text)
-    keyboard.text(`${paper_id} ${term}`, `migrate:${paper.id}`).row();
+      // 
+    keyboard.text(`${paper_id} ${term}`, `dm::${paper_id}:${term}:${paper_type}:${file.name}`).row();
     });
   });
 
@@ -112,7 +113,7 @@ bot.on("message:text", async (ctx) => {
 */
 
 
-  await ctx.reply("Got your message!");
+  
 });
 
 async function startHandler(
@@ -143,6 +144,20 @@ async function startHandler(
     }
   );
 }
+
+bot.callbackQuery(
+  /^level:/,
+  async (ctx) => {
+    const [, paperId, docType, term, name] = ctx.callbackQuery.data.split(":");
+
+await ctx.replyWithDocument(file.id, {
+      //  caption: renderCaption(paperId, docType, term, file.syllabus | "", file.name),
+        // parse_mode: "HTML"
+      });
+
+await ctx.deleteMessage(); // delete "Select term:" msg
+  }
+});
 
 // ---------- LEVEL ----------
 bot.callbackQuery(
