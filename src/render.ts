@@ -1,6 +1,6 @@
 import { DocType } from "./types.ts";
 import { formatTerm } from "./utils.ts";
-import { add, Greeter, paperIdToLevel } from "paper-utils";
+import { paperIdToLevel } from "paper-utils";
 
 export function renderLevel(id: string): string {
   return `<blockquote>CMA ${paperIdToLevel(id).toUpperCase()}</blockquote>`;
@@ -57,7 +57,7 @@ export function renderCaption(
   return caption;
 }
 
-/*
+
 // key: p20C-26j-mqp 
 // FileRecord: -s2-syl22
 export function renderCaptionFileRecord(
@@ -65,25 +65,22 @@ export function renderCaptionFileRecord(
   docType: DocType,
   name: string,
   term: string,
-  record?: FileRecord,
+  record: FileRecord,
 ): string {
+    const { kind, _, syllabus } = parseFileRecord(record);
 
-    const { name, id, syllabus } = parseFileRecord(record);
-  const { paper_id, term, paper_type } = parseKey(key);
-
-
-renderCaption(
-  id: string,
-  docType: DocType,
-  name: string,
-  term: string,
-  syllabus?: string,
-  kind?: string
+return renderCaption(
+  id,
+  docType,
+  name,
+  term,
+  syllabus,
+  kind
 )
 
 }
 
-
+/*
 // adds
 console.log(add(1, 1));
 
