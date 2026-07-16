@@ -5,8 +5,6 @@ export const adminCmds = new Composer();
 
 const ADMIN_ID = Number(Deno.env.get("ADMIN_ID"));
 
-adminCmds.command("admin", async (ctx) => {}
-
 import { InputMediaDocument } from "grammy/types.ts";
 
 // Helper function to split arrays into chunks of 10
@@ -23,7 +21,7 @@ function chunkArray<T>(array: T[], size: number): T[][] {
 // =================================
 // =================================
 
-bot.command("mqps", async (ctx: Context) => {
+adminCmds.command("mqps", async (ctx: Context) => {
   // Extract arguments from the message and split by spaces
   const args = ctx.match.trim().toLowerCase().split(/\s+/);
 
@@ -109,7 +107,7 @@ bot.command("mqps", async (ctx: Context) => {
 });
 
 // Use a dynamic command: /pyqs 23d
-bot.command("pyqs", async (ctx: Context) => {
+adminCmds.command("pyqs", async (ctx: Context) => {
   // Extract the term from the message (e.g., "23d" from "/pyqs 23d")
   const requestedTerm = ctx.match.trim().toLowerCase();
 
@@ -175,7 +173,7 @@ bot.command("pyqs", async (ctx: Context) => {
   }
 });
 
-bot.command("migrate", async (ctx) => {
+adminCmds.command("migrate", async (ctx) => {
   if (ctx.from?.id !== ADMIN_ID) {
     return;
   }
