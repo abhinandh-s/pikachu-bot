@@ -22,7 +22,7 @@ export const FILE_IDS: Record<string, FileRecord> = {
   "p4-25j-mqp": [
     { name: "s1", id: "BQACAgUAAxkDAAJK6GpXj_iyneJmei1cT7VzwfEVeG41AAKnIwACLHvBVrs0eJAGNH2LPQQ", syllabus: "2022" },
     { name: "s1a", id: "BQACAgUAAxkDAAJLFGpXkCN7TP2_s81WSSpFDPBDLewqAAK9IwACLHvBVpQriGkR3pkuPQQ", syllabus: "2022" },
-    { name: "s2", id: "BQACAgUAAxkDAAJLQGpXkE5oDaJ5_ERaygabmnduhPlIAALTIwACLHvBVi3vzF6Q-dMPQQ", syllabus: "2022" },
+    { name: "s2", id: "BQACAgUAAxkDAAJXjWpYbHM6oTP3x2tFKf-vW5Mk-2GeAAJKGwACFnPAVrGmF2O6rbryPQQ", syllabus: "2022" },
     { name: "s2a", id: "BQACAgUAAxkDAAJLbGpXkHiaGeuhiBGH9-Gqu8VkIu2iAALpIwACLHvBVlbfY5zW3myAPQQ", syllabus: "2022" }
   ],
   "p5-25j-mqp": [
