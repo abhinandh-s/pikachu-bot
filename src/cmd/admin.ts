@@ -1,5 +1,5 @@
 import { Composer } from "grammy";
-import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level, MQP_FILE_IDS, PYQ_FILE_IDS } from "./db/mod.ts";
+import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, MQP_FILE_IDS, PYQ_FILE_IDS } from "./db/mod.ts";
 
 export const adminCmds = new Composer();
 
