@@ -43,7 +43,7 @@ inlineQueryHandler.on("inline_query", async (ctx) => {
   const pyqMatches = Object.entries(PYQ_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
 
   pyqMatches.forEach(([key, files]) => {
-        const { paper_id, term, paper_type } = parseKey(key);
+    const { paper_id, term, paper_type } = parseKey(key);
     files.forEach((file, index) => {
       results.push({
         type: "document",
@@ -61,7 +61,7 @@ inlineQueryHandler.on("inline_query", async (ctx) => {
   const mqpMatches = Object.entries(MQP_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
 
   mqpMatches.forEach(([key, files]) => {
-        const { paper_id, term, paper_type } = parseKey(key);
+    const { paper_id, term, paper_type } = parseKey(key);
     // Because MQP_FILE_IDS values are arrays of { name: string, id: string }
     files.forEach((file, index) => {
       results.push({
