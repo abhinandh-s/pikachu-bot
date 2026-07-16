@@ -34,13 +34,13 @@ For detailed guide and demo see this [page](how-to-use.md).
 
 **​Query Formats:**
 
-​PYQ: `p[PaperNumber]-[Term]-pyq`
+​PYQ: `p[PaperNumber] [Term] pyq`
 
-​Example: `p5-26j-pyq`
+​Example: `p5 26j pyq`
 
-​MQP: `p[PaperNumber]-[Term]-mqp-[Set]`
+​MQP: `p[PaperNumber] [Term] mqp [Set]`
 
-​Example: `p5-26j-mqp-s1a`
+​Example: `p5 26j mqp s1a`
 
 ---
 
