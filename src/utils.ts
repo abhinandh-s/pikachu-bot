@@ -69,6 +69,8 @@ export function paperIdToLevel(id: string): string {
   }
 }
 
+/*
+
 import { MQP_FILE_IDS } from "./db/mod.ts";
 
 for (const [key, records] of Object.entries(MQP_FILE_IDS)) {
@@ -84,3 +86,4 @@ for (const [key, records] of Object.entries(MQP_FILE_IDS)) {
     console.log(`  -> Syllabus: ${syllabus ?? "N/A"}`);
   });
 }
+*/
