@@ -7,6 +7,10 @@ import { inlineQueryHandler } from "./inline.ts";
 import { formatTerm } from "./utils.ts";
 import { renderCaption } from "./render.ts";
 
+import { PTP_FILE_IDS } from "./db/mod.ts";
+import { parseKey } from "./utils.ts";
+
+
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
 bot.use(adminCmds);
