@@ -50,7 +50,6 @@ bot.on("message:text", async (ctx) => {
     
 /*
   let count = 0;
-
   // Build a keyboard with all Paper IDs
   for (const paper of allPapers) {
     
