@@ -412,29 +412,13 @@ bot.callbackQuery(
   }
 );
 
-function getPaperDetails(paperId: string) {
+export function getPaperDetails(paperId: string) {
   const allPapers = [
     ...ACADEMIC_DATA.foundation,
     ...ACADEMIC_DATA.intermediate,
     ...ACADEMIC_DATA.final
   ];
   return allPapers.find((p) => p.id === paperId);
-}
-
-function formatSet(id: string): string {
-  return id === "s1"
-    ? "set: 1"
-    : id === "s2"
-    ? "set: 2"
-    : id === "s1a"
-    ? "set: 1 solution"
-    : id === "s2a"
-    ? "set: 2 solution"
-    : id === "q"
-    ? "Question Paper"
-    : id === "a"
-    ? "Answer Key"
-    : id;
 }
 
 // ---------- COMMANDS ----------
