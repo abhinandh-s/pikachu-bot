@@ -57,9 +57,37 @@ export function renderCaption(
   return caption;
 }
 
+/*
+// key: p20C-26j-mqp 
+// FileRecord: -s2-syl22
+export function renderCaptionFileRecord(
+  id: string,
+  docType: DocType,
+  name: string,
+  term: string,
+  record?: FileRecord,
+): string {
+
+    const { name, id, syllabus } = parseFileRecord(record);
+  const { paper_id, term, paper_type } = parseKey(key);
+
+
+renderCaption(
+  id: string,
+  docType: DocType,
+  name: string,
+  term: string,
+  syllabus?: string,
+  kind?: string
+)
+
+}
+
+
 // adds
 console.log(add(1, 1));
 
 // greets
 const greeter = new Greeter("world");
 console.log(greeter.greet());
+*/
