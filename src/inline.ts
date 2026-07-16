@@ -1,5 +1,7 @@
 import { MQP_FILE_IDS, PTP_FILE_IDS, PYQ_FILE_IDS } from "./db/mod.ts";
 import { Composer } from "grammy";
+import { DocType } from "./types.ts";
+import { renderCaptionFileRecord } from "./render.ts";
 
 export const inlineQueryHandler = new Composer();
 
