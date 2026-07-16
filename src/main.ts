@@ -15,7 +15,6 @@ bot.use(batchCmd);
 bot.use(inlineQueryHandler);
 
 bot.on("message:text", async (ctx) => {
-  
   // const query = ctx.message.text.trim)
   await ctx.reply("Got your message!");
 });
