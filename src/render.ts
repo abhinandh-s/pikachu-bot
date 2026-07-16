@@ -66,15 +66,15 @@ export function renderCaptionFileRecord(
   record: FileRecord
 ): string {
   const paper = getPaperDetails(id);
-  const { kind, _, syllabus } = parseFileRecord(record);
+  // const { kind, _, syllabus } = parseFileRecord(record);
 
   return renderCaption(
     id,
     docType,
     paper.name,
     term,
-    syllabus,
-    kind
+    record.syllabus,
+    record.name
   );
 }
 
