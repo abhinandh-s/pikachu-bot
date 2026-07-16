@@ -36,13 +36,15 @@ inlineQueryHandler.on("inline_query", async (ctx) => {
   // Process PYQs (Previous Year Questions)
   const pyqMatches = Object.entries(PYQ_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
 
-  pyqMatches.forEach(([key, fileId]) => {
-    results.push({
-      type: "document",
-      id: `pyq-${key}`,
-      title: `PYQ: ${key.toUpperCase()}`,
-      document_file_id: fileId,
-      description: "Previous Year Question Paper"
+  pyqMatches.forEach(([key, files]) => {
+    files.forEach((file, index) => {
+      results.push({
+        type: "document",
+        id: `pyq-${key}-${file.name}-${index}`,
+        title: `PYQ: ${key.toUpperCase()} (${file.name.toUpperCase()})`,
+        document_file_id: file.id,
+        description: "Previous Year Questions"
+      });
     });
   });
 
