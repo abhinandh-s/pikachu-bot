@@ -21,7 +21,8 @@ bot.use(inlineQueryHandler);
 bot.callbackQuery(
   /^dm:/,
   async (ctx) => {
-    const [, paperId, docType, term, name] = ctx.callbackQuery.data.split(":");
+    // `dm:${paper_id}:${term}:${paper_type}:${file.name}`).row();
+    const [, paperId, term, docType, name] = ctx.callbackQuery.data.split(":");
 
 const key = `${paperId}-${term}-${docType}`;
     const files = getFiles(
