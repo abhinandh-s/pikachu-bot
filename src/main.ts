@@ -1,5 +1,5 @@
 import { Bot, Context, InlineKeyboard, webhookCallback } from "grammy";
-import { ACADEMIC_DATA, DocType, FileRecord, getAllFiles, getFiles, Level } from "./db/mod.ts";
+import { DocType, FileRecord, getAllFiles, getFiles, Level } from "./db/mod.ts";
 import { helpCmd } from "./cmd/help.ts";
 import { adminCmds } from "./cmd/admin.ts";
 import { batchCmd } from "./cmd/batch.ts";
@@ -129,7 +129,6 @@ bot.callbackQuery(
       docType as DocType,
       key
     );
-    const paper = getPaperDetails(paperId);
 
     if (!files) {
       await ctx.answerCallbackQuery({
@@ -151,15 +150,6 @@ bot.callbackQuery(
     await ctx.deleteMessage(); // delete "Select term:" msg
   }
 );
-
-export function getPaperDetails(paperId: string) {
-  const allPapers = [
-    ...ACADEMIC_DATA.foundation,
-    ...ACADEMIC_DATA.intermediate,
-    ...ACADEMIC_DATA.final
-  ];
-  return allPapers.find((p) => p.id === paperId);
-}
 
 // ---------- COMMANDS ----------
 bot.command("pyq", (ctx) => startHandler(ctx, "pyq"));
