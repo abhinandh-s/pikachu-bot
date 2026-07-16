@@ -143,7 +143,7 @@ bot.callbackQuery(
 
     for (const file of files as FileRecord) {
       await ctx.replyWithDocument(file.id, {
-        caption: renderCaption(paperId, docType, paper.name, term, file.syllabus | "", file.name),
+        caption: renderCaption(paperId, docType, term, file.syllabus | "", file.name),
         parse_mode: "HTML"
       });
     }
