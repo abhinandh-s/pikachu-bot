@@ -1,3 +1,26 @@
+// Extracts name, id, and syllabus from a single file record object.
+export function parseFileRecord(record: SingleFileRecord): RecordDetails {
+  const { name, id, syllabus } = record;
+  
+  return {
+    name,       // e.g., "q" or "sa"
+    id,         // e.g., "BQACAgU..."
+    syllabus    // e.g., "2022" or undefined
+  };
+}
+
+// Extracts paper_id, term, and paper_type from a formatted key string.
+// Example input: "p20A-24j-pyq"
+export function parseKey(key: string): KeyDetails {
+  const [paper_id, term, paper_type] = key.split("-");
+  
+  return {
+    paper_id,   // e.g., "p5", "p20A"
+    term,       // e.g., "24j"
+    paper_type  // e.g., "pyq"
+  };
+}
+
 export function formatTerm(code: string): string {
   if (!code || code.length < 3) return code;
 
