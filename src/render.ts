@@ -57,27 +57,25 @@ export function renderCaption(
   return caption;
 }
 
-
-// key: p20C-26j-mqp 
+// key: p20C-26j-mqp
 // FileRecord: -s2-syl22
 export function renderCaptionFileRecord(
   id: string,
   docType: DocType,
   name: string,
   term: string,
-  record: FileRecord,
+  record: FileRecord
 ): string {
-    const { kind, _, syllabus } = parseFileRecord(record);
+  const { kind, _, syllabus } = parseFileRecord(record);
 
-return renderCaption(
-  id,
-  docType,
-  name,
-  term,
-  syllabus,
-  kind
-)
-
+  return renderCaption(
+    id,
+    docType,
+    name,
+    term,
+    syllabus,
+    kind
+  );
 }
 
 /*
