@@ -72,7 +72,9 @@ bot.command("mqps", async (ctx: Context) => {
     }
 
     if (filesToSend.length === 0) {
-      return ctx.reply(`❌ No valid files found for type **${fileType.toUpperCase()}** and term **${requestedTerm.toUpperCase()}**`, { parse_mode: "Markdown" });
+      return ctx.reply(`❌ No valid files found for type **${fileType.toUpperCase()}** and term **${requestedTerm.toUpperCase()}**`, {
+        parse_mode: "Markdown"
+      });
     }
 
     const batches = chunkArray(filesToSend, 10);
