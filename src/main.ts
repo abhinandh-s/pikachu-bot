@@ -22,7 +22,7 @@ bot.callbackQuery(
   /^dm:/,
   async (ctx) => {
     // `dm:${paper_id}:${term}:${paper_type}:${file.name}`).row();
-    const [, paperId, term, docType, name] = ctx.callbackQuery.data.split(":");
+    const [, paperId, term, docType, _name] = ctx.callbackQuery.data.split(":");
 
 const key = `${paperId}-${term}-${docType}`;
     const files = getFiles(
