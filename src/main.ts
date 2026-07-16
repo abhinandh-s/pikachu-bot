@@ -146,7 +146,7 @@ async function startHandler(
 }
 
 bot.callbackQuery(
-  /^level:/,
+  /^dm:/,
   async (ctx) => {
     const [, paperId, docType, term, name] = ctx.callbackQuery.data.split(":");
 
