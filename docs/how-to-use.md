@@ -35,28 +35,28 @@ Having received the query, bot will return search results. As soon as the user s
 
 ##### Previous Year Question Papers
 
-PYQ: `p[PaperNumber]-[Term]-pyq`
+PYQ: `p[PaperNumber] [Term] pyq`
 
 Example
-  : `p5-26j-pyq`
+  : `p5 26j pyq`
 
 ##### Model Question Papers
 
-MQP: `p[PaperNumber]-[Term]-mqp-[Set]`
+MQP: `p[PaperNumber] [Term] mqp [Set]`
 
 Example
-  : `p5-26j-mqp-s1` - set 1 
-  : `p5-26j-mqp-s1a` - set 1 answer
-  : `p5-26j-mqp-s2` - set 2 (if any)
-  : `p5-26j-mqp-s2a` - set 2 answer (if any)
+  : `p5 26j mqp s1` - set 1 
+  : `p5 26j mqp s1a` - set 1 answer
+  : `p5 26j mqp s2` - set 2 (if any)
+  : `p5 26j mqp s2a` - set 2 answer (if any)
 
 ##### Practice Test Papers
 
-PTP: `p[PaperNumber]-[Term]-ptp-[?a]`
+PTP: `p[PaperNumber] [Term] ptp [?a]`
 
 Example
-  : `p5-26j-ptp` - Question Paper
-  : `p5-26j-ptp-a` - Answer Key
+  : `p5 26j ptp` - Question Paper
+  : `p5 26j ptp a` - Answer Key
 
 > [!NOTE]
 > This syntax is a must for inline query. otherwise it won't work.
