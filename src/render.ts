@@ -37,15 +37,15 @@ export function renderSyllabus(ctx: string): string {
 export function renderCaption(
   id: string,
   docType: DocType,
-  name: string,
   term: string,
   syllabus?: string,
   kind?: string
 ): string {
+  const paper = getPaperDetails(id);
   let caption = "";
   caption += `${renderLevel(id)}\n`;
   caption += `#${docType.toUpperCase()}\n`;
-  caption += `📄 paper: ${name}\n`;
+  caption += `📄 paper: ${paper.name}\n`;
   caption += `🗂️ paper no: ${id.replace("p", "")}\n`;
   caption += `📆 term: ${formatTerm(term)}`;
   if (syllabus) {
