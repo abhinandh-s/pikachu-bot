@@ -21,6 +21,7 @@ inlineQueryHandler.on("inline_query", async (ctx) => {
   const ptpMatches = Object.entries(PTP_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
 
   ptpMatches.forEach(([key, files]) => {
+      const { paper_id, term, paper_type } = parseKey(key);
     // Because PTP_FILE_IDS values are arrays of { name: string, id: string }
     files.forEach((file, index) => {
       results.push({
@@ -28,7 +29,8 @@ inlineQueryHandler.on("inline_query", async (ctx) => {
         id: `ptp-${key}-${file.name}-${index}`,
         title: `PTP: ${key.toUpperCase()} (${file.name.toUpperCase()})`,
         document_file_id: file.id,
-        description: "Practice Test Paper"
+        description: "Practice Test Paper",
+        caption: renderCaptionFileRecord(paper_id, paper_type as DocType, term, file)
       });
     });
   });
