@@ -204,7 +204,7 @@ adminCmds.command("migrate", async (ctx) => {
   });
 });
 
-bot.callbackQuery(
+adminCmds.callbackQuery(
   /^migrate:/,
   async (ctx) => {
     const [, paperId] = ctx.callbackQuery.data.split(":");
