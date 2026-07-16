@@ -29,6 +29,7 @@ const key = `${paperId}-${term}-${docType}`;
       key
     );
 
+console.log(key);
 console.log(files);
 
 for (const file of files as FileRecord) {
