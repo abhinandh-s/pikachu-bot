@@ -15,10 +15,7 @@ bot.use(batchCmd);
 bot.use(inlineQueryHandler);
 
 bot.on("message:text", async (ctx) => {
-  if (ctx.from?.id !== ADMIN_ID) {
-    await ctx.reply("You are not an admin!");
-    return;
-  }
+  
   // const query = ctx.message.text.trim)
   await ctx.reply("Got your message!");
 });
