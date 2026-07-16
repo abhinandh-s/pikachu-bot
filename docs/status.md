@@ -1,5 +1,8 @@
 ## Syllabus 2022
 
+> [!NOTE]
+> Turn desktop mode for better readability.
+
 ### 26 June 
 
 |      | PYQ    | MQP S1  | MQP S2  | PTP     |
