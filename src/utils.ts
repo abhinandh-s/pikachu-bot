@@ -1,3 +1,14 @@
+import { SYLLABUS_2022 } from "./db/mod.ts";
+
+export function getPaperDetails(paperId: string) {
+  const allPapers = [
+    ...SYLLABUS_2022.ACADEMIC_DATA.foundation,
+    ...SYLLABUS_2022.ACADEMIC_DATA.intermediate,
+    ...SYLLABUS_2022.ACADEMIC_DATA.final
+  ];
+  return allPapers.find((p) => p.id === paperId);
+}
+
 // Extracts name, id, and syllabus from a single file record object.
 export function parseFileRecord(record: FileRecord) {
   const { name, id, syllabus } = record;
