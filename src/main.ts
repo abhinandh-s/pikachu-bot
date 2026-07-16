@@ -10,7 +10,6 @@ import { renderCaption } from "./render.ts";
 import { PTP_FILE_IDS } from "./db/mod.ts";
 import { parseKey } from "./utils.ts";
 
-
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
 bot.use(adminCmds);
@@ -24,33 +23,32 @@ bot.callbackQuery(
     // `dm:${paper_id}:${term}:${paper_type}:${file.name}`).row();
     const [, paperId, term, docType, _name] = ctx.callbackQuery.data.split(":");
 
-const key = `${paperId}-${term}-${docType}`;
+    const key = `${paperId}-${term}-${docType}`;
     const files = getFiles(
       docType as DocType,
       key
     );
 
-console.log(key);
-console.log(files);
+    console.log(key);
+    console.log(files);
 
-if (!files || !Array.isArray(files)) {
+    if (!files || !Array.isArray(files)) {
       return ctx.answerCallbackQuery("Files not found for this paper.");
     }
 
-for (const file of files as FileRecord) {
+    for (const file of files as FileRecord) {
       await ctx.replyWithDocument(file.id, {
         caption: renderCaption(paperId, docType, term, file.syllabus | "", file.name),
         parse_mode: "HTML"
       });
     }
 
-await ctx.deleteMessage(); // delete "Select term:" msg
-  
-});
+    await ctx.deleteMessage(); // delete "Select term:" msg
+  }
+);
 
 bot.on("message:text", async (ctx) => {
   const query = ctx.message.text.trim().toLowerCase().replace(/\s+/g, "-");
-
 
   if (!query) {
     // make this msg disappear after a minute or so.
@@ -65,8 +63,11 @@ bot.on("message:text", async (ctx) => {
     const { paper_id, term, paper_type } = parseKey(key);
     files.forEach((file, _) => {
       // (Display , callback text)
-      // 
-    keyboard.text(`${paper_id} ${formatTerm(term)} | ${paper_type.toUpperCase()} ${file.name.toUpperCase()} | SYL ${file.syllabus}`, `dm:${paper_id}:${term}:${paper_type}:${file.name}`).row();
+      //
+      keyboard.text(
+        `${paper_id} ${formatTerm(term)} | ${paper_type.toUpperCase()} ${file.name.toUpperCase()} | SYL ${file.syllabus}`,
+        `dm:${paper_id}:${term}:${paper_type}:${file.name}`
+      ).row();
     });
   });
 
@@ -77,26 +78,26 @@ bot.on("message:text", async (ctx) => {
       reply_markup: keyboard
     }
   );
-    
-/*
+
+  /*
   let count = 0;
   // Build a keyboard with all Paper IDs
   for (const paper of allPapers) {
-    
-    
+
+
   }
 
   await ctx.reply("Select a Paper ID to send all available files (PTP, MQP, PYQ):", {
     reply_markup: keyboard
   });
-*/
+  */
 
-/*
-    
+  /*
 
- 
 
-  
+
+
+
 
   // Process PYQs (Previous Year Questions)
   const pyqMatches = Object.entries(PYQ_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
@@ -139,10 +140,7 @@ bot.on("message:text", async (ctx) => {
   const limitedResults = results.slice(0, 50);
 
 
-*/
-
-
-  
+  */
 });
 
 async function startHandler(
