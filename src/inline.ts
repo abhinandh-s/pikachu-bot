@@ -43,13 +43,16 @@ inlineQueryHandler.on("inline_query", async (ctx) => {
   const pyqMatches = Object.entries(PYQ_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
 
   pyqMatches.forEach(([key, files]) => {
+        const { paper_id, term, paper_type } = parseKey(key);
     files.forEach((file, index) => {
       results.push({
         type: "document",
         id: `pyq-${key}-${file.name}-${index}`,
         title: `PYQ: ${key.toUpperCase()} (${file.name.toUpperCase()})`,
         document_file_id: file.id,
-        description: "Previous Year Questions"
+        description: "Previous Year Questions",
+        caption: renderCaptionFileRecord(paper_id, paper_type as DocType, term, file),
+        parse_mode: "HTML"
       });
     });
   });
@@ -58,6 +61,7 @@ inlineQueryHandler.on("inline_query", async (ctx) => {
   const mqpMatches = Object.entries(MQP_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
 
   mqpMatches.forEach(([key, files]) => {
+        const { paper_id, term, paper_type } = parseKey(key);
     // Because MQP_FILE_IDS values are arrays of { name: string, id: string }
     files.forEach((file, index) => {
       results.push({
@@ -65,7 +69,9 @@ inlineQueryHandler.on("inline_query", async (ctx) => {
         id: `mqp-${key}-${file.name}-${index}`,
         title: `MQP: ${key.toUpperCase()} (${file.name.toUpperCase()})`,
         document_file_id: file.id,
-        description: "Model Question Paper"
+        description: "Model Question Paper",
+        caption: renderCaptionFileRecord(paper_id, paper_type as DocType, term, file),
+        parse_mode: "HTML"
       });
     });
   });
