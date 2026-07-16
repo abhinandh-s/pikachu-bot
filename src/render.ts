@@ -63,7 +63,7 @@ export function renderCaptionFileRecord(
   id: string,
   docType: DocType,
   term: string,
-  record: FileRecord
+  file: FileRecord
 ): string {
   const paper = getPaperDetails(id);
   return renderCaption(
@@ -71,8 +71,8 @@ export function renderCaptionFileRecord(
     docType,
     paper.name,
     term,
-    record.syllabus,
-    record.name
+    file.syllabus,
+    file.name
   );
 }
 
