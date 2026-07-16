@@ -1,5 +1,14 @@
 ## Syllabus 2022
 
+**where**:
+
+`[ ]` - Not published by the Institute
+
+`[~]` - Not fully published/In progress
+
+`[x]` - Published and available
+
+
 > [!NOTE]
 > Turn desktop mode for better readability.
 
@@ -195,15 +204,6 @@
 
 
 **88/88**
-
-
-**where**:
-
-`[ ]` - Not published by the Institute
-
-`[~]` - Not fully published/In progress
-
-`[x]` - Published and available
 
 
 ## Need Help or Have Files to Contribute?
