@@ -33,7 +33,8 @@ inlineQueryHandler.on("inline_query", async (ctx) => {
         title: `PTP: ${key.toUpperCase()} (${file.name.toUpperCase()})`,
         document_file_id: file.id,
         description: "Practice Test Paper",
-        caption: renderCaptionFileRecord(paper_id, paper_type as DocType, term, file)
+        caption: renderCaptionFileRecord(paper_id, paper_type as DocType, term, file),
+        parse_mode: "HTML"
       });
     });
   });
