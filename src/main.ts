@@ -164,7 +164,7 @@ for (const file of files as FileRecord) {
     }
 
 await ctx.deleteMessage(); // delete "Select term:" msg
-  }
+  
 });
 
 // ---------- LEVEL ----------
