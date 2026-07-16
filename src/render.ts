@@ -1,5 +1,5 @@
 import { DocType } from "./types.ts";
-import { formatTerm, getPaperDetails, parseFileRecord } from "./utils.ts";
+import { formatTerm, getPaperDetails } from "./utils.ts";
 import { paperIdToLevel } from "paper-utils";
 
 export function renderLevel(id: string): string {
@@ -66,8 +66,6 @@ export function renderCaptionFileRecord(
   record: FileRecord
 ): string {
   const paper = getPaperDetails(id);
-  // const { kind, _, syllabus } = parseFileRecord(record);
-
   return renderCaption(
     id,
     docType,
