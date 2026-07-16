@@ -9,17 +9,6 @@ export function getPaperDetails(paperId: string) {
   return allPapers.find((p) => p.id === paperId);
 }
 
-// Extracts name, id, and syllabus from a single file record object.
-export function parseFileRecord(record: FileRecord) {
-  const { name, id, syllabus } = record;
-
-  return {
-    name, // e.g., "q" or "sa"
-    id, // e.g., "BQACAgU..."
-    syllabus // e.g., "2022" or undefined
-  };
-}
-
 // Extracts paper_id, term, and paper_type from a formatted key string.
 // Example input: "p20A-24j-pyq"
 export function parseKey(key: string) {
