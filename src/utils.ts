@@ -68,3 +68,20 @@ export function paperIdToLevel(id: string): string {
       return "unknown";
   }
 }
+
+
+import { MQP_FILE_IDS } from "./db/mod.ts";
+
+for (const [key, records] of Object.entries(MQP_FILE_IDS)) {
+  const { paper_id, term, paper_type } = parseKey(key);
+  
+  console.log(`Processing Paper ID: ${paper_id} | Term: ${term} | Type: ${paper_type}`);
+
+  records.forEach((record) => {
+    const { name, id, syllabus } = parseFileRecord(record);
+    
+    console.log(`  -> Record Name: ${name}`);
+    console.log(`  -> File ID: ${id}`);
+    console.log(`  -> Syllabus: ${syllabus ?? "N/A"}`);
+  });
+}
