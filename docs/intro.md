@@ -16,7 +16,7 @@ Pikachu delivers Past Year Questions (PYQs) and Model Question Papers (MQPs) dir
 ## Why Use Pikachu?
 
  * **Lightning Fast:** Get any paper in seconds using simple inline commands [see demo](how-to-use.md#2-inline-query).
- * **Comprehensive:** Access a [growing library](status.md) of **600+ organized files**. 
+ * **Comprehensive:** Access a [growing library](status.md) of **650+ organized files**. 
  * **Seamless Integration:** No need to switch apps, [use Pikachu](how-to-use.md) inside any Telegram group or private chat.
  * **Always Current:** Covers the [latest Question papers](status.md) of CMA Syllabus 2022.
 
@@ -45,4 +45,6 @@ For detailed guide and demo see this [page](how-to-use.md).
 ---
 
 > [!IMPORTANT]
-> *Pikachu is an independent study tool and is not officially affiliated with the Institute of Cost Accountants of India (ICMAI).*
+> *Pikachu is an independent study tool and is not officially affiliated with the Institute of Cost Accountants of India (ICMAI). All rights to the PDFs and study materials are reserved by ICMAI.*
+>
+> ​*© 2026 icmai.in. All Rights Reserved.*
