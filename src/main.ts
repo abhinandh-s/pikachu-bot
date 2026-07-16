@@ -33,6 +33,10 @@ const key = `${paperId}-${term}-${docType}`;
 console.log(key);
 console.log(files);
 
+if (!files || !Array.isArray(files)) {
+      return ctx.answerCallbackQuery("Files not found for this paper.");
+    }
+
 for (const file of files as FileRecord) {
       await ctx.replyWithDocument(file.id, {
         caption: renderCaption(paperId, docType, term, file.syllabus | "", file.name),
