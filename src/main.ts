@@ -7,12 +7,141 @@ import { inlineQueryHandler } from "./inline.ts";
 import { formatTerm } from "./utils.ts";
 import { renderCaption } from "./render.ts";
 
+import { PTP_FILE_IDS } from "./db/mod.ts";
+import { parseKey } from "./utils.ts";
+
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
 bot.use(adminCmds);
 bot.use(helpCmd);
 bot.use(batchCmd);
 bot.use(inlineQueryHandler);
+
+bot.callbackQuery(
+  /^dm:/,
+  async (ctx) => {
+    // `dm:${paper_id}:${term}:${paper_type}:${file.name}`).row();
+    const [, paperId, term, docType, _name] = ctx.callbackQuery.data.split(":");
+
+    const key = `${paperId}-${term}-${docType}`;
+    const files = getFiles(
+      docType as DocType,
+      key
+    );
+
+    console.log(key);
+    console.log(files);
+
+    if (!files || !Array.isArray(files)) {
+      return ctx.answerCallbackQuery("Files not found for this paper.");
+    }
+
+    for (const file of files as FileRecord) {
+      await ctx.replyWithDocument(file.id, {
+        caption: renderCaption(paperId, docType, term, file.syllabus | "", file.name),
+        parse_mode: "HTML"
+      });
+    }
+
+    await ctx.deleteMessage(); // delete "Select term:" msg
+  }
+);
+
+bot.on("message:text", async (ctx) => {
+  const query = ctx.message.text.trim().toLowerCase().replace(/\s+/g, "-");
+
+  if (!query) {
+    // make this msg disappear after a minute or so.
+    return ctx.reply("Got your message!");
+  }
+
+  const keyboard = new InlineKeyboard();
+
+  const ptpMatches = Object.entries(PTP_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
+
+  ptpMatches.forEach(([key, files]) => {
+    const { paper_id, term, paper_type } = parseKey(key);
+    files.forEach((file, _) => {
+      // (Display , callback text)
+      //
+      keyboard.text(
+        `${paper_id} ${formatTerm(term)} | ${paper_type.toUpperCase()} ${file.name.toUpperCase()} | SYL ${file.syllabus}`,
+        `dm:${paper_id}:${term}:${paper_type}:${file.name}`
+      ).row();
+    });
+  });
+
+  await ctx.reply(
+    `Select File:`,
+    {
+      parse_mode: "HTML",
+      reply_markup: keyboard
+    }
+  );
+
+  /*
+  let count = 0;
+  // Build a keyboard with all Paper IDs
+  for (const paper of allPapers) {
+
+
+  }
+
+  await ctx.reply("Select a Paper ID to send all available files (PTP, MQP, PYQ):", {
+    reply_markup: keyboard
+  });
+  */
+
+  /*
+
+
+
+
+
+
+  // Process PYQs (Previous Year Questions)
+  const pyqMatches = Object.entries(PYQ_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
+
+  pyqMatches.forEach(([key, files]) => {
+    const { paper_id, term, paper_type } = parseKey(key);
+    files.forEach((file, index) => {
+      results.push({
+        type: "document",
+        id: `pyq-${key}-${file.name}-${index}`,
+        title: `PYQ: ${key.toUpperCase()} (${file.name.toUpperCase()})`,
+        document_file_id: file.id,
+        description: "Previous Year Questions",
+        caption: renderCaptionFileRecord(paper_id, paper_type as DocType, term, file),
+        parse_mode: "HTML"
+      });
+    });
+  });
+
+  // Process MQPs (Model Question Papers)
+  const mqpMatches = Object.entries(MQP_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
+
+  mqpMatches.forEach(([key, files]) => {
+    const { paper_id, term, paper_type } = parseKey(key);
+    // Because MQP_FILE_IDS values are arrays of { name: string, id: string }
+    files.forEach((file, index) => {
+      results.push({
+        type: "document",
+        id: `mqp-${key}-${file.name}-${index}`,
+        title: `MQP: ${key.toUpperCase()} (${file.name.toUpperCase()})`,
+        document_file_id: file.id,
+        description: "Model Question Paper",
+        caption: renderCaptionFileRecord(paper_id, paper_type as DocType, term, file),
+        parse_mode: "HTML"
+      });
+    });
+  });
+
+  // Telegram limits inline results to 50 items per query
+  const limitedResults = results.slice(0, 50);
+
+
+  */
+});
 
 async function startHandler(
   ctx: Context,
