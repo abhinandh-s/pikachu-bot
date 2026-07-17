@@ -17,8 +17,6 @@ bot.use(helpCmd);
 bot.use(batchCmd);
 bot.use(inlineQueryHandler);
 
-import { InlineKeyboard } from "grammy";
-
 const ITEMS_PER_PAGE = 10;
 
 // 1. Helper function to generate paginated keyboard using the flat object
