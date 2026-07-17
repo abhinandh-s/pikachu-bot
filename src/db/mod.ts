@@ -137,10 +137,10 @@ export function flattenFileIds(
     for (const file of files) {
       // extract the last 2 digits of the syllabus (e.g., "2022" -> "22")
       const shortSyllabus = file.syllabus.slice(-2);
-      
+
       // the new key "p20C-26j-mqp-s1a-syl22"
       const newKey = `${baseKey}-${file.name}-syl${shortSyllabus}`;
-      
+
       // assign the ID directly
       flattened[newKey] = file.id;
     }
