@@ -17,11 +17,15 @@
     </a>
 </div>
 
-<div style="text-align: center;">
-<a href="https://abhinandh-s.github.io/pikachu-bot/how-to-use.html#how-to-use-pikachu"
-       style="display: inline-block; padding: 24px 48px;">
-see tutorial</a>
+<div style="text-align: center; margin-top: 12px;">
+    <a href="https://abhinandh-s.github.io/pikachu-bot/how-to-use.html#how-to-use-pikachu"
+       target="_blank" 
+       rel="noopener noreferrer" 
+       style="display: inline-block; padding: 10px 24px; background-color: transparent; color: #0088cc; text-decoration: none; border-radius: 4px; font-weight: bold; border: 2px solid #0088cc;">
+       See Tutorial
+    </a>
 </div>
+
 
 > [!NOTE]
 > Turn desktop mode for better readability.
