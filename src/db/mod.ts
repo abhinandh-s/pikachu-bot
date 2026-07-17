@@ -30,6 +30,8 @@ export const ALL_FILE_IDS: Record<string, FileRecord> = {
   ...PTP_FILE_IDS
 };
 
+export const FLATTENED_FILE_IDS = flattenFileIds(ALL_FILE_IDS);
+
 export type Level = "foundation" | "intermediate" | "final";
 export type DocType = "pyq" | "mqp" | "ptp";
 
