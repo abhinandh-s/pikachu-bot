@@ -18,7 +18,7 @@
 </div>
 
 <div style="text-align: center;">
-[see tutorial](https://abhinandh-s.github.io/pikachu-bot/how-to-use.html#how-to-use-pikachu)
+<a href="https://abhinandh-s.github.io/pikachu-bot/how-to-use.html#how-to-use-pikachu">see tutorial</a>
 </div>
 
 > [!NOTE]
