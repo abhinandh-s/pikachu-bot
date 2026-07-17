@@ -7,7 +7,7 @@ import { inlineQueryHandler } from "./inline.ts";
 import { formatTerm } from "./utils.ts";
 import { renderCaption, renderSyllabusShort } from "./render.ts";
 
-import { FLATTENED_FILE_IDS } from "./db/mod.ts";
+import { FLATTENED_FILE_IDS, ACADEMIC_DATA } from "./db/mod.ts";
 
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
 
