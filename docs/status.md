@@ -6,7 +6,7 @@
 
 `[~]` - Not fully published/In progress
 
-`[x]` - Published and available
+`[x]` - Published and available in bot
 
 <div style="text-align: center;">
     <a href="https://t.me/cma_buddy_bot" 
