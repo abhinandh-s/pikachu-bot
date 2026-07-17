@@ -37,12 +37,12 @@ bot.callbackQuery(
     }
 
     for (const file of files as FileRecord) {
-    if (file.name === name) {
-      await ctx.replyWithDocument(file.id, {
-        caption: renderCaption(paperId, docType, term, file.syllabus | "", file.name),
-        parse_mode: "HTML"
-      });
-    }
+      if (file.name === name) {
+        await ctx.replyWithDocument(file.id, {
+          caption: renderCaption(paperId, docType, term, file.syllabus | "", file.name),
+          parse_mode: "HTML"
+        });
+      }
     }
 
     await ctx.deleteMessage(); // delete "Select term:" msg
