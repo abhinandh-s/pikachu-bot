@@ -18,9 +18,7 @@ bot.use(inlineQueryHandler);
 
 const ITEMS_PER_PAGE = 10;
 
-// 1. Helper function to generate paginated keyboard using the flat object
 function buildSearchKeyboard(query: string, page: number) {
-  // Just find all matching keys! No more nested loops.
   const matches = Object.keys(FLATTENED_FILE_IDS).filter((key) => key.toLowerCase().includes(query));
 
   const keyboard = new InlineKeyboard();
@@ -28,36 +26,48 @@ function buildSearchKeyboard(query: string, page: number) {
   const startIndex = page * ITEMS_PER_PAGE;
   const pageItems = matches.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
+  // Add the file buttons (each on their own row)
   pageItems.forEach((key) => {
-    // Split the key to format the button nicely
-    // key = "p20C-26j-mqp-s1a-syl22"
     const [paperId, term, docType, fileName, syl] = key.split("-");
-
-    // E.g., "P20C 26J | MQP S1A | SYL22"
-    const btnText = `${paperId.toUpperCase()} - ${formatTerm(term)} | ${docType.toUpperCase()} ${fileName.toUpperCase()} | SYLLABUS ${
-      renderSyllabusShort(syl)
-    }`;
-
-    // Pass the full key! (Length is ~22 bytes, well under 64-byte limit)
+    const btnText = `${paperId.toUpperCase()} - ${formatTerm(term)} | ${docType.toUpperCase()} ${fileName.toUpperCase()} | SYLLABUS ${renderSyllabusShort(syl)}`;
+    
     keyboard.text(btnText, `dl:${key}`).row();
   });
 
-  // Pagination controls
+  // 5-BUTTON PAGINATION LOGIC
   if (totalPages > 1) {
-    if (page > 0) {
-      keyboard.text("‹ Prev", `nav:${page - 1}:${query}`);
+    // 1. "First" Button (« 1)
+    // Only show if we are on Page 3 (index 2) or further.
+    if (page > 1) {
+      keyboard.text("« 1", `nav:0:${query}`);
     }
-    keyboard.text(`[ ${page + 1} / ${totalPages} ]`, "ignore");
 
+    // 2. "Previous" Button (‹ prev_page)
+    // Only show if we are not on the first page
+    if (page > 0) {
+      keyboard.text(`‹ ${page}`, `nav:${page - 1}:${query}`);
+    }
+
+    // 3. "Current" Button (· current_page ·)
+    // Always visible, does nothing when clicked
+    keyboard.text(`· ${page + 1} ·`, "ignore");
+
+    // 4. "Next" Button (next_page ›)
+    // Only show if we are not on the last page
     if (page < totalPages - 1) {
-      keyboard.text("Next ›", `nav:${page + 1}:${query}`);
+      keyboard.text(`${page + 2} ›`, `nav:${page + 1}:${query}`);
+    }
+
+    // 5. "Last" Button (total_pages »)
+    // Only show if we are 2 or more pages away from the last page.
+    if (page < totalPages - 2) {
+      keyboard.text(`${totalPages} »`, `nav:${totalPages - 1}:${query}`);
     }
   }
 
   return { keyboard, totalMatches: matches.length };
 }
 
-// 2. Handle pagination clicks (Unchanged from before, still works perfectly)
 bot.callbackQuery(/^nav:(\d+):(.+)$/, async (ctx) => {
   const page = parseInt(ctx.match[1], 10);
   const query = ctx.match[2];
@@ -74,7 +84,6 @@ bot.callbackQuery(/^nav:(\d+):(.+)$/, async (ctx) => {
 
 bot.callbackQuery("ignore", (ctx) => ctx.answerCallbackQuery());
 
-// 3. Handle document selection (This is where the magic happens)
 bot.callbackQuery(/^dl:/, async (ctx) => {
   // Extract the flat key from the callback, e.g., "p20C-26j-mqp-s1a-syl22"
   const key = ctx.callbackQuery.data.replace("dl:", "");
@@ -99,7 +108,7 @@ bot.callbackQuery(/^dl:/, async (ctx) => {
   await ctx.deleteMessage().catch(() => {});
 });
 
-// 4. Initial search handler
+// Initial search handler
 bot.on("message:text", async (ctx) => {
   const query = ctx.message.text.trim().toLowerCase().replace(/\s+/g, "-");
 
