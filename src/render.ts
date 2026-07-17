@@ -32,7 +32,6 @@ export function renderSyllabusShort(ctx: string): string {
   return ctx === "syl16" ? "2016" : ctx === "syl22" ? "2022" : ctx;
 }
 
-
 // | CMA INTERMEDIATE ”
 // #PYQ
 // paper: Financial Accounting
