@@ -37,7 +37,7 @@ function buildSearchKeyboard(query: string, page: number) {
     const [paperId, term, docType, fileName, syl] = key.split("-");
     
     // E.g., "P20C 26J | MQP S1A | SYL22"
-    const btnText = `${paperId.toUpperCase()} ${term.toUpperCase()} | ${docType.toUpperCase()} ${fileName.toUpperCase()} | ${syl.toUpperCase()}`;
+    const btnText = `${paperId.toUpperCase()} ${formatTerm(term)} | ${docType.toUpperCase()} ${fileName.toUpperCase()} | ${syl.toUpperCase()}`;
 
     // Pass the full key! (Length is ~22 bytes, well under 64-byte limit)
     keyboard.text(btnText, `dl:${key}`).row();
