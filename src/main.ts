@@ -80,21 +80,6 @@ bot.on("message:text", async (ctx) => {
       reply_markup: keyboard
     }
   );
-
-  /*
-  */
-
-  /*
-
-
-
-
-
-
-  // Process PYQs (Previous Year Questions)
-  const pyqMatches = Object.entries(PYQ_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
-
-  
 });
 
 async function startHandler(
