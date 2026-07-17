@@ -7,7 +7,7 @@ import { inlineQueryHandler } from "./inline.ts";
 import { formatTerm } from "./utils.ts";
 import { renderCaption } from "./render.ts";
 
-import { PTP_FILE_IDS } from "./db/mod.ts";
+import { ALL_FILE_IDS } from "./db/mod.ts";
 import { parseKey } from "./utils.ts";
 
 const bot = new Bot(Deno.env.get("TELEGRAM_TOKEN") || "");
@@ -21,7 +21,7 @@ bot.callbackQuery(
   /^dm:/,
   async (ctx) => {
     // `dm:${paper_id}:${term}:${paper_type}:${file.name}`).row();
-    const [, paperId, term, docType, _name] = ctx.callbackQuery.data.split(":");
+    const [, paperId, term, docType, name] = ctx.callbackQuery.data.split(":");
 
     const key = `${paperId}-${term}-${docType}`;
     const files = getFiles(
@@ -37,10 +37,12 @@ bot.callbackQuery(
     }
 
     for (const file of files as FileRecord) {
+    if (file.name === name) {
       await ctx.replyWithDocument(file.id, {
         caption: renderCaption(paperId, docType, term, file.syllabus | "", file.name),
         parse_mode: "HTML"
       });
+    }
     }
 
     await ctx.deleteMessage(); // delete "Select term:" msg
@@ -57,7 +59,7 @@ bot.on("message:text", async (ctx) => {
 
   const keyboard = new InlineKeyboard();
 
-  const ptpMatches = Object.entries(PTP_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
+  const ptpMatches = Object.entries(ALL_FILE_IDS).filter(([key]) => key.toLowerCase().includes(query));
 
   ptpMatches.forEach(([key, files]) => {
     const { paper_id, term, paper_type } = parseKey(key);
