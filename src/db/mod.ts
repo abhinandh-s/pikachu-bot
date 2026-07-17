@@ -24,6 +24,14 @@ export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...SYLLABUS_2022.TERM_23D.MQPS
 };
 
+export const ALL_FILE_IDS: Record<string, FileRecord> = {
+  ...PYQ_FILE_IDS,
+  ...MQP_FILE_IDS,
+  ...PTP_FILE_IDS
+};
+
+export const FLATTENED_FILE_IDS = flattenFileIds(ALL_FILE_IDS);
+
 export type Level = "foundation" | "intermediate" | "final";
 export type DocType = "pyq" | "mqp" | "ptp";
 
@@ -120,4 +128,25 @@ export function getAllFiles(doc: DocType, paperId: string) {
     }
   }
   return results;
+}
+
+export function flattenFileIds(
+  fileIds: Record<string, FileRecord>
+): Record<string, string> {
+  const flattened: Record<string, string> = {};
+
+  for (const [baseKey, files] of Object.entries(fileIds)) {
+    for (const file of files) {
+      // extract the last 2 digits of the syllabus (e.g., "2022" -> "22")
+      const shortSyllabus = file.syllabus.slice(-2);
+
+      // the new key "p20C-26j-mqp-s1a-syl22"
+      const newKey = `${baseKey}-${file.name}-syl${shortSyllabus}`;
+
+      // assign the ID directly
+      flattened[newKey] = file.id;
+    }
+  }
+
+  return flattened;
 }
