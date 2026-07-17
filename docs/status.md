@@ -17,6 +17,10 @@
     </a>
 </div>
 
+<div style="text-align: center;">
+[see tutorial](https://abhinandh-s.github.io/pikachu-bot/how-to-use.html#how-to-use-pikachu)
+</div>
+
 > [!NOTE]
 > Turn desktop mode for better readability.
 
