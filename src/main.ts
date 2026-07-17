@@ -26,49 +26,59 @@ function buildSearchKeyboard(query: string, page: number) {
   const startIndex = page * ITEMS_PER_PAGE;
   const pageItems = matches.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-  // Add the file buttons (each on their own row)
+  // Add the file buttons
   pageItems.forEach((key) => {
     const [paperId, term, docType, fileName, syl] = key.split("-");
-    const btnText = `${paperId.toUpperCase()} - ${formatTerm(term)} | ${docType.toUpperCase()} ${fileName.toUpperCase()} | SYLLABUS ${
-      renderSyllabusShort(syl)
-    }`;
-
+    const btnText = `${paperId.toUpperCase()} - ${formatTerm(term)} | ${docType.toUpperCase()} ${fileName.toUpperCase()} | SYLLABUS ${renderSyllabusShort(syl)}`;
+    
     keyboard.text(btnText, `dl:${key}`).row();
   });
 
-  // 5-BUTTON PAGINATION LOGIC
+  // --- DYNAMIC PAGINATION LOGIC ---
   if (totalPages > 1) {
-    // 1. "First" Button (« 1)
-    // Only show if we are on Page 3 (index 2) or further.
-    if (page > 1) {
-      keyboard.text("« 1", `nav:0:${query}`);
-    }
+    
+    // PREVIOUS VERSION: Use simple layout if there are 5 or fewer pages
+    if (totalPages <= 5) {
+      if (page > 0) {
+        keyboard.text("‹ Prev", `nav:${page - 1}:${query}`);
+      }
+      keyboard.text(`[ ${page + 1} / ${totalPages} ]`, "ignore");
+      
+      if (page < totalPages - 1) {
+        keyboard.text("Next ›", `nav:${page + 1}:${query}`);
+      }
+    } 
+    
+    // ADVANCED VERSION: Use 5-button layout for large datasets
+    else {
+      // 1. "First" Button
+      if (page > 1) {
+        keyboard.text("« 1", `nav:0:${query}`);
+      }
 
-    // 2. "Previous" Button (‹ prev_page)
-    // Only show if we are not on the first page
-    if (page > 0) {
-      keyboard.text(`‹ ${page}`, `nav:${page - 1}:${query}`);
-    }
+      // 2. "Previous" Button
+      if (page > 0) {
+        keyboard.text(`‹ ${page}`, `nav:${page - 1}:${query}`);
+      }
 
-    // 3. "Current" Button (· current_page ·)
-    // Always visible, does nothing when clicked
-    keyboard.text(`· ${page + 1} ·`, "ignore");
+      // 3. "Current" Button
+      keyboard.text(`· ${page + 1} ·`, "ignore");
 
-    // 4. "Next" Button (next_page ›)
-    // Only show if we are not on the last page
-    if (page < totalPages - 1) {
-      keyboard.text(`${page + 2} ›`, `nav:${page + 1}:${query}`);
-    }
+      // 4. "Next" Button
+      if (page < totalPages - 1) {
+        keyboard.text(`${page + 2} ›`, `nav:${page + 1}:${query}`);
+      }
 
-    // 5. "Last" Button (total_pages »)
-    // Only show if we are 2 or more pages away from the last page.
-    if (page < totalPages - 2) {
-      keyboard.text(`${totalPages} »`, `nav:${totalPages - 1}:${query}`);
+      // 5. "Last" Button
+      if (page < totalPages - 2) {
+        keyboard.text(`${totalPages} »`, `nav:${totalPages - 1}:${query}`);
+      }
     }
   }
 
   return { keyboard, totalMatches: matches.length };
 }
+
 
 bot.callbackQuery(/^nav:(\d+):(.+)$/, async (ctx) => {
   const page = parseInt(ctx.match[1], 10);
