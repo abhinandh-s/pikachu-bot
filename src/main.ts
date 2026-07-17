@@ -29,8 +29,10 @@ function buildSearchKeyboard(query: string, page: number) {
   // Add the file buttons (each on their own row)
   pageItems.forEach((key) => {
     const [paperId, term, docType, fileName, syl] = key.split("-");
-    const btnText = `${paperId.toUpperCase()} - ${formatTerm(term)} | ${docType.toUpperCase()} ${fileName.toUpperCase()} | SYLLABUS ${renderSyllabusShort(syl)}`;
-    
+    const btnText = `${paperId.toUpperCase()} - ${formatTerm(term)} | ${docType.toUpperCase()} ${fileName.toUpperCase()} | SYLLABUS ${
+      renderSyllabusShort(syl)
+    }`;
+
     keyboard.text(btnText, `dl:${key}`).row();
   });
 
