@@ -127,3 +127,24 @@ export function getAllFiles(doc: DocType, paperId: string) {
   }
   return results;
 }
+
+export function flattenFileIds(
+  fileIds: Record<string, FileRecord>
+): Record<string, string> {
+  const flattened: Record<string, string> = {};
+
+  for (const [baseKey, files] of Object.entries(fileIds)) {
+    for (const file of files) {
+      // extract the last 2 digits of the syllabus (e.g., "2022" -> "22")
+      const shortSyllabus = file.syllabus.slice(-2);
+      
+      // the new key "p20C-26j-mqp-s1a-syl22"
+      const newKey = `${baseKey}-${file.name}-syl${shortSyllabus}`;
+      
+      // assign the ID directly
+      flattened[newKey] = file.id;
+    }
+  }
+
+  return flattened;
+}
