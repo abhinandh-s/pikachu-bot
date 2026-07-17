@@ -19,7 +19,7 @@
 
 <div style="text-align: center;">
 <a href="https://abhinandh-s.github.io/pikachu-bot/how-to-use.html#how-to-use-pikachu"
-       style="padding: 12px 24px;">
+       style="display: inline-block; padding: 24px 48px;">
 see tutorial</a>
 </div>
 
