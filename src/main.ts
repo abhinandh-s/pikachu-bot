@@ -29,27 +29,26 @@ function buildSearchKeyboard(query: string, page: number) {
   // Add the file buttons
   pageItems.forEach((key) => {
     const [paperId, term, docType, fileName, syl] = key.split("-");
-    const btnText = `${paperId.toUpperCase()} - ${formatTerm(term)} | ${docType.toUpperCase()} ${fileName.toUpperCase()} | SYLLABUS ${renderSyllabusShort(syl)}`;
-    
+    const btnText = `${paperId.toUpperCase()} - ${formatTerm(term)} | ${docType.toUpperCase()} ${fileName.toUpperCase()} | SYLLABUS ${
+      renderSyllabusShort(syl)
+    }`;
+
     keyboard.text(btnText, `dl:${key}`).row();
   });
 
   // --- DYNAMIC PAGINATION LOGIC ---
   if (totalPages > 1) {
-    
     // PREVIOUS VERSION: Use simple layout if there are 5 or fewer pages
     if (totalPages <= 5) {
       if (page > 0) {
         keyboard.text("‹ Prev", `nav:${page - 1}:${query}`);
       }
       keyboard.text(`[ ${page + 1} / ${totalPages} ]`, "ignore");
-      
+
       if (page < totalPages - 1) {
         keyboard.text("Next ›", `nav:${page + 1}:${query}`);
       }
-    } 
-    
-    // ADVANCED VERSION: Use 5-button layout for large datasets
+    } // ADVANCED VERSION: Use 5-button layout for large datasets
     else {
       // 1. "First" Button
       if (page > 1) {
@@ -78,7 +77,6 @@ function buildSearchKeyboard(query: string, page: number) {
 
   return { keyboard, totalMatches: matches.length };
 }
-
 
 bot.callbackQuery(/^nav:(\d+):(.+)$/, async (ctx) => {
   const page = parseInt(ctx.match[1], 10);
