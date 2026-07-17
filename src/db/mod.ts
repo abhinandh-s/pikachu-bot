@@ -24,6 +24,12 @@ export const MQP_FILE_IDS: Record<string, FileRecord> = {
   ...SYLLABUS_2022.TERM_23D.MQPS
 };
 
+export const ALL_FILE_IDS: Record<string, FileRecord> = {
+  ...PYQ_FILE_IDS,
+  ...MQP_FILE_IDS,
+  ...PTP_FILE_IDS,
+};
+
 export type Level = "foundation" | "intermediate" | "final";
 export type DocType = "pyq" | "mqp" | "ptp";
 
