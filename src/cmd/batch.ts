@@ -188,12 +188,12 @@ function standardizeFileName(originalName: string): string {
 
   // 2. Extract Paper
   const paperMatch = baseName.match(/p(0?[1-9]|1[0-9]|20[a-c]?)\b/i);
-  let paper = paperMatch ? paperMatch[0] : "unknown";
+  let paper = paperMatch ? paperMatch[0] : "unknown-paperId";
   if (paper.startsWith("p20")) paper = paper.replace("p", "p").toUpperCase().replace("P", "p");
 
   // 3. Extract Term
-  const termMatch = baseName.match(/(2[3-9][dj]|[dj]2[3-9])/i);
-  let term = "unknown";
+  const termMatch = baseName.match(/(2[0-9][dj]|[dj]2[0-9])/i);
+  let term = "unknown-term";
   if (termMatch) {
     const t = termMatch[0];
     term = /^[dj]/i.test(t) ? t.slice(1) + t[0] : t;
@@ -205,7 +205,7 @@ function standardizeFileName(originalName: string): string {
 
   // 5. Extract or Infer Document Type
   const typeMatch = baseName.match(/\b(pyq|mqp|ptp)\b/i);
-  let docType = "pyq"; // Default fallback
+  let docType = "unknown-paperType"; // Default fallback
 
   if (typeMatch) {
     docType = typeMatch[0];
