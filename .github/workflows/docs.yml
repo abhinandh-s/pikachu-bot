@@ -35,6 +35,14 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
+
+      - name: Inject API URL into comment-box.js
+        env:
+          BOT_API_URL: ${{ secrets.BOT_API_URL }}
+        run: |
+          sed -i "s|__BOT_API_URL__|${BOT_API_URL}|g" docs/js/comment-box.js
+
+     
       - name: Build with mdBook
         run: mdbook build
       - name: Upload artifact
