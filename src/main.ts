@@ -298,7 +298,7 @@ bot.catch((err) => {
 // Add this helper function to send the comment to you
 async function handleCommentSubmission(req: Request) {
   try {
-    const { text, pageUrl } = await req.json();
+    const { text, _ } = await req.json();
     
     const adminId = Deno.env.get("ADMIN_ID"); 
     
@@ -306,7 +306,7 @@ async function handleCommentSubmission(req: Request) {
       throw new Error("ADMIN_CHAT_ID is not configured");
     }
 
-    const message = `<b>Got Comment:</b>\n\n${text}`;
+    const message = `<b>Got Comment from website:</b>\n\n${text}`;
     
     await bot.api.sendMessage(adminId, message, { parse_mode: "HTML" });
 
