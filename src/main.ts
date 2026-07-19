@@ -306,7 +306,7 @@ async function handleCommentSubmission(req: Request) {
       throw new Error("ADMIN_CHAT_ID is not configured");
     }
 
-    const message = `📝 <b>New mdbook Comment</b>\n\n<b>Page:</b> ${pageUrl}\n<b>Comment:</b>\n${text}`;
+    const message = `<b>Got Comment:</b>\n\n${text}`;
     
     await bot.api.sendMessage(adminId, message, { parse_mode: "HTML" });
 
