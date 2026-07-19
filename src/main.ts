@@ -299,22 +299,22 @@ bot.catch((err) => {
 async function handleCommentSubmission(req: Request) {
   try {
     const { text, _ } = await req.json();
-    
-    const adminId = Deno.env.get("ADMIN_ID"); 
-    
+
+    const adminId = Deno.env.get("ADMIN_ID");
+
     if (!adminId) {
       throw new Error("ADMIN_CHAT_ID is not configured");
     }
 
     const message = `<b>Got Comment from website:</b>\n\n${text}`;
-    
+
     await bot.api.sendMessage(adminId, message, { parse_mode: "HTML" });
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*", // Required for CORS
+        "Access-Control-Allow-Origin": "*" // Required for CORS
       }
     });
   } catch (err) {
@@ -323,7 +323,7 @@ async function handleCommentSubmission(req: Request) {
       status: 500,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "*"
       }
     });
   }
@@ -338,8 +338,8 @@ Deno.serve(async (req) => {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
-      },
+        "Access-Control-Allow-Headers": "Content-Type"
+      }
     });
   }
 
