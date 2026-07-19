@@ -13,6 +13,6 @@
     "singleQuote": false,
     "trailingCommas": "never",
     "proseWrap": "never",
-    "exclude": ["docs/js/", "src/generated/**/*.ts"]
+    "exclude": ["docs/js/", "docs/js/*.js"]
   },
 }
