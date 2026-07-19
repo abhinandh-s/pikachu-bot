@@ -15,4 +15,7 @@
     "proseWrap": "never",
     "exclude": ["docs/js/", "docs/js/*.js"]
   },
+   "lint": {
+    "exclude": ["docs/js/"]
+  },
 }
