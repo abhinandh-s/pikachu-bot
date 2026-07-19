@@ -1,7 +1,6 @@
 // configuration
 const CONFIG = {
-  // Replace this with your actual Deno deploy URL
-  apiUrl: "https://YOUR-BOT-NAME.deno.dev/api/comment",
+  "__BOT_API_URL__",
   containerSelector: "main" // mdbook usually renders content inside a <main> tag
 };
 
