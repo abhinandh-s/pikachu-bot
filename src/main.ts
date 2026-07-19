@@ -295,23 +295,68 @@ bot.catch((err) => {
   // The webhook will now return 200 OK to Telegram, stopping the retry loop.
 });
 
+// Add this helper function to send the comment to you
+async function handleCommentSubmission(req: Request) {
+  try {
+    const { text, pageUrl } = await req.json();
+    
+    const adminId = Deno.env.get("ADMIN_ID"); 
+    
+    if (!adminId) {
+      throw new Error("ADMIN_CHAT_ID is not configured");
+    }
+
+    const message = `📝 <b>New mdbook Comment</b>\n\n<b>Page:</b> ${pageUrl}\n<b>Comment:</b>\n${text}`;
+    
+    await bot.api.sendMessage(adminId, message, { parse_mode: "HTML" });
+
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*", // Required for CORS
+      }
+    });
+  } catch (err) {
+    console.error("Comment error:", err);
+    return new Response(JSON.stringify({ success: false }), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      }
+    });
+  }
+}
+
 Deno.serve(async (req) => {
+  const url = new URL(req.url);
+
+  // Handle CORS preflight requests from the browser
+  if (req.method === "OPTIONS") {
+    return new Response(null, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    });
+  }
+
+  // Handle the comment API endpoint
+  if (req.method === "POST" && url.pathname === "/api/comment") {
+    return await handleCommentSubmission(req);
+  }
+
+  // Handle Telegram Webhook
   if (req.method === "POST") {
     try {
       return await handleUpdate(req);
     } catch (err) {
       console.error(err);
-
-      return new Response(
-        "Error processing update",
-        {
-          status: 500
-        }
-      );
+      return new Response("Error processing update", { status: 500 });
     }
   }
 
-  return new Response(
-    "Telegram Bot is running!"
-  );
+  return new Response("Telegram Bot is running!");
 });
