@@ -25,7 +25,7 @@ function createContainer() {
 
 function createHeading() {
   const heading = document.createElement("h3");
-  heading.innerText = "Leave Private Feedback";
+  heading.innerText = "Leave Private Anonymous Feedback";
   return heading;
 }
 
