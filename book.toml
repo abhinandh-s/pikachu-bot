@@ -8,7 +8,7 @@ src = "docs"
 admonitions = true # > [!NOTE]
 site-url = "/pikachu-bot/"
 additional-css = ["docs/theme/custom.css", "docs/theme/comment-box.css"]
-additional-js = docs/js/comment-box.js"]
+additional-js = ["docs/js/comment-box.js"]
 
 
 [output.html.print]
