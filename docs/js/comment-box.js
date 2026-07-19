@@ -1,6 +1,6 @@
 // configuration
 const CONFIG = {
-  "__BOT_API_URL__",
+  apiUrl: "__BOT_API_URL__",
   containerSelector: "main" // mdbook usually renders content inside a <main> tag
 };
 
