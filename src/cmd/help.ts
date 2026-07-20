@@ -139,7 +139,16 @@ helpCmd.command("status", async (ctx) => {
 
 helpCmd.command("privacy", async (ctx) => {
   await ctx.reply(
-    "<b>Privacy policy</b>\n\nI gain absolutely <b>zero</b> monetary benefit from this. This is a passion project and I <b>do not</b> collect any user data.",
+    "<b>Privacy policy</b>
+
+I gain absolutely <b>zero</b> monetary benefit from this. This is a passion project and I <b>do not</b> collect any user data.
+
+<b>Important!</b>
+
+<i>Pikachu is an independent study tool and is not officially affiliated with the Institute of Cost Accountants of India (ICMAI). All rights to the PDFs and study materials are reserved by ICMAI.</i>
+
+<i>© 2026 icmai.in. All Rights Reserved.</i>
+",
     {
       parse_mode: "HTML"
     }
